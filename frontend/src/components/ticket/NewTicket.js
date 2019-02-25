@@ -1,12 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Header from '../layout/Header';
 
 const RESET_VALUES = {
     id: '',
     category: '',
     description: '',
-    name: ''
+    title: ''
 };
 
 export default class NewTicket extends React.Component {
@@ -16,8 +15,8 @@ export default class NewTicket extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.state = {
             product: Object.assign({}, RESET_VALUES),
-            errors: { name: '' },
-            nameVaild: false
+            errors: { title: '' , description:'', category:''},
+            titleVaild: false
         };
     }
 
@@ -50,14 +49,14 @@ export default class NewTicket extends React.Component {
                     <Route exact path="/NewTicket" render={props => (
                         <React.Fragment>
                             <form>
-                                <h3>Enter a new product</h3>
+                                <h3>Submit a new ticket request</h3>
                                 <p>
                                     <label>
-                                        Name
+                                        Title
                         <br />
                                         <input
                                             type="text"
-                                            name="name"
+                                            name="title"
                                             onChange={this.handleChange}
                                             value={this.state.product.name}
                                             required="required"
@@ -73,7 +72,7 @@ export default class NewTicket extends React.Component {
                                             name="category"
                                             onChange={this.handleChange}
                                             value={this.state.product.category}
-                                            required
+                                            required="required"
                                         />
                                     </label>
                                 </p>
@@ -86,6 +85,7 @@ export default class NewTicket extends React.Component {
                                             name="description"
                                             onChange={this.handleChange}
                                             value={this.state.product.description}
+                                            required="required"
                                         />
                                     </label>
                                 </p>
