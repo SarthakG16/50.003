@@ -21,7 +21,9 @@ export default class TicketRow extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            redirect: false
+            redirect: false,
+            ticketID: -1,
+            ticketState: null
         }
 
         //this.handleClick = this.handleClick.bind(this);
@@ -30,14 +32,17 @@ export default class TicketRow extends React.Component {
     handleClick(ticket) {
         console.log("Clicked " + ticket.id);
         this.setState({
-            redirect: true
+            redirect: true,
+            ticketID: ticket.id,
+            ticketState: ticket
         });
     }
 
-    renderRedirect(ticket) {
+    renderRedirect() {
         if (this.state.redirect) {
-            console.log(this.props.history);
-            return <Redirect to={`/Ticket`} push={true}></Redirect>;
+            console.log('redirecting');
+            return <Redirect to={{pathname:`/Ticket/`+ this.state.ticketID, 
+            state: {id:this.state.ticketID, ticket: this.state.ticketState}}} push={true}></Redirect>;
         }
     }
 
@@ -48,7 +53,7 @@ export default class TicketRow extends React.Component {
             <Card>
                 {this.renderRedirect()}
                 <CardActionArea onClick={this.handleClick.bind(this, ticket)}>
-                    <CardContent>
+                    <CardContent>       
                         <Typography component="p">
                             Ticket ID: {ticket.id}
                         </Typography>

@@ -8,6 +8,10 @@ export default class TicketThread extends React.Component {
             <React.Fragment>
                 <p>
                     yay inside a thread!
+                    <br></br>
+                {this.props.location.state.id}
+                <br></br>
+                {this.props.location.state.ticket.title}
                 </p>
             </React.Fragment>
 
