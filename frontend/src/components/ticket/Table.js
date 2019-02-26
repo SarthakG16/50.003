@@ -58,9 +58,9 @@ class SimpleTable extends React.Component {
         <TableBody>
           {tickets.map(ticket => (
             //<TableRow key={ticket.id} hover onClick={(e)=> {this.handleClick()}}>
-            <TableRow key = {ticket.id} hover onClick={this.handleClick.bind(this, ticket)}>
+            <TableRow key = {ticket.objectId} hover onClick={this.handleClick.bind(this, ticket)}>
               <TableCell component="th" scope="row">
-                {ticket.id}
+                {ticket.objectId}
               </TableCell>
               <TableCell align="left">{ticket.title}</TableCell>
               <TableCell align="left">{ticket.category}</TableCell>

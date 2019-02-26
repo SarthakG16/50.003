@@ -30,7 +30,7 @@ export default class TicketRow extends React.Component {
         console.log("Clicked " + ticket.id);
         this.setState({
             redirect: true,
-            ticketID: ticket.id,
+            ticketID: ticket.objectId,
             ticketState: ticket
         });
     }
@@ -52,7 +52,7 @@ export default class TicketRow extends React.Component {
                 <CardActionArea onClick={this.handleClick.bind(this, ticket)}>
                     <CardContent>       
                         <Typography component="p">
-                            Ticket ID: {ticket.id}
+                            Ticket ID: {ticket.objectId}
                         </Typography>
                         <Typography gutterBottom variant="h5" component="h2">
                             Title: {ticket.title}

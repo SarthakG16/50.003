@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const RESET_VALUES = {
-    id: '',
     category: '',
-    description: '',
-    title: ''
+    message: '',
+    title: '',
+    status:'open'
 };
 
 export default class NewTicket extends React.Component {
@@ -16,44 +16,64 @@ export default class NewTicket extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.state = {
             ticket: Object.assign({}, RESET_VALUES),
-            errors: { title: '', description: '', category: '' },
+            errors: { title: '', message: '', category: '' },
         };
+    }
+
+    addTicket(e) {
+        fetch('https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets',
+            {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Server-Token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlF6Y3hRVEl5UkRVeU1qYzNSakEzTnpKQ01qVTROVVJFUlVZelF6VTRPRUV6T0RreE1UVTVPQSJ9.eyJpc3MiOiJodHRwczovL2FjbmFwaS1wcm9kLmF1dGgwLmNvbS8iLCJzdWIiOiJWVkpYS1lmZkdNdFZBRUwwYjFuVmNVcUFYY2IwZzhrM0BjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9wbGFjZWhvbGRlci5jb20vcGxhY2UiLCJpYXQiOjE1NDk5NTI5MzgsImV4cCI6MTU1MjU0NDkzOCwiYXpwIjoiVlZKWEtZZmZHTXRWQUVMMGIxblZjVXFBWGNiMGc4azMiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.XYoNbl50Gyuk7xNPK64GZLEdNMs18uAf4sFMiQn6lOUv3tw0espP5avymr-GsFXgnl2kugClsb_ybBkuSvchqp8dvvL1dyejiumyZCTw0FluNWqGqiNJb4mGTEeNRUCxexgrTm5yV2ZxPNFpfumD44GLYBaW_EVJden3hi9XJ8UpD1MrXuZD8YUEtZ_sHKS9bcZxSJoyqbu3n7l0p0K_q74FSY34xwey2SpbX3Zipng5Mk2KYlw0L6kMiJSsmChgerG_gWkSGjhM8mcuURGtCYTxucEyuaxmBI8kNP7VuvGXYBwiAcL2dH7FSES09XKZS7z0ie5ax_vvO4JoLxztgw",
+                    "cache-control": "no-cache",
+                },
+                body: JSON.stringify(e)
+            }).then(res => res.json())
+            .then(data => console.log(data))
+            .catch(err => console.log(err));
     }
 
     handleSubmit(e) {
         console.log('clicked submit');
-        
-        if (this.handleValidation()) {
-            alert("Ticket submitted");
+
+        let ticketVaild = this.handleValidation(e);
+        console.log('finish checking');
+
+        if (ticketVaild) {
+            //this.addTicket(e);
+            console.log(JSON.stringify(e));
+            this.addTicket(e);
+            alert("Ticket has been created.")
+            // reset the form values to blank after submitting:
             this.setState({
                 ticket: Object.assign({}, RESET_VALUES),
             });
-        }else{
-            alert("There are some errors now. Try again later.");
+            return
+        } else {
+            alert("There are some errors now. Please try again.");
         }
         // prevent the form submit event from triggering an HTTP Post:
         //e.preventDefault();
-        //this.props.addTicket(this.state.ticket);
-        // reset the form values to blank after submitting:
 
     }
 
     handleValidation(e) {
-        let products = this.state.products;
-        let validTicket = true;
-        if (products.title === '') {
-            validTicket = false;
+        let ticket = e;
+        if (ticket.title === '') {
             console.log('No title');
+            return false
         }
-        if (products.category === '') {
-            validTicket = false;
+        if (ticket.category === '') {
             console.log('No category');
+            return false
         }
-        if (products.description === '') {
-            validTicket = false;
-            console.log('description');
+        if (ticket.message === '') {
+            console.log('No message');
+            return false;
         }
-        return validTicket;
+        return true;
     }
 
     handleChange(e) {
@@ -73,7 +93,7 @@ export default class NewTicket extends React.Component {
                 <div className="container">
                     <Route exact path="/NewTicket" render={props => (
                         <React.Fragment>
-                            <form name="ticketForm" onSubmit={this.handleSubmit}>
+                            <form name="ticketForm">
                                 <h3>Submit a new ticket request</h3>
                                 <p>
                                     <label>
@@ -103,13 +123,13 @@ export default class NewTicket extends React.Component {
                                 </p>
                                 <p>
                                     <label>
-                                        Description
+                                        Message
                                         <br />
                                         <input style={boxStyle}
                                             type="text"
-                                            name="description"
+                                            name="message"
                                             onChange={this.handleChange}
-                                            value={this.state.ticket.description}
+                                            value={this.state.ticket.message}
                                             required="required"
                                         />
                                     </label>
@@ -117,7 +137,7 @@ export default class NewTicket extends React.Component {
                                 <input
                                     type="submit"
                                     value="Save"
-                                    onClick={this.handleSubmit}
+                                    onClick={this.handleSubmit.bind(this, this.state.ticket)}
                                 />
                             </form>
                         </React.Fragment>

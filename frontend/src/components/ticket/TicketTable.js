@@ -13,7 +13,7 @@ export default class TicketTable extends React.Component {
         console.log("In Ticket Table");
         return this.props.tickets.map((ticket) => (
             <TicketRow
-                key={ticket.id}
+                key={ticket.objectId}
                 ticket={ticket}
             ></TicketRow>
         ));
