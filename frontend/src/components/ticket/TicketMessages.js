@@ -15,9 +15,6 @@ const styles = theme => ({
 });
 
 class TicketMessages extends React.Component {
-    constructor(props){
-        super(props);
-    }
 
     render() {
         console.log('Trying to display messages');
