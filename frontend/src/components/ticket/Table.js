@@ -52,7 +52,7 @@ class SimpleTable extends React.Component {
             <TableCell align="left">Title</TableCell>
             <TableCell align="left">Category</TableCell>
             <TableCell align="left">Status</TableCell>
-            <TableCell align="left">Title</TableCell>
+            <TableCell align="left">Message</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -65,7 +65,7 @@ class SimpleTable extends React.Component {
               <TableCell align="left">{ticket.title}</TableCell>
               <TableCell align="left">{ticket.category}</TableCell>
               <TableCell align="left">{ticket.status}</TableCell>
-              <TableCell align="left">{ticket.title}</TableCell>
+              <TableCell align="left">{ticket.message}</TableCell>
             </TableRow>
           ))}
         </TableBody>
