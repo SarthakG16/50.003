@@ -11,8 +11,9 @@ export default class TicketThread extends React.Component {
                     <br></br>
                 {this.props.location.state.id}
                 <br></br>
-                {this.props.location.state.ticket.title}
+                {this.props.location.state.ticket.title} {this.props.location.state.ticket.status}
                 </p>
+           
             </React.Fragment>
 
 

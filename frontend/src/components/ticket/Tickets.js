@@ -1,5 +1,6 @@
 import React from 'react';
 import TicketTable from './TicketTable';
+import SimpleTable from './EnhancedTb';
 
 var ticketArray = [
     {
@@ -37,10 +38,11 @@ export default class Tickets extends React.Component {
     render() {
         return (
             <div>
-                <TicketTable
+                {/* <TicketTable
                     tickets={this.state.tickets}
                 >
-                </TicketTable>
+                </TicketTable> */}
+                <SimpleTable tickets = {this.state.tickets}></SimpleTable>
             </div>
         );
     }
