@@ -80,7 +80,7 @@ export default class NewTicket extends React.Component {
                                     <label>
                                         Description
                         <br />
-                                        <input
+                                        <input style={boxStyle}
                                             type="text"
                                             name="description"
                                             onChange={this.handleChange}
@@ -102,4 +102,12 @@ export default class NewTicket extends React.Component {
 
         );
     }
+}
+
+const boxStyle = {
+	textAlign: 'center',
+    padding: '10px',
+    width: '200px',
+    height: '20px',
+    
 }

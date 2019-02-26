@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Login from './Login'
 import FAQ from './FAQ';
 import NewTicket from "../ticket/NewTicket"
+import Tickets from '../ticket/Tickets';
 
 export default class Home extends React.Component {
 	render() {
@@ -12,6 +13,7 @@ export default class Home extends React.Component {
 					<Route exact path="/" render={props => (
 						<React.Fragment>
                             <p>This is the home page</p>
+                            <Tickets></Tickets>
 						</React.Fragment>
 					)} />
 					<Route path="/FAQ" component={FAQ} />
