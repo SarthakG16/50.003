@@ -1,6 +1,8 @@
 import React from 'react';
 import TicketTable from './TicketTable';
-import SimpleTable from './EnhancedTb';
+import SimpleTable from './Table';
+import uuid from 'uuid';
+import NewTicket from './NewTicket';
 
 var ticketArray = [
     {
@@ -9,8 +11,8 @@ var ticketArray = [
         title: 'ticket1',
         status: 'open',
         messages: [
-            {name: 'User1', messages: 'I have a problem' },
-            {name: 'Admin1', messages: 'Okay solve your problem'}
+            { name: 'User1', messages: 'I have a problem' },
+            { name: 'Admin1', messages: 'Okay solve your problem' }
         ]
     },
     {
@@ -19,8 +21,8 @@ var ticketArray = [
         title: 'ticket2',
         status: 'pending',
         messages: [
-            {name: 'User1', messages: 'I have a problem' },
-            {name: 'Admin1', messages: 'Okay solve your problem'}
+            { name: 'User1', messages: 'I have a problem' },
+            { name: 'Admin1', messages: 'Okay solve your problem' }
         ]
     },
     {
@@ -29,8 +31,8 @@ var ticketArray = [
         title: 'ticket3',
         status: 'closed',
         messages: [
-            {name: 'User1', messages: 'I have a problem' },
-            {name: 'Admin1', messages: 'Okay solve your problem'}
+            { name: 'User1', messages: 'I have a problem' },
+            { name: 'Admin1', messages: 'Okay solve your problem' }
         ]
     }
 
@@ -45,6 +47,23 @@ export default class Tickets extends React.Component {
             tickets: ticketArray
 
         };
+
+        
+    }
+
+    addTicket = (ticket) => {
+        console.log("New Ticket: " + ticket.title + " created");
+        const newTicket = {
+            id: uuid.v4(),
+            category: ticket.category,
+            title: ticket.title,
+            status: 'open',
+            messages: []
+        }
+
+        this.setState({
+            tickets:[...this.state.tickets, newTicket]
+        });
     }
 
     render() {
@@ -54,7 +73,7 @@ export default class Tickets extends React.Component {
                     tickets={this.state.tickets}
                 >
                 </TicketTable> */}
-                <SimpleTable tickets = {this.state.tickets}></SimpleTable>
+                <SimpleTable tickets={this.state.tickets}></SimpleTable>
             </div>
         );
     }

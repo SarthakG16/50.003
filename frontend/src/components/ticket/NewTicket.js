@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const RESET_VALUES = {
@@ -11,34 +12,35 @@ const RESET_VALUES = {
 export default class NewTicket extends React.Component {
     constructor(props) {
         super(props);
-        this.handleSave = this.handleSave.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.state = {
-            product: Object.assign({}, RESET_VALUES),
-            errors: { title: '' , description:'', category:''},
+            ticket: Object.assign({}, RESET_VALUES),
+            errors: { title: '', description: '', category: '' },
             titleVaild: false
         };
     }
 
-    handleSave(e) {
-        this.props.onSave(this.state.product);
-        // reset the form values to blank after submitting:
-        this.setState({
-            product: Object.assign({}, RESET_VALUES),
-            errors: {}
-        });
+    handleSubmit(e) {
+        console.log('clicked submit');
         // prevent the form submit event from triggering an HTTP Post:
         e.preventDefault();
+        //this.props.addTicket(this.state.ticket);
+        // reset the form values to blank after submitting:
+        this.setState({
+            ticket: Object.assign({}, RESET_VALUES),
+        });
+
     }
 
     handleChange(e) {
         const target = e.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const value = target.value;
         const name = target.name;
 
         this.setState((prevState) => {
-            prevState.product[name] = value;
-            return { product: prevState.product };
+            prevState.ticket[name] = value;
+            return { ticket: prevState.ticket };
         });
     }
 
@@ -53,12 +55,12 @@ export default class NewTicket extends React.Component {
                                 <p>
                                     <label>
                                         Title
-                        <br />
+                                        <br />
                                         <input
                                             type="text"
                                             name="title"
                                             onChange={this.handleChange}
-                                            value={this.state.product.name}
+                                            value={this.state.ticket.name}
                                             required="required"
                                         />
                                     </label>
@@ -66,12 +68,12 @@ export default class NewTicket extends React.Component {
                                 <p>
                                     <label>
                                         Category
-                        <br />
+                                        <br />
                                         <input
                                             type="text"
                                             name="category"
                                             onChange={this.handleChange}
-                                            value={this.state.product.category}
+                                            value={this.state.ticket.category}
                                             required="required"
                                         />
                                     </label>
@@ -79,12 +81,12 @@ export default class NewTicket extends React.Component {
                                 <p>
                                     <label>
                                         Description
-                        <br />
+                                        <br />
                                         <input style={boxStyle}
                                             type="text"
                                             name="description"
                                             onChange={this.handleChange}
-                                            value={this.state.product.description}
+                                            value={this.state.ticket.description}
                                             required="required"
                                         />
                                     </label>
@@ -92,7 +94,7 @@ export default class NewTicket extends React.Component {
                                 <input
                                     type="submit"
                                     value="Save"
-                                    //onClick={this.handleSave}
+                                    onClick={this.handleSubmit}
                                 />
                             </form>
                         </React.Fragment>
@@ -104,10 +106,15 @@ export default class NewTicket extends React.Component {
     }
 }
 
+// // PropTypes
+// NewTicket.propTypes = {
+// 	addTicket: PropTypes.func.isRequired
+// }
+
 const boxStyle = {
-	textAlign: 'center',
+    textAlign: 'center',
     padding: '10px',
     width: '200px',
     height: '20px',
-    
+
 }

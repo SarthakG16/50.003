@@ -1,5 +1,5 @@
 import React from 'react';
-import {Router, Switch, Route} from "react-router-dom";
+import {Switch, Route} from "react-router-dom";
 import Login from "./components/pages/Login";
 import NewTicket from "./components/ticket/NewTicket"
 import Home from './components/pages/Home';

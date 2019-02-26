@@ -9,7 +9,8 @@ const styles = theme => ({
         ...theme.mixins.gutters(),
         paddingTop: theme.spacing.unit * 2,
         paddingBottom: theme.spacing.unit * 2,
-        spacing: theme.spacing.unit *2,
+        marginTop: theme.spacing.unit *2,
+        spacing: theme.spacing.unit * 2,
     },
 });
 
@@ -19,28 +20,30 @@ class TicketThread extends React.Component {
         console.log('inside a thread');
         return (
             <React.Fragment>
+                <p>
+
+                </p>
                 <div>
-                    <Paper elevation={10} spacing='100px'>
+                    <Paper elevation={5}>
                         <Typography align="left" variant="subtitle1">
-                            Ticket ID: {}
+                            Ticket ID: {this.props.location.state.id}
                         </Typography>
                         <Typography align="left" variant="headline">
-                            Title: {}
+                            Title: {this.props.location.state.ticket.title}
                         </Typography>
                         <Typography align="left" variant="caption">
-                            Timestamp: {}   Status: {}
+                            Timestamp: {}   Status: {this.props.location.state.ticket.status}
                         </Typography>
                     </Paper>
-                    
                 </div>
                 <p>
-                    yay inside a thread!
-                    <br></br>
-                {this.props.location.state.id}
-                <br></br>
-                {this.props.location.state.ticket.title} {this.props.location.state.ticket.status}
+
                 </p>
-           
+                <div>
+                    <Paper>
+                        yay inside a thread
+                    </Paper>
+                </div>
             </React.Fragment>
 
 
