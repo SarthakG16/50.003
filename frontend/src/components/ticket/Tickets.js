@@ -5,17 +5,20 @@ var ticketArray = [
     {
         id: 1,
         category: 'feedback',
-        title: 'ticket1'
+        title: 'ticket1',
+        status: 'open'
     },
     {
         id: 2,
         category: 'feedback',
-        title: 'ticket2'
+        title: 'ticket2',
+        status: 'pending'
     },
     {
         id: 3,
         category: 'feedback',
-        title: 'ticket3'
+        title: 'ticket3',
+        status: 'closed'
     }
 
 ];
