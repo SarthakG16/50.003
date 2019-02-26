@@ -14,4 +14,5 @@ The server will be loaded at http://http://localhost:3000/ </br>
 [Login](http://http://localhost:3000/Login) : http://http://localhost:3000/Login </br>
 [New Ticket/ Contact Us](http://http://localhost:3000/NewTicket) : http://http://localhost:3000/NewTicket </br>
 [FAQ](http://http://localhost:3000/FAQ) : http://http://localhost:3000/FAQ </br>
+[Ticket](http://http://localhost:3000/Ticket) : http://http://localhost:3000/Ticket </br>
 
