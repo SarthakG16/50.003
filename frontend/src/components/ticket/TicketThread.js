@@ -10,7 +10,7 @@ const styles = theme => ({
         ...theme.mixins.gutters(),
         paddingTop: theme.spacing.unit * 2,
         paddingBottom: theme.spacing.unit * 2,
-        marginTop: theme.spacing.unit *2,
+        marginTop: theme.spacing.unit * 2,
         spacing: theme.spacing.unit * 2,
     },
 });
@@ -28,14 +28,14 @@ class TicketThread extends React.Component {
                     <Paper elevation={5}>
                         <Typography align="left" variant="subtitle1">
                             Ticket ID: {this.props.location.state.id}
-                            <p/>
+                            <p />
                         </Typography>
                         <Typography align="left" variant="headline">
                             Title: {this.props.location.state.ticket.title}
-                            <p/>
+                            <p />
                         </Typography>
                         <Typography align="left" variant="caption">
-                            Timestamp: {this.props.location.state.ticket.createdAt} <br/>
+                            Timestamp: {this.props.location.state.ticket.createdAt} <br />
                             Status: {this.props.location.state.ticket.status}
                         </Typography>
                     </Paper>
@@ -44,6 +44,13 @@ class TicketThread extends React.Component {
 
                 </p>
                 <div>
+                    <p
+                        align='left'
+                    >Message:<br />
+                        {this.props.location.state.ticket.message}</p>
+                    {/* <TicketMessages
+                        messages={this.state.ticket.messages}
+                    ></TicketMessages> */}
                 </div>
             </React.Fragment>
 

@@ -1,8 +1,8 @@
 import React from 'react';
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import TicketMessageRow from './TicketMessageRow';
+import uuid from 'uuid';
 
 const styles = theme => ({
     root: {
@@ -15,26 +15,24 @@ const styles = theme => ({
 });
 
 class TicketMessages extends React.Component {
+    constructor(props){
+        super(props);
+    }
 
     render() {
-        console.log('displaying messages');
-        return (
-            <React.Fragment>
-                <p>
-
-                </p>
-                <div>
-                    <Paper elevation={5}>
-                        <Typography align="left" variant="subtitle1">
-                            User: {this.props.location.state.ticket.message}
-                        </Typography>
-                    </Paper>
-                </div>
-            </React.Fragment>
-
-
+        console.log('Trying to display messages');
+        const {messages} = this.props;
+        return messages.map((message) =>
+        <TicketMessageRow
+            key={uuid.u4}
+            message={message}
+        ></TicketMessageRow>
         );
     }
 }
 
 export default withStyles(styles)(TicketMessages);
+
+TicketMessages.propTypes = {
+    messages: PropTypes.array.isRequired
+}

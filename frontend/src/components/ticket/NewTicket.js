@@ -1,6 +1,6 @@
 import React from "react";
 //import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 
 const RESET_VALUES = {
     category: '',
@@ -37,7 +37,6 @@ export default class NewTicket extends React.Component {
 
     handleSubmit(e) {
         console.log('clicked submit');
-
         let ticketVaild = this.handleValidation(e);
         console.log('finish checking');
 
@@ -50,7 +49,7 @@ export default class NewTicket extends React.Component {
             this.setState({
                 ticket: Object.assign({}, RESET_VALUES),
             });
-            return
+            return <Redirect to='/' push={true}></Redirect>;
         } else {
             alert("There are some errors now. Please try again.");
         }
@@ -63,11 +62,11 @@ export default class NewTicket extends React.Component {
         let ticket = e;
         if (ticket.title === '') {
             console.log('No title');
-            return false
+            return false;
         }
         if (ticket.category === '') {
             console.log('No category');
-            return false
+            return false;
         }
         if (ticket.message === '') {
             console.log('No message');
