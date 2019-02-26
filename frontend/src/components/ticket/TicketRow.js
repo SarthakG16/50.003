@@ -18,14 +18,14 @@ export default class TicketRow extends React.Component {
         }
     }
 
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         redirect: false
-    //     }
+    constructor(props) {
+        super(props);
+        this.state = {
+            redirect: false
+        }
 
-    //     this.handleClick = this.handleClick.bind(this);
-    // }
+        //this.handleClick = this.handleClick.bind(this);
+    }
 
     handleClick(ticket) {
         console.log("Clicked " + ticket.id);
@@ -35,9 +35,10 @@ export default class TicketRow extends React.Component {
     }
 
     renderRedirect(ticket) {
-        // if (this.state.redirect) {
-        //     console.log(this.props.history);
-        // }
+        if (this.state.redirect) {
+            console.log(this.props.history);
+            return <Redirect to={`/Ticket`} push={true}></Redirect>;
+        }
     }
 
     render() {
