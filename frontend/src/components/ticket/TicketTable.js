@@ -5,13 +5,10 @@ import PropTypes from 'prop-types'
 export default class TicketTable extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
 
         }
     }
-
-
 
     render() {
         console.log("In Ticket Table");
@@ -21,9 +18,7 @@ export default class TicketTable extends React.Component {
                 ticket={ticket}
             ></TicketRow>
         ));
-
     }
-
 }
 
 TicketTable.propTypes = {

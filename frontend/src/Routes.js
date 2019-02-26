@@ -13,7 +13,7 @@ const Routes = () => (
            <Route path="/login" component={Login} />
            <Route path="/NewTicket" component={NewTicket}/>
            <Route path="/FAQ" component={FAQ}/>
-           <Route path="/Ticket/:id" component={TicketThread}/>
+           <Route path="/Ticket" component={TicketThread}/>
         </Switch>
     </main>
 )

@@ -4,6 +4,7 @@ import Login from './Login'
 import FAQ from './FAQ';
 import NewTicket from "../ticket/NewTicket"
 import Tickets from '../ticket/Tickets';
+import TicketThread from '../ticket/TicketThread'
 
 export default class Home extends React.Component {
 	render() {
@@ -19,6 +20,7 @@ export default class Home extends React.Component {
 					<Route path="/FAQ" component={FAQ} />
 					<Route path="/NewTicket" component={NewTicket} />
 					<Route path="/login" component={Login} />
+					<Route path="/Ticket" component={TicketThread}/>
 				</div>
 			</div>
     );

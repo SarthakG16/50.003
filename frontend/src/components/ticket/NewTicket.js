@@ -92,7 +92,7 @@ export default class NewTicket extends React.Component {
                                 <input
                                     type="submit"
                                     value="Save"
-                                    onClick={this.handleSave}
+                                    //onClick={this.handleSave}
                                 />
                             </form>
                         </React.Fragment>

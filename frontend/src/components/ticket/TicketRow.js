@@ -36,7 +36,7 @@ export default class TicketRow extends React.Component {
 
     renderRedirect(ticket) {
         // if (this.state.redirect) {
-        //     <Redirect to={"/Ticket/" + ticket.id} />
+        //     console.log(this.props.history);
         // }
     }
 
@@ -60,15 +60,6 @@ export default class TicketRow extends React.Component {
                     </CardContent>
                 </CardActionArea>
             </Card>
-            // <div style={this.getStyle()}>
-            //     <p>
-            //         {id}
-            //     </p>
-            //     <p>
-            //         {title}
-            //     </p>
-
-            // </div >
         )
     }
 }
