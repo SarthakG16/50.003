@@ -6,19 +6,31 @@ var ticketArray = [
         id: 1,
         category: 'feedback',
         title: 'ticket1',
-        status: 'open'
+        status: 'open',
+        messages: [
+            {name: 'User1', messages: 'I have a problem' },
+            {name: 'Admin1', messages: 'Okay solve your problem'}
+        ]
     },
     {
         id: 2,
         category: 'feedback',
         title: 'ticket2',
-        status: 'pending'
+        status: 'pending',
+        messages: [
+            {name: 'User1', messages: 'I have a problem' },
+            {name: 'Admin1', messages: 'Okay solve your problem'}
+        ]
     },
     {
         id: 3,
         category: 'feedback',
         title: 'ticket3',
-        status: 'closed'
+        status: 'closed',
+        messages: [
+            {name: 'User1', messages: 'I have a problem' },
+            {name: 'Admin1', messages: 'Okay solve your problem'}
+        ]
     }
 
 ];

@@ -5,9 +5,6 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Redirect } from 'react-router-dom';
-import TicketThread from './TicketThread';
-
-
 
 export default class TicketRow extends React.Component {
     getStyle = () => {
