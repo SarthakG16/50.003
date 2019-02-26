@@ -17,20 +17,43 @@ export default class NewTicket extends React.Component {
         this.state = {
             ticket: Object.assign({}, RESET_VALUES),
             errors: { title: '', description: '', category: '' },
-            titleVaild: false
         };
     }
 
     handleSubmit(e) {
         console.log('clicked submit');
+        
+        if (this.handleValidation()) {
+            alert("Ticket submitted");
+            this.setState({
+                ticket: Object.assign({}, RESET_VALUES),
+            });
+        }else{
+            alert("There are some errors now. Try again later.");
+        }
         // prevent the form submit event from triggering an HTTP Post:
-        e.preventDefault();
+        //e.preventDefault();
         //this.props.addTicket(this.state.ticket);
         // reset the form values to blank after submitting:
-        this.setState({
-            ticket: Object.assign({}, RESET_VALUES),
-        });
 
+    }
+
+    handleValidation(e) {
+        let products = this.state.products;
+        let validTicket = true;
+        if (products.title === '') {
+            validTicket = false;
+            console.log('No title');
+        }
+        if (products.category === '') {
+            validTicket = false;
+            console.log('No category');
+        }
+        if (products.description === '') {
+            validTicket = false;
+            console.log('description');
+        }
+        return validTicket;
     }
 
     handleChange(e) {
@@ -50,7 +73,7 @@ export default class NewTicket extends React.Component {
                 <div className="container">
                     <Route exact path="/NewTicket" render={props => (
                         <React.Fragment>
-                            <form>
+                            <form name="ticketForm" onSubmit={this.handleSubmit}>
                                 <h3>Submit a new ticket request</h3>
                                 <p>
                                     <label>
