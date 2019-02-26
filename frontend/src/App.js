@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Router, browserHistory } from "react-router-dom";
 import './App.css';
 import { withRouter } from "react-router-dom";
 import Routes from "./Routes"

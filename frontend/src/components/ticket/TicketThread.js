@@ -1,8 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import TicketMessages from './TicketMessages';
 
 const styles = theme => ({
     root: {
@@ -27,12 +28,15 @@ class TicketThread extends React.Component {
                     <Paper elevation={5}>
                         <Typography align="left" variant="subtitle1">
                             Ticket ID: {this.props.location.state.id}
+                            <p/>
                         </Typography>
                         <Typography align="left" variant="headline">
                             Title: {this.props.location.state.ticket.title}
+                            <p/>
                         </Typography>
                         <Typography align="left" variant="caption">
-                            Timestamp: {}   Status: {this.props.location.state.ticket.status}
+                            Timestamp: {this.props.location.state.ticket.createdAt} <br/>
+                            Status: {this.props.location.state.ticket.status}
                         </Typography>
                     </Paper>
                 </div>
@@ -40,9 +44,6 @@ class TicketThread extends React.Component {
 
                 </p>
                 <div>
-                    <Paper>
-                        yay inside a thread
-                    </Paper>
                 </div>
             </React.Fragment>
 

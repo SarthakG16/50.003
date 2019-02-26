@@ -1,6 +1,6 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+//import PropTypes from 'prop-types';
+import { Route } from 'react-router-dom';
 
 const RESET_VALUES = {
     category: '',
