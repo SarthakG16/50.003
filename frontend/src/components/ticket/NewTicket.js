@@ -1,6 +1,6 @@
 import React from "react";
 //import PropTypes from 'prop-types';
-import { Redirect, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 const RESET_VALUES = {
     category: '',
@@ -16,7 +16,7 @@ export default class NewTicket extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.state = {
             ticket: Object.assign({}, RESET_VALUES),
-            errors: { title: '', message: '', category: '' },
+            //errors: { title: '', message: '', category: '' },
         };
     }
 
@@ -49,12 +49,13 @@ export default class NewTicket extends React.Component {
             this.setState({
                 ticket: Object.assign({}, RESET_VALUES),
             });
-            return <Redirect to='/' push={true}></Redirect>;
+            this.props.history.push('/');
+            //return <Redirect to='/' push={true}></Redirect>;
         } else {
-            alert("There are some errors now. Please try again.");
+            alert("Please fill in all the required fills.");
         }
         // prevent the form submit event from triggering an HTTP Post:
-        //e.preventDefault();
+        e.preventDefault();
 
     }
 
@@ -154,7 +155,7 @@ export default class NewTicket extends React.Component {
 // }
 
 const boxStyle = {
-    textAlign: 'center',
+    textAlign: 'left',
     padding: '10px',
     width: '200px',
     height: '20px',
