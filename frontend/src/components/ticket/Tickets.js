@@ -43,7 +43,7 @@ export default class Tickets extends React.Component {
     constructor(props) {
         super(props);
         console.log("in tickets now, passing tickets var to table");
-
+        
         this.state = {
             //tickets: ticketArray,
             isLoaded: false

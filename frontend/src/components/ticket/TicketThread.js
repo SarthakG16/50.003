@@ -3,7 +3,8 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-//import TicketMessages from './TicketMessages';
+import TicketMessages from './TicketMessages';
+import uuid from 'uuid';
 
 const styles = theme => ({
     root: {
@@ -14,6 +15,10 @@ const styles = theme => ({
         spacing: theme.spacing.unit * 2,
     },
 });
+
+const messagesTest = [
+        { name: 'User1', message: 'I have a problem' },
+        { name: 'Admin1', message: 'Okay solve your problem' }];
 
 class TicketThread extends React.Component {
 
@@ -41,16 +46,16 @@ class TicketThread extends React.Component {
                     </Paper>
                 </div>
                 <p>
-
                 </p>
                 <div>
-                    <p
-                        align='left'
-                    >Message:<br />
-                        {this.props.location.state.ticket.message}</p>
-                    {/* <TicketMessages
-                        messages={this.state.ticket.messages}
-                    ></TicketMessages> */}
+                    <p align='left'>
+                        Message:<br />
+                        {/* {this.props.location.state.ticket.message} */}
+                    </p>
+                    <TicketMessages
+                        key={uuid.u4}
+                        messages={messagesTest}>
+                    </TicketMessages>
                 </div>
             </React.Fragment>
 

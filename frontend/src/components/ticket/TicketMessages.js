@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TicketMessageRow from './TicketMessageRow';
-import uuid from 'uuid';
 
 const styles = theme => ({
     root: {
@@ -16,14 +15,26 @@ const styles = theme => ({
 
 class TicketMessages extends React.Component {
 
+    constructor(props) {
+        super(props);
+        console.log("inside Tticket messages, will start assigning");
+        this.state = {
+        };
+    }
+
     render() {
         console.log('Trying to display messages');
         const {messages} = this.props;
-        return messages.map((message) =>
-        <TicketMessageRow
-            key={uuid.u4}
-            message={message}
-        ></TicketMessageRow>
+        return (
+            <React.Fragment>
+                {messages.map((message, index) =>
+                    <TicketMessageRow
+                        key={index}
+                        user={message.name}
+                        message={message.message}
+                    ></TicketMessageRow>
+                )}
+            </React.Fragment>
         );
     }
 }
