@@ -8,6 +8,7 @@ import uuid from 'uuid';
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
 import $ from 'jquery';
+import { Route } from 'react-router-dom';
 
 const styles = theme => ({
     root: {
@@ -101,14 +102,11 @@ class TicketThread extends React.Component {
             alert("Your reply has been posted.")
             // reset the form values to blank after submitting:
             this.setState({
-                ticket: Object.assign({}, RESET_VALUES),
+                reply: Object.assign({}, RESET_VALUES),
             });
-            this.props.history.push('/');
-            return <Redirect to='/' push={true}></Redirect>;
+            
         }
-        // prevent the form submit event from triggering an HTTP Post:
-        e.preventDefault();
-
+        return;
     }
 
     // check if there are valid messages in the reply box
