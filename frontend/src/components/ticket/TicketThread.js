@@ -6,16 +6,16 @@ import Typography from '@material-ui/core/Typography';
 import TicketMessages from './TicketMessages';
 import uuid from 'uuid';
 import TextField from '@material-ui/core/TextField';
-import { Button } from '@material-ui/core';
+import { Button, Grid, MenuItem } from '@material-ui/core';
 import $ from 'jquery';
-import { Route } from 'react-router-dom';
 
 const styles = theme => ({
     root: {
-        ...theme.mixins.gutters(),
+        width: '100%',
+        marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto',
         paddingTop: theme.spacing.unit * 2,
         paddingBottom: theme.spacing.unit * 2,
-        marginTop: theme.spacing.unit * 2,
         spacing: theme.spacing.unit * 2,
     },
 });
@@ -34,15 +34,38 @@ const RESET_VALUES = {
     date: ''
 };
 
+// values of status
+const STATUS_VALUES = [
+    {
+      value: 'Pending',
+      label: 'Pending',
+    },
+    {
+      value: 'Open',
+      label: 'Open',
+    },
+    {
+      value: 'Closed',
+      label: 'Closed',
+    },
+    {
+      value: 'Achrive',
+      label: 'Achrive',
+    },
+  ];
+  
+
 class TicketThread extends React.Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleStatusChange = this.handleStatusChange.bind(this);
         this.addReply = this.addReply.bind(this);
         this.getDateCreated = this.getDateCreated.bind(this);
         this.state = {
             reply: Object.assign({}, RESET_VALUES),
+            status: this.props.location.state.ticket.status
         };
     }
 
@@ -132,35 +155,94 @@ class TicketThread extends React.Component {
         });
     }
 
+    // updates the changes in status
+    handleStatusChange(e){
+        const value = e.target.value;
+
+        let data = { "status":value};
+        console.log(JSON.stringify(data));
+        // console.log(JSON.stringify(replies));
+
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets/" + this.props.location.state.ticket.objectId,
+            "method": "PUT",
+            "headers": {
+              "Server-Token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlF6Y3hRVEl5UkRVeU1qYzNSakEzTnpKQ01qVTROVVJFUlVZelF6VTRPRUV6T0RreE1UVTVPQSJ9.eyJpc3MiOiJodHRwczovL2FjbmFwaS1wcm9kLmF1dGgwLmNvbS8iLCJzdWIiOiJWVkpYS1lmZkdNdFZBRUwwYjFuVmNVcUFYY2IwZzhrM0BjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9wbGFjZWhvbGRlci5jb20vcGxhY2UiLCJpYXQiOjE1NDk5NTI5MzgsImV4cCI6MTU1MjU0NDkzOCwiYXpwIjoiVlZKWEtZZmZHTXRWQUVMMGIxblZjVXFBWGNiMGc4azMiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.XYoNbl50Gyuk7xNPK64GZLEdNMs18uAf4sFMiQn6lOUv3tw0espP5avymr-GsFXgnl2kugClsb_ybBkuSvchqp8dvvL1dyejiumyZCTw0FluNWqGqiNJb4mGTEeNRUCxexgrTm5yV2ZxPNFpfumD44GLYBaW_EVJden3hi9XJ8UpD1MrXuZD8YUEtZ_sHKS9bcZxSJoyqbu3n7l0p0K_q74FSY34xwey2SpbX3Zipng5Mk2KYlw0L6kMiJSsmChgerG_gWkSGjhM8mcuURGtCYTxucEyuaxmBI8kNP7VuvGXYBwiAcL2dH7FSES09XKZS7z0ie5ax_vvO4JoLxztgw",
+              "Content-Type": "application/json",
+              "cache-control": "no-cache",
+            },
+            "processData": false,
+            "data": JSON.stringify(data)
+          }
+          
+          $.ajax(settings).done(function (response) {
+            console.log("Status updated succesfully");
+          }); 
+
+        
+        this.setState((prevState) => {
+            prevState.status = value;
+            return { status: prevState.status };
+        });
+    }
+
     render() {
         console.log('inside a thread');
         return (
             <React.Fragment>
                 <div>
-                    <Paper elevation={5}>
+                    <Paper elevation={5}
+                    width='80%'
+                    style={{ paddingLeft: 20, paddingTop: 10, paddingBottom: 10}}>
                         <Typography align="left" variant="subtitle1">
-                            Ticket ID: {this.props.location.state.id}
+                            Ticket ID: {this.props.location.state.ticket.objectId}
                             <p />
                         </Typography>
                         <Typography align="left" variant="headline">
                             Title: {this.props.location.state.ticket.title}
                             <p />
-                        </Typography>
-                        <Typography align="left" variant="caption">
-                            Timestamp: {this.props.location.state.ticket.createdAt} <br />
-                            Status: {this.props.location.state.ticket.status}
-                        </Typography>
+                            </Typography>
+                        <Grid container direction="row" justify="space-between" alignItems="flex-start" spacing={8}>
+                            <Grid item xs={8}>
+                                <Typography align="left" variant="caption">
+                                    Timestamp: {this.props.location.state.ticket.createdAt} <br />
+                                    Status: {this.state.status}
+                                </Typography>
+                            </Grid>
+                            <Grid item xs>
+                                <TextField
+                                    id="change-status"
+                                    select
+                                    label="Change status"
+                                    value={this.state.status}
+                                    onChange={this.handleStatusChange}
+                                    margin="normal"
+                                    variant="outlined"
+                                    fullWidth
+                                    height='60px'
+                                    InputLabelProps={{shrink: true,}}
+                                    >
+                                    {STATUS_VALUES.map(option => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                        </Grid>
+                        
                     </Paper>
                 </div>
                 <div>
-                    <p align='left'>
-                        Message:<br />
-                        {/* {this.props.location.state.ticket.message} */}
-                    </p>
-                    <TicketMessages
-                        key={uuid.u4}
-                        messages={this.props.location.state.ticket.replies}>
-                    </TicketMessages>
+                    <Typography align="left" variant="subtitle1">
+                            Message:<br />
+                    </Typography>
+                        <TicketMessages
+                            key={uuid.u4}
+                            messages={this.props.location.state.ticket.replies}>
+                        </TicketMessages>
                 </div>
                 <div>
                         <TextField
@@ -168,12 +250,15 @@ class TicketThread extends React.Component {
                             label="Reply"
                             name="Reply"
                             multiline
-                            rowsMax="4"
+                            rowsMax="6"
+                            type='text'
                             value={this.state.reply.message}
                             onChange={this.handleChange}
                             fullWidth
+                            style={{ paddingLeft: 20, paddingTop: 10, paddingBottom: 10}}
                             margin="normal"
                             variant="outlined"
+                            InputLabelProps={{shrink: true,}}
                             // required="required"
                             />
                         <Button
