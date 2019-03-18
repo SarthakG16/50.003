@@ -19,12 +19,13 @@ const styles = theme => ({
 });
 
 const messagesTest = [
-        { name: 'User1', message: 'I have a problem' },
-        { name: 'Admin1', message: 'Okay solve your problem' }];
+        { name: 'User1', message: 'I have a problem'},
+        { name: 'Admin1', message: 'Okay solve your problem'}];
 
 const RESET_VALUES = {
     name: 'User1',
     message: '',
+    date: ''
 };
 
 class TicketThread extends React.Component {
@@ -32,13 +33,45 @@ class TicketThread extends React.Component {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.addReply = this.addReply.bind(this);
+        this.getDateCreated = this.getDateCreated.bind(this);
         this.state = {
             reply: Object.assign({}, RESET_VALUES),
         };
     }
 
+    getDateCreated(){
+        var today = new Date();
+        console.log(today);
+        return today.toUTCString();
+    }
+
     addReply(e) {
-        fetch('https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets',
+        // getting the ticket variables for PUT
+        var objectId = this.props.location.state.ticket.objectId;
+        var replies = this.props.location.state.ticket.replies;
+        console.log(objectId);
+        console.log(replies);
+
+        e.date =  this.getDateCreated();
+        console.log(e);
+
+        // adding the new reply to the original
+        replies.push(e);
+        console.log(replies);
+        // console.log(JSON.stringify(replies));
+        
+        // changing the url
+        let objString = "/swivel/acnapi-common-services/common/classes/Tickets/" + objectId.toString();
+        var a = new URL("https://ug-api.acnapiv3.io");
+        console.log(a);
+        var b = new URL(objString, "https://ug-api.acnapiv3.io");
+        // https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets/2aPEA53ynY
+        // const url = new URL("https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets");
+        // let address = 'https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets';
+        console.log(b);
+        
+        fetch(b,
             {
                 method: 'PUT',
                 headers: {
@@ -46,20 +79,19 @@ class TicketThread extends React.Component {
                     "Server-Token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlF6Y3hRVEl5UkRVeU1qYzNSakEzTnpKQ01qVTROVVJFUlVZelF6VTRPRUV6T0RreE1UVTVPQSJ9.eyJpc3MiOiJodHRwczovL2FjbmFwaS1wcm9kLmF1dGgwLmNvbS8iLCJzdWIiOiJWVkpYS1lmZkdNdFZBRUwwYjFuVmNVcUFYY2IwZzhrM0BjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9wbGFjZWhvbGRlci5jb20vcGxhY2UiLCJpYXQiOjE1NDk5NTI5MzgsImV4cCI6MTU1MjU0NDkzOCwiYXpwIjoiVlZKWEtZZmZHTXRWQUVMMGIxblZjVXFBWGNiMGc4azMiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.XYoNbl50Gyuk7xNPK64GZLEdNMs18uAf4sFMiQn6lOUv3tw0espP5avymr-GsFXgnl2kugClsb_ybBkuSvchqp8dvvL1dyejiumyZCTw0FluNWqGqiNJb4mGTEeNRUCxexgrTm5yV2ZxPNFpfumD44GLYBaW_EVJden3hi9XJ8UpD1MrXuZD8YUEtZ_sHKS9bcZxSJoyqbu3n7l0p0K_q74FSY34xwey2SpbX3Zipng5Mk2KYlw0L6kMiJSsmChgerG_gWkSGjhM8mcuURGtCYTxucEyuaxmBI8kNP7VuvGXYBwiAcL2dH7FSES09XKZS7z0ie5ax_vvO4JoLxztgw",
                     "cache-control": "no-cache",
                 },
-                body: JSON.stringify(e)
+                body: JSON.stringify(replies)
             }).then(res => res.json())
             .then(data => console.log(data))
             .catch(err => console.log(err));
+    
     }
 
     handleSubmit(e) {
         console.log('clicked submit');
-        // let ticketVaild = this.handleValidation(e);
+        let ticketVaild = this.handleValidation(e);        
         console.log('finish checking');
-
-        // if (ticketVaild) {
-        //     //this.addTicket(e);
-        //     console.log(JSON.stringify(e));
+        if (ticketVaild) {
+            this.addReply(e);
         //     this.addTicket(e);
         //     alert("Ticket has been created.")
         //     // reset the form values to blank after submitting:
@@ -70,7 +102,7 @@ class TicketThread extends React.Component {
         //     //return <Redirect to='/' push={true}></Redirect>;
         // } else {
         //     alert("Please fill in all the required fills.");
-        // }
+        }
         // // prevent the form submit event from triggering an HTTP Post:
         // e.preventDefault();
 
@@ -78,6 +110,7 @@ class TicketThread extends React.Component {
 
     handleValidation(e) {
         let reply = e;
+        console.log(e);
         if (reply.message === '') {
             console.log('No messages');
             return false;
@@ -94,12 +127,12 @@ class TicketThread extends React.Component {
     }
 
     handleChange(e) {
-        const value = e.value;
+        const value = e.target.value;
         const name = 'User1';
 
         this.setState((prevState) => {
             prevState.reply.message = value;
-            prevState.reply[name] = name;
+            prevState.reply.name = name;
             return { reply: prevState.reply };
         });
     }
@@ -131,7 +164,7 @@ class TicketThread extends React.Component {
                     </p>
                     <TicketMessages
                         key={uuid.u4}
-                        messages={messagesTest}>
+                        messages={this.props.location.state.ticket.replies}>
                     </TicketMessages>
                 </div>
                 <div>
