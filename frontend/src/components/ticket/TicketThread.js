@@ -23,8 +23,8 @@ const styles = theme => ({
 /*
 // This constant was to test the display of messages
 const messagesTest = [
-        { name: 'User1', message: 'I have a problem', data: ''},
-        { name: 'Admin1', message: 'Okay solve your problem', data: ''}];
+        { name: 'User1', message: 'I have a problem', date: ''},
+        { name: 'Admin1', message: 'Okay solve your problem', date: ''}];
 */
 
 // Values to be resetted to after the user has click a submit button and succeeded
@@ -117,14 +117,6 @@ class TicketThread extends React.Component {
             console.log('No messages');
             return false;
         }
-        // if (ticket.category === '') {
-        //     console.log('No category');
-        //     return false;
-        // }
-        // if (ticket.message === '') {
-        //     console.log('No message');
-        //     return false;
-        // }
         return true;
     }
 

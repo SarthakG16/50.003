@@ -9,6 +9,8 @@ const RESET_VALUES = {
     status:'open'
 };
 
+// const RESET_VALUES_MESSAGE = { name: '', message: '', date: ''};
+
 export default class NewTicket extends React.Component {
     constructor(props) {
         super(props);
@@ -20,7 +22,31 @@ export default class NewTicket extends React.Component {
         };
     }
 
+    // returns the date and time the reply was posted in UTC
+    getDateCreated(){
+        var today = new Date();
+        console.log(today);
+        return today.toUTCString();
+    }
+
     addTicket(e) {
+
+        // setting up the body
+        let data = {
+            title: e.title,
+            category: e.category,
+            replies:[
+                        {
+                            name: "User1",
+                            message: e.message,
+                            date: this.getDateCreated()
+                        }
+
+                    ],
+            status:'open'
+        }
+        console.log(data);
+
         fetch('https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets',
             {
                 method: 'POST',
@@ -29,10 +55,12 @@ export default class NewTicket extends React.Component {
                     "Server-Token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlF6Y3hRVEl5UkRVeU1qYzNSakEzTnpKQ01qVTROVVJFUlVZelF6VTRPRUV6T0RreE1UVTVPQSJ9.eyJpc3MiOiJodHRwczovL2FjbmFwaS1wcm9kLmF1dGgwLmNvbS8iLCJzdWIiOiJWVkpYS1lmZkdNdFZBRUwwYjFuVmNVcUFYY2IwZzhrM0BjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9wbGFjZWhvbGRlci5jb20vcGxhY2UiLCJpYXQiOjE1NDk5NTI5MzgsImV4cCI6MTU1MjU0NDkzOCwiYXpwIjoiVlZKWEtZZmZHTXRWQUVMMGIxblZjVXFBWGNiMGc4azMiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.XYoNbl50Gyuk7xNPK64GZLEdNMs18uAf4sFMiQn6lOUv3tw0espP5avymr-GsFXgnl2kugClsb_ybBkuSvchqp8dvvL1dyejiumyZCTw0FluNWqGqiNJb4mGTEeNRUCxexgrTm5yV2ZxPNFpfumD44GLYBaW_EVJden3hi9XJ8UpD1MrXuZD8YUEtZ_sHKS9bcZxSJoyqbu3n7l0p0K_q74FSY34xwey2SpbX3Zipng5Mk2KYlw0L6kMiJSsmChgerG_gWkSGjhM8mcuURGtCYTxucEyuaxmBI8kNP7VuvGXYBwiAcL2dH7FSES09XKZS7z0ie5ax_vvO4JoLxztgw",
                     "cache-control": "no-cache",
                 },
-                body: JSON.stringify(e)
+                body: JSON.stringify(data)
             }).then(res => res.json())
             .then(data => console.log(data))
             .catch(err => console.log(err));
+
+        
     }
 
     handleSubmit(e) {
@@ -45,17 +73,22 @@ export default class NewTicket extends React.Component {
             console.log(JSON.stringify(e));
             this.addTicket(e);
             alert("Ticket has been created.")
+            // window.location.herf = '/';
+            this.props.history.push('/');
             // reset the form values to blank after submitting:
             this.setState({
                 ticket: Object.assign({}, RESET_VALUES),
             });
-            this.props.history.push('/');
+            
+            return;
+            // this.props.history.push('/');
             //return <Redirect to='/' push={true}></Redirect>;
         } else {
             alert("Please fill in all the required fills.");
+            return;
         }
         // prevent the form submit event from triggering an HTTP Post:
-        e.preventDefault();
+        // e.preventDefault();
 
     }
 
@@ -65,11 +98,11 @@ export default class NewTicket extends React.Component {
             console.log('No title');
             return false;
         }
-        if (ticket.category === '') {
+        else if (ticket.category === '') {
             console.log('No category');
             return false;
         }
-        if (ticket.message === '') {
+        else if (ticket.message === '') {
             console.log('No message');
             return false;
         }
