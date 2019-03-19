@@ -49,8 +49,8 @@ const STATUS_VALUES = [
       label: 'Closed',
     },
     {
-      value: 'Achrive',
-      label: 'Achrive',
+      value: 'Achive',
+      label: 'Archive',
     },
   ];
   
@@ -189,7 +189,7 @@ class TicketThread extends React.Component {
     }
 
     render() {
-        console.log('inside a thread');
+        //console.log('inside a thread');
         return (
             <React.Fragment>
                 <div>
@@ -237,7 +237,13 @@ class TicketThread extends React.Component {
                 </div>
                 <div>
                     <Typography align="left" variant="subtitle1">
-                            Message:<br />
+                        <p>
+
+                        </p>
+                            Messages:<br />
+                        <p>
+
+                        </p>
                     </Typography>
                         <TicketMessages
                             key={uuid.u4}
@@ -255,7 +261,7 @@ class TicketThread extends React.Component {
                             value={this.state.reply.message}
                             onChange={this.handleChange}
                             fullWidth
-                            style={{ paddingLeft: 20, paddingTop: 10, paddingBottom: 10}}
+                            style={{ paddingLeft: 20, paddingTop: 10, paddingBottom: 10, paddingRight:20}}
                             margin="normal"
                             variant="outlined"
                             InputLabelProps={{shrink: true,}}

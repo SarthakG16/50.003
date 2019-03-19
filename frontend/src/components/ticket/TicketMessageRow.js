@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import AccountIcon from '@material-ui/icons/AccountCircle';
 
 // const styles = theme => ({
 //     root: {
@@ -61,7 +62,14 @@ class TicketMessageRow extends React.Component {
                         <Grid item xs>
                             <Paper elevation={2}
                                 style={{ paddingTop: 10, paddingBottom: 10, height:100}}>
-                                User: {this.props.user}
+                                <Grid container direction="column" justify="center" alignItems="center" spacing={8}>
+                                    <Grid item xs>
+                                        <AccountIcon/>
+                                    </Grid>
+                                    <Grid item xs>
+                                        {this.props.user}
+                                    </Grid>
+                                </Grid>
                             </Paper>
                         </Grid>
                         <Grid item xs={10}>

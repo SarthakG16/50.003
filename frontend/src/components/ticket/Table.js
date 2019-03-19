@@ -77,7 +77,7 @@ class SimpleTable extends React.Component {
 
     renderRedirect() {
         if (this.state.redirect && !this.state.delete) {
-            console.log('redirecting');
+            //console.log('R');
             return <Redirect to={{pathname:`/Ticket/`+ this.state.ticketID, 
             state: {id:this.state.ticketID, ticket: this.state.ticketState}}} push={true}></Redirect>;
         }
@@ -111,11 +111,11 @@ class SimpleTable extends React.Component {
               <TableCell align="left">{ticket.status}</TableCell>
               <TableCell align="left">{ticket.message}</TableCell>
               {/* <TableCell align="left">{ticket.replies[ticket.replies.length-1].message}</TableCell> */}
-              <TableCell align="left"> <Tooltip title="Delete">
+               <Tooltip title="Delete">
             <IconButton aria-label="Delete" onClick = {this.handleDelete.bind(this,ticket)}>
               <DeleteIcon />
             </IconButton>
-          </Tooltip></TableCell>
+          </Tooltip>
               
             </TableRow>
           ))}
