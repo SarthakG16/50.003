@@ -115,8 +115,7 @@ class SimpleTable extends React.Component {
             <IconButton aria-label="Delete" onClick = {this.handleDelete.bind(this,ticket)}>
               <DeleteIcon />
             </IconButton>
-          </Tooltip></TableCell>
-              
+          </Tooltip></TableCell>              
             </TableRow>
           ))}
         </TableBody>
