@@ -13,7 +13,7 @@ export default class Home extends React.Component {
 				<div className="container">
 					<Route exact path="/" render={props => (
 						<React.Fragment>
-                            <p>This is the home page</p>
+                            <p>Tickets</p>
                             <Tickets></Tickets>
 						</React.Fragment>
 					)} />
