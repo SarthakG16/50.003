@@ -49,7 +49,7 @@ export default class NewTicket extends React.Component {
             email: e.email
         }
         console.log(data);
-        /*
+        
         fetch('https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets',
             {
                 method: 'POST',
@@ -63,7 +63,7 @@ export default class NewTicket extends React.Component {
             .then(data => console.log(data))
             .catch(err => console.log(err));
 
-        */
+        
     }
 
     handleSubmit(e) {
@@ -81,7 +81,7 @@ export default class NewTicket extends React.Component {
             this.sendNotif(e);
 
             // window.location.herf = '/';
-            // this.props.history.push('/');
+            this.props.history.push('/');
             // reset the form values to blank after submitting:
             this.setState({
                 ticket: Object.assign({}, RESET_VALUES),

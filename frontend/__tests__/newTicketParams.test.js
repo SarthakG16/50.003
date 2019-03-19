@@ -6,9 +6,9 @@ describe('#check params', () => {
       expect(tick).toBeTruthy();
 
       const newticket = {
-        title: "hihi",
-        message: "hihi",
-        catergory: "hihi",
+        title: "Problems with sending email",
+        message: "I can't sent emails.",
+        catergory: "Server problems",
         email: "1003031@mymail.sutd.edu.sg"
       }
 
@@ -22,9 +22,9 @@ describe('#check params', () => {
         expect(tick).toBeTruthy();
   
         const newticket = {
-          title: "hihi",
-          message: "hihi",
-          catergory: "hihi",
+          title: "Problems with sending email",
+          message: "I can't sent emails.",
+          catergory: "Server problems",
           email: ""
         }
   
@@ -39,9 +39,9 @@ describe('#check params', () => {
         expect(tick).toBeTruthy();
   
         const newticket = {
-          title: "hihi",
-          message: "hihi",
-          category: "",
+          title: "Problems with sending email",
+          message: "I can't sent emails.",
+          catergory: "",
           email: "1003031@mymail.sutd.edu.sg"
         }
   
@@ -55,9 +55,9 @@ describe('#check params', () => {
         expect(tick).toBeTruthy();
   
         const newticket = {
-          title: "hihi",
+          title: "Problems with sending email",
           message: "",
-          catergory: "hihi",
+          catergory: "Server problems",
           email: "1003031@mymail.sutd.edu.sg"
         }
   
@@ -72,8 +72,8 @@ describe('#check params', () => {
   
         const newticket = {
           title: "",
-          message: "hihi",
-          catergory: "hihi",
+          message: "I can't sent emails.",
+          catergory: "Server problems",
           email: "1003031@mymail.sutd.edu.sg"
         }
   

@@ -109,7 +109,6 @@ class SimpleTable extends React.Component {
               <TableCell align="left">{ticket.title}</TableCell>
               <TableCell align="left">{ticket.category}</TableCell>
               <TableCell align="left">{ticket.status}</TableCell>
-              {/* <TableCell align="left">{ticket.message}</TableCell> */}
               <TableCell align="left">{ticket.replies[ticket.replies.length-1].message}</TableCell>
               <TableCell align="left"> <Tooltip title="Delete">
             <IconButton aria-label="Delete" onClick = {this.handleDelete.bind(this,ticket)}>
