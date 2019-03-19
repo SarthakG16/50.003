@@ -9,7 +9,7 @@ import React from 'react';
 //   expect(spy).toHaveBeenCalledTimes(1);
 //   // expect(instance.state.isLoaded).toEqual(true);
 // })
-
+/*
 it('should do something', () => {
   const spy = jest.spyOn(Tickets.prototype, 'componentDidMount');
   const wrapper = mount(<Tickets />);
@@ -26,3 +26,4 @@ it('should do something', () => {
 // })
 
 jest.clearAllMocks();
+*/

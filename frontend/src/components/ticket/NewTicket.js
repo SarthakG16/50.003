@@ -8,7 +8,7 @@ const RESET_VALUES = {
     message: '',
     title: '',
     email: '',
-    status:'open'
+    status:'Open'
 };
 
 // const RESET_VALUES_MESSAGE = { name: '', message: '', date: ''};
