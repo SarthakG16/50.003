@@ -8,7 +8,7 @@ describe('#check params', () => {
       const newticket = {
         title: "Problems with sending email",
         message: "I can't sent emails.",
-        catergory: "Server problems",
+        category: "Server problems",
         email: "1003031@mymail.sutd.edu.sg"
       }
 
@@ -24,7 +24,7 @@ describe('#check params', () => {
         const newticket = {
           title: "Problems with sending email",
           message: "I can't sent emails.",
-          catergory: "Server problems",
+          category: "Server problems",
           email: ""
         }
   
@@ -41,7 +41,7 @@ describe('#check params', () => {
         const newticket = {
           title: "Problems with sending email",
           message: "I can't sent emails.",
-          catergory: "",
+          category: "",
           email: "1003031@mymail.sutd.edu.sg"
         }
   
@@ -57,7 +57,7 @@ describe('#check params', () => {
         const newticket = {
           title: "Problems with sending email",
           message: "",
-          catergory: "Server problems",
+          category: "Server problems",
           email: "1003031@mymail.sutd.edu.sg"
         }
   
@@ -73,7 +73,7 @@ describe('#check params', () => {
         const newticket = {
           title: "",
           message: "I can't sent emails.",
-          catergory: "Server problems",
+          category: "Server problems",
           email: "1003031@mymail.sutd.edu.sg"
         }
   
