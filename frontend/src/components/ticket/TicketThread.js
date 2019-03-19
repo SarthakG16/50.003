@@ -49,8 +49,8 @@ const STATUS_VALUES = [
       label: 'Closed',
     },
     {
-      value: 'Achrive',
-      label: 'Achrive',
+      value: 'Achive',
+      label: 'Archive',
     },
   ];
   
@@ -189,7 +189,7 @@ class TicketThread extends React.Component {
     }
 
     render() {
-        console.log('inside a thread');
+        //console.log('inside a thread');
         return (
             <React.Fragment>
                 <div>
