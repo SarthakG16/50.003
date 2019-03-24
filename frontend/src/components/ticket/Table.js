@@ -1,5 +1,5 @@
 import React from 'react';
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -26,6 +26,7 @@ class SimpleTable extends React.Component {
             ticketIndex : 0
         }
 
+
         //this.handleClick = this.handleClick.bind(this);
     }
 
@@ -51,25 +52,42 @@ class SimpleTable extends React.Component {
       })
       
       if (window.confirm('Are you sure you want to delete the ticket: ' + ticket.title)) {
+        // var settings = {
+        //   "async": true,
+        //   "crossDomain": true,
+        //   "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets/" + ticket.objectId,
+        //   "method": "DELETE",
+        //   "headers": {
+        //     "Content-Type": "application/json",
+        //     "Server-Token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlF6Y3hRVEl5UkRVeU1qYzNSakEzTnpKQ01qVTROVVJFUlVZelF6VTRPRUV6T0RreE1UVTVPQSJ9.eyJpc3MiOiJodHRwczovL2FjbmFwaS1wcm9kLmF1dGgwLmNvbS8iLCJzdWIiOiJWVkpYS1lmZkdNdFZBRUwwYjFuVmNVcUFYY2IwZzhrM0BjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9wbGFjZWhvbGRlci5jb20vcGxhY2UiLCJpYXQiOjE1NDk5NTI5MzgsImV4cCI6MTU1MjU0NDkzOCwiYXpwIjoiVlZKWEtZZmZHTXRWQUVMMGIxblZjVXFBWGNiMGc4azMiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.XYoNbl50Gyuk7xNPK64GZLEdNMs18uAf4sFMiQn6lOUv3tw0espP5avymr-GsFXgnl2kugClsb_ybBkuSvchqp8dvvL1dyejiumyZCTw0FluNWqGqiNJb4mGTEeNRUCxexgrTm5yV2ZxPNFpfumD44GLYBaW_EVJden3hi9XJ8UpD1MrXuZD8YUEtZ_sHKS9bcZxSJoyqbu3n7l0p0K_q74FSY34xwey2SpbX3Zipng5Mk2KYlw0L6kMiJSsmChgerG_gWkSGjhM8mcuURGtCYTxucEyuaxmBI8kNP7VuvGXYBwiAcL2dH7FSES09XKZS7z0ie5ax_vvO4JoLxztgw",
+        //     "cache-control": "no-cache",
+        //   },
+        //   "processData": false,
+        //   "data": ""
+        // }
+        
+        // $.ajax(settings).done(function (response) {
+        //   console.log("ticket deleted succesfully");
+        //   window.location.reload();
+        // });
         var settings = {
           "async": true,
           "crossDomain": true,
           "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets/" + ticket.objectId,
-          "method": "DELETE",
+          "method": "PUT",
           "headers": {
             "Content-Type": "application/json",
             "Server-Token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlF6Y3hRVEl5UkRVeU1qYzNSakEzTnpKQ01qVTROVVJFUlVZelF6VTRPRUV6T0RreE1UVTVPQSJ9.eyJpc3MiOiJodHRwczovL2FjbmFwaS1wcm9kLmF1dGgwLmNvbS8iLCJzdWIiOiJWVkpYS1lmZkdNdFZBRUwwYjFuVmNVcUFYY2IwZzhrM0BjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9wbGFjZWhvbGRlci5jb20vcGxhY2UiLCJpYXQiOjE1NDk5NTI5MzgsImV4cCI6MTU1MjU0NDkzOCwiYXpwIjoiVlZKWEtZZmZHTXRWQUVMMGIxblZjVXFBWGNiMGc4azMiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.XYoNbl50Gyuk7xNPK64GZLEdNMs18uAf4sFMiQn6lOUv3tw0espP5avymr-GsFXgnl2kugClsb_ybBkuSvchqp8dvvL1dyejiumyZCTw0FluNWqGqiNJb4mGTEeNRUCxexgrTm5yV2ZxPNFpfumD44GLYBaW_EVJden3hi9XJ8UpD1MrXuZD8YUEtZ_sHKS9bcZxSJoyqbu3n7l0p0K_q74FSY34xwey2SpbX3Zipng5Mk2KYlw0L6kMiJSsmChgerG_gWkSGjhM8mcuURGtCYTxucEyuaxmBI8kNP7VuvGXYBwiAcL2dH7FSES09XKZS7z0ie5ax_vvO4JoLxztgw",
             "cache-control": "no-cache",
           },
           "processData": false,
-          "data": ""
+          "data": "{\n\t\n\t\"status\": \"Archive\"\n}"
         }
         
         $.ajax(settings).done(function (response) {
           console.log("ticket deleted succesfully");
           window.location.reload();
         });
-        
         
       }
     
@@ -79,7 +97,6 @@ class SimpleTable extends React.Component {
 
     renderRedirect() {
         if (this.state.redirect && !this.state.delete) {
-            console.log('redirecting');
             return <Redirect to={{pathname:`/Ticket/`+ this.state.ticketIndex, 
             state: {id:this.state.ticketID, ticket: this.state.ticketState}}} push={true}></Redirect>;
         }
@@ -95,7 +112,7 @@ class SimpleTable extends React.Component {
       {this.renderRedirect()}
         <TableHead>
           <TableRow>
-            <TableCell>Ticket ID</TableCell>
+            <TableCell>Index</TableCell>
             <TableCell align="left">Title</TableCell>
             <TableCell align="left">Category</TableCell>
             <TableCell align="left">Status</TableCell>
@@ -105,23 +122,38 @@ class SimpleTable extends React.Component {
         <TableBody>
           {tickets.map(ticket => {
             index +=1;
-            return(
-            //<TableRow key={ticket.id} hover onClick={(e)=> {this.handleClick()}}>
-            <TableRow key = {ticket.objectId} hover onClick={this.handleClick.bind(this, ticket,index)}>
-              <TableCell component="th" scope="row">
-                {index}
-              </TableCell>
-              <TableCell align="left">{ticket.title}</TableCell>
-              <TableCell align="left">{ticket.category}</TableCell>
-              <TableCell align="left">{ticket.status}</TableCell>
-              <TableCell align="left">{ticket.replies[ticket.replies.length-1].message}</TableCell>
-              <TableCell align="left"> <Tooltip title="Delete">
-            <IconButton aria-label="Delete" onClick = {this.handleDelete.bind(this,ticket)}>
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip></TableCell>              
-            </TableRow>
-            );
+            if ( ticket.status !== "Archive") {
+              return(
+                //<TableRow key={ticket.id} hover onClick={(e)=> {this.handleClick()}}>
+                <TableRow key = {ticket.objectId} hover onClick={this.handleClick.bind(this, ticket,index)}>
+                  <TableCell component="th" scope="row">
+                    {index}
+                  </TableCell>
+                  <TableCell align="left">{ticket.title}</TableCell>
+                  <TableCell align="left">{ticket.category}</TableCell>
+                  <TableCell align="left">{ticket.status}</TableCell>
+                  <TableCell align="left">{ticket.replies[ticket.replies.length-1].message}</TableCell>
+                  <TableCell align="left"> <Tooltip title="Delete">
+                <IconButton aria-label="Delete" onClick = {this.handleDelete.bind(this,ticket)}>
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip></TableCell>              
+                </TableRow>
+                );
+            } else {
+              return(
+                //<TableRow key={ticket.id} hover onClick={(e)=> {this.handleClick()}}>
+                <TableRow key = {ticket.objectId} hover onClick={this.handleClick.bind(this, ticket,index)}>
+                  <TableCell component="th" scope="row">
+                    {index}
+                  </TableCell>
+                  <TableCell align="left">{ticket.title}</TableCell>
+                  <TableCell align="left">{ticket.category}</TableCell>
+                  <TableCell align="left">{ticket.status}</TableCell>
+                  <TableCell align="left">{ticket.replies[ticket.replies.length-1].message}</TableCell>             
+                </TableRow>
+                );
+            } 
             })}
         </TableBody>
       </Table>
@@ -144,4 +176,8 @@ const styles = theme => ({
 
   
 export default withStyles(styles)(SimpleTable);
+
+SimpleTable.propTypes = {
+  tickets: PropTypes.array.isRequired
+}
 

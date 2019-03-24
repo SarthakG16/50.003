@@ -6,7 +6,7 @@ import Header from './components/layout/Header';
 
 import MyState from "./components/MyState";
 import { withStyles } from "@material-ui/core/styles";
-import MyAppbar from "./components/MyAppbar"
+//import MyAppbar from "./components/MyAppbar"
 import MySnackbar from "./components/MySnackbar"
 
 import MyWelcomeDialog from "./components/MyWelcomeDialog"
@@ -40,11 +40,11 @@ class App extends Component {
 
     return (
       <div className={classes.root}>
-        <MyAppbar myState={this.myState} />
-        <div className={classes.toolbar} />
+        {/* <MyAppbar myState={this.myState} /> */}
+        {/* <div className={classes.toolbar} /> */}
         <MySnackbar myState={this.myState} />
         <MyWelcomeDialog open={myWelcomeDialog.open} myState={this.myState} />
-        {/* <Header /> */}
+        <Header />
         <Routes />
       </div>
     );
