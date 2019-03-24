@@ -7,7 +7,7 @@ Install all the modules needed using</br>
 Start the app with </br>
 `npm start` </br>
 You may have to wait while the script builds. </br>
-The server will be loaded at http://http://localhost:3000/ </br>
+The server will be loaded at http://localhost:3000/ </br>
 
 ### URLS ###
 [Home](http://http://localhost:3000/) : http://http://localhost:3000/ </br>
