@@ -13,6 +13,6 @@ The server will be loaded at http://localhost:3000/ </br>
 [Home](http://localhost:3000/) : http://localhost:3000/ </br>
 [Login](http://localhost:3000/Login) : http://localhost:3000/Login </br>
 [New Ticket/ Contact Us](localhost:3000/NewTicket) : http://localhost:3000/NewTicket </br>
-[Arhive](http://localhost:3000/Arhive) : http://localhost:3000/Arhive </br>
+[Arhive](http://localhost:3000/Arhive) : http://localhost:3000/Archive </br>
 
 
