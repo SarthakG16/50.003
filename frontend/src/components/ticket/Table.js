@@ -22,14 +22,15 @@ class SimpleTable extends React.Component {
             redirect: false,
             delete: false,
             ticketID: -1,
-            ticketState: null
+            ticketState: null,
+            ticketIndex : 0
         }
 
         //this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick(ticket) {
-        console.log("Clicked " + ticket.objectId);
+    handleClick(ticket, index) {
+        // console.log("Clicked " + ticket.objectId);
         if (this.state.delete) {
           this.setState({
             delete: false
@@ -38,7 +39,8 @@ class SimpleTable extends React.Component {
         this.setState({
             redirect: true,
             ticketID: ticket.id,
-            ticketState: ticket
+            ticketState: ticket,
+            ticketIndex: index
         });
     }
 
@@ -78,13 +80,14 @@ class SimpleTable extends React.Component {
     renderRedirect() {
         if (this.state.redirect && !this.state.delete) {
             console.log('redirecting');
-            return <Redirect to={{pathname:`/Ticket/`+ this.state.ticketID, 
+            return <Redirect to={{pathname:`/Ticket/`+ this.state.ticketIndex, 
             state: {id:this.state.ticketID, ticket: this.state.ticketState}}} push={true}></Redirect>;
         }
     }
 
     render() {
   const { tickets } = this.props;
+  var index = 0;
   return (
     
     <Paper className={'whatever'}>
@@ -100,11 +103,13 @@ class SimpleTable extends React.Component {
           </TableRow>
         </TableHead>
         <TableBody>
-          {tickets.map(ticket => (
+          {tickets.map(ticket => {
+            index +=1;
+            return(
             //<TableRow key={ticket.id} hover onClick={(e)=> {this.handleClick()}}>
-            <TableRow key = {ticket.objectId} hover onClick={this.handleClick.bind(this, ticket)}>
+            <TableRow key = {ticket.objectId} hover onClick={this.handleClick.bind(this, ticket,index)}>
               <TableCell component="th" scope="row">
-                {ticket.objectId}
+                {index}
               </TableCell>
               <TableCell align="left">{ticket.title}</TableCell>
               <TableCell align="left">{ticket.category}</TableCell>
@@ -116,7 +121,8 @@ class SimpleTable extends React.Component {
             </IconButton>
           </Tooltip></TableCell>              
             </TableRow>
-          ))}
+            );
+            })}
         </TableBody>
       </Table>
     </Paper>
