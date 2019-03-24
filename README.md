@@ -10,9 +10,9 @@ You may have to wait while the script builds. </br>
 The server will be loaded at http://localhost:3000/ </br>
 
 ### URLS ###
-[Home](http://http://localhost:3000/) : http://http://localhost:3000/ </br>
-[Login](http://http://localhost:3000/Login) : http://http://localhost:3000/Login </br>
-[New Ticket/ Contact Us](http://http://localhost:3000/NewTicket) : http://http://localhost:3000/NewTicket </br>
-[FAQ](http://http://localhost:3000/FAQ) : http://http://localhost:3000/FAQ </br>
-[Ticket](http://http://localhost:3000/Ticket) : http://http://localhost:3000/Ticket </br>
+[Home](http://localhost:3000/) : http://localhost:3000/ </br>
+[Login](http://localhost:3000/Login) : http://localhost:3000/Login </br>
+[New Ticket/ Contact Us](localhost:3000/NewTicket) : http://localhost:3000/NewTicket </br>
+[Arhive](http://localhost:3000/Arhive) : http://localhost:3000/Arhive </br>
+
 
