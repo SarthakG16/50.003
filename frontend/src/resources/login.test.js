@@ -16,7 +16,7 @@ it("login with correct credentials", async () => {
     handleLogin("userOne", "password", myState);
 
     await sleep(3000);
-
+    localStorage.getItem("sessionToken");
     expect(myState.myWelcomeDialog.value.open).toBe(false);
     expect(myState.userProfile.value).toBeDefined();
 });
