@@ -2,7 +2,7 @@ import React from "react";
 //import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 //import $ from 'jquery';
-import * as tokens from '../../Configurations.js';
+import constants from "../../resources/strings.js";
 
 const RESET_VALUES = {
     category: '',
@@ -56,7 +56,7 @@ export default class NewTicket extends React.Component {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
-                    "Server-Token": tokens.serverToken,
+                    "Server-Token": constants.serverToken,
                     "cache-control": "no-cache",
                 },
                 body: JSON.stringify(data)
@@ -149,7 +149,7 @@ export default class NewTicket extends React.Component {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
-                    "Server-Token": tokens.serverToken,
+                    "Server-Token": constants.serverToken,
                     "cache-control": "no-cache"
                 },
                 body: JSON.stringify(emailBody)

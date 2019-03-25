@@ -12,7 +12,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Redirect } from 'react-router-dom';
 import $ from 'jquery';
-
+import constants from "../../resources/strings.js";
 
 
 class SimpleTable extends React.Component {
@@ -77,7 +77,7 @@ class SimpleTable extends React.Component {
           "method": "PUT",
           "headers": {
             "Content-Type": "application/json",
-            "Server-Token": tokens.serverToken,
+            "Server-Token": constants.serverToken,
             "cache-control": "no-cache",
           },
           "processData": false,

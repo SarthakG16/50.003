@@ -2,6 +2,7 @@ import React from 'react';
 //import TicketTable from './TicketTable';
 import SimpleTable from './Table';
 import $ from 'jquery';
+import constants from "../../resources/strings.js";
 
 
 
@@ -26,7 +27,7 @@ export default class Tickets extends React.Component {
                 "method": "GET",
                 "headers": {
                   "Content-Type": "application/json",
-                  "Server-Token": tokens.serverToken,
+                  "Server-Token": constants.serverToken,
                   "cache-control": "no-cache",
                 },
                 "processData": false,
@@ -48,7 +49,7 @@ export default class Tickets extends React.Component {
                 "method": "GET",
                 "headers": {
                     "Content-Type": "application/json",
-                    "Server-Token": tokens.serverToken,
+                    "Server-Token": constants.serverToken,
                     "cache-control": "no-cache",
                 },
                 "processData": false,
