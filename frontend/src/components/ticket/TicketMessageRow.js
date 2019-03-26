@@ -61,7 +61,7 @@ class TicketMessageRow extends React.Component {
                     <Grid container direction="row" justify="space-between" spacing={16}>
                         <Grid item xs>
                             <Paper elevation={2}
-                                style={{ paddingLeft: 10, paddingTop: 10, paddingBottom: 10, paddingRight: 10, height:"100%"}}>
+                                style={{ paddingLeft: 10, paddingTop: 20,  paddingRight: 10, height:"100%"}}>
                                 <Grid container direction="column" justify="center" alignItems="center" spacing={8}>
                                     <Grid item xs>
                                         <AccountIcon/>
@@ -80,7 +80,7 @@ class TicketMessageRow extends React.Component {
                         </Grid>
                         <Grid item xs={10}>
                             <Paper elevation={2}
-                                style={{ paddingLeft: 20, paddingTop: 10, paddingBottom: 10, paddingRight: 20, height:"100%" }}>
+                                style={{ paddingLeft: 20, paddingTop: 20, paddingRight: 20, height:"100%" }}>
                                 <Typography align="left">
                                     {this.props.message}
                                 </Typography>
