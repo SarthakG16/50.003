@@ -3,6 +3,7 @@ import {Switch, Route} from "react-router-dom";
 import Login from "./components/pages/Login";
 import NewTicket from "./components/ticket/NewTicket"
 import Home from './components/pages/Home';
+import AdminDashboard from './components/pages/AdminDashboard';
 import Tickets from './components/ticket/Tickets';
 import TicketThread from './components/ticket/TicketThread';
 
@@ -19,6 +20,7 @@ const Routes = () => (
 						  )}
 						/>
            <Route path="/Ticket" component={TicketThread}/>
+           <Route path="/AdminHome" component={AdminDashboard}/>
         </Switch>
     </main>
 )

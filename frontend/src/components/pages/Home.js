@@ -5,6 +5,7 @@ import Login from './Login'
 import NewTicket from "../ticket/NewTicket"
 import Tickets from '../ticket/Tickets';
 import TicketThread from '../ticket/TicketThread'
+import AdminDashboard from './AdminDashboard';
 
 export default class Home extends React.Component {
 
@@ -27,6 +28,7 @@ export default class Home extends React.Component {
 					<Route path="/NewTicket" component={NewTicket} />
 					<Route path="/login" component={Login} />
 					<Route path="/Ticket" component={TicketThread}/>
+					<Route path="/AdminHome" component={AdminDashboard}/>
 				</div>
 			</div>
     );
