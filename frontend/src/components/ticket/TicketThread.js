@@ -66,7 +66,8 @@ export default class TicketThread extends React.Component {
         this.getDateCreated = this.getDateCreated.bind(this);
         this.state = {
             reply: Object.assign({}, RESET_VALUES),
-            status: this.props.location.state.ticket.status
+            status: this.props.location.state.ticket.status,
+            disable: ((this.props.location.state.ticket.status === "Archive") ? true : false)
         };
     }
 
@@ -194,6 +195,7 @@ export default class TicketThread extends React.Component {
 
     render() {
         //console.log('inside a thread');
+        console.log(this.state.disable);
         return (
             <React.Fragment>
                 <div>
@@ -229,7 +231,7 @@ export default class TicketThread extends React.Component {
                                     InputLabelProps={{ shrink: true, }}
                                 >
                                     {STATUS_VALUES.map(option => (
-                                        <MenuItem key={option.value} value={option.value}>
+                                        <MenuItem key={option.value} value={option.value} disabled={this.state.disable}>
                                             {option.label}
                                         </MenuItem>
                                     ))}
@@ -265,10 +267,12 @@ export default class TicketThread extends React.Component {
                         margin="normal"
                         variant="outlined"
                         InputLabelProps={{ shrink: true, }}
+                        disabled={this.state.disable}
                     // required="required"
                     />
                     <Button
                         variant="contained"
+                        disabled={this.state.disable}
                         onClick={this.handleSubmit.bind(this, this.state.reply)}
                     >
                         Submit
