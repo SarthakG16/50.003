@@ -41,7 +41,54 @@ export default class Tickets extends React.Component {
                 })
               });
 
-        } else {
+        }
+        else if (this.state.origin === "Pending") {
+            settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets?where={%22status%22%20:%20%20{%22$in%22:%20[%22Pending%22]%20}%20}",
+                "method": "GET",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Server-Token": constants.serverToken,
+                    "cache-control": "no-cache",
+                },
+                "processData": false,
+                "data": ""
+              }
+              
+              $.ajax(settings).done((response) => {
+                this.setState({
+                    isLoaded:true,
+                    tickets:response.results
+                })
+              });
+        } 
+
+        else if (this.state.origin === "Open") {
+            settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets?where={%22status%22%20:%20%20{%22$in%22:%20[%22Open%22]%20}%20}",
+                "method": "GET",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Server-Token": constants.serverToken,
+                    "cache-control": "no-cache",
+                },
+                "processData": false,
+                "data": ""
+              }
+              
+              $.ajax(settings).done((response) => {
+                this.setState({
+                    isLoaded:true,
+                    tickets:response.results
+                })
+              });
+        } 
+        
+        else {
             settings = {
                 "async": true,
                 "crossDomain": true,

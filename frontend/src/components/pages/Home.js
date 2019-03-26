@@ -15,22 +15,37 @@ export default class Home extends React.Component {
 				<div className="container">
 					<Route exact path="/" render={props => (
 						<React.Fragment>
-                            <p>Tickets</p> 
-                            <Tickets origin = "Home"></Tickets>
+							<p>Tickets</p>
+							<Tickets origin="Home"></Tickets>
 						</React.Fragment>
 					)} />
 					<Route
-  						path="/Archive"
-  						render={(origin) => (
-							<Tickets origin = "Archive"></Tickets>
-						  )}
-						/>
+						path="/Archive"
+						render={(origin) => (
+							<Tickets origin="Archive"></Tickets>
+						)}
+					/>
 					<Route path="/NewTicket" component={NewTicket} />
 					<Route path="/login" component={Login} />
-					<Route path="/Ticket" component={TicketThread}/>
-					<Route path="/AdminHome" component={AdminDashboard}/>
+					<Route path="/Ticket" component={TicketThread} />
+					<Route path="/AdminHome" component={AdminDashboard} />
+
+					<Route
+						path="/Pending"
+						render={(origin) => (
+							<Tickets origin="Pending"></Tickets>
+						)}
+					/>
+
+					<Route
+						path="/Open"
+						render={(origin) => (
+							<Tickets origin="Open"></Tickets>
+						)}
+					/>
+
 				</div>
 			</div>
-    );
-  }
+		);
+	}
 }
