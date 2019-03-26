@@ -128,7 +128,10 @@ export default class TicketThread extends React.Component {
             this.setState({
                 reply: Object.assign({}, RESET_VALUES),
             });
-
+        }
+        else{
+            console.log('No messages. Not posted');
+            // alert("Your reply has been posted.")
         }
         return;
     }

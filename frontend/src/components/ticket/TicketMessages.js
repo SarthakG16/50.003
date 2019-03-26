@@ -17,7 +17,7 @@ class TicketMessages extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("inside Tticket messages, will start assigning");
+        console.log("inside Ticket messages, will start assigning");
         this.state = {
         };
     }
@@ -31,6 +31,7 @@ class TicketMessages extends React.Component {
                     <TicketMessageRow
                         key={index}
                         user={message.name}
+                        date={message.date}
                         message={message.message}
                     ></TicketMessageRow>
                 )}
