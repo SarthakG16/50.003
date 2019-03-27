@@ -3,6 +3,8 @@ import React from "react";
 import { Route } from 'react-router-dom';
 //import $ from 'jquery';
 import constants from "../../resources/strings.js";
+import CATEGORY_VALUES from "../../resources/CategoryConst";
+import { Button, Grid, MenuItem, TextField, Typography } from '@material-ui/core';
 
 const RESET_VALUES = {
     category: '',
@@ -12,7 +14,7 @@ const RESET_VALUES = {
     status: 'Open'
 };
 
-// const RESET_VALUES_MESSAGE = { name: '', message: '', date: ''};
+const RESET_VALUES_ERROR = { title: '', message: '', category: '', email: '' };
 
 export default class NewTicket extends React.Component {
     constructor(props) {
@@ -21,7 +23,7 @@ export default class NewTicket extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.state = {
             ticket: Object.assign({}, RESET_VALUES),
-            //errors: { title: '', message: '', category: '' },
+            errorText: (Object.assign({}, RESET_VALUES_ERROR)),
         };
     }
 
@@ -87,7 +89,6 @@ export default class NewTicket extends React.Component {
             this.setState({
                 ticket: Object.assign({}, RESET_VALUES),
             });
-
             return;
             // this.props.history.push('/');
             //return <Redirect to='/' push={true}></Redirect>;
@@ -102,23 +103,53 @@ export default class NewTicket extends React.Component {
 
     handleValidation(e) {
         let ticket = e;
+        var errorTextCopy = Object.assign({}, this.state.errorText);
+        var count = 0;
         if (ticket.title === '') {
             console.log('No title');
-            return false;
+            errorTextCopy.title = 'Please fill in a title';
+            count += 1;
         }
-        else if (ticket.category === '') {
+        else{
+            errorTextCopy.title = '';
+        }
+        
+        if (ticket.category === '') {
             console.log('No category');
-            return false;
+            errorTextCopy.category = 'Please fill in a category';
+            count += 1;
         }
-        else if (ticket.message === '') {
+        else{
+            errorTextCopy.category = '';
+        }
+        
+        if (ticket.message === '') {
             console.log('No message');
-            return false;
+            errorTextCopy.message = 'Please fill in a message';
+            count += 1;
         }
-        else if (ticket.email === '') {
+        else{
+            errorTextCopy.message = '';
+        }
+        
+        if (ticket.email === '') {
             console.log('No email');
+            errorTextCopy.email = 'Please fill in a email';
+            count += 1;
+        }
+        else{
+            errorTextCopy.email = '';
+        }
+
+        this.setState({errorText: errorTextCopy});
+        // console.log("count is " + count);
+        if(count === 0){
+            this.setState({errorText: Object.assign({}, RESET_VALUES_ERROR)});
+            return true;
+        }
+        else{
             return false;
         }
-        return true;
     }
 
     handleChange(e) {
@@ -183,65 +214,110 @@ export default class NewTicket extends React.Component {
                 <div className="container">
                     <Route exact path="/NewTicket" render={props => (
                         <React.Fragment>
-                            <form name="ticketForm">
-                                <h3>Submit a new ticket request</h3>
-                                <p>
-                                    <label>
+                            <h3>Submit a new ticket request</h3>
+                            <form
+                                style={{ paddingLeft: 20, marginTop: "5%", paddingRight: 20 }}
+                            >
+                                <Grid
+                                    container direction="column" justify="space-between" spacing={16}
+                                >
+                                    <Typography
+                                        align="left" variant="h6"
+                                    >
                                         Title
-                                        <br />
-                                        <input
-                                            type="text"
-                                            name="title"
-                                            onChange={this.handleChange}
-                                            value={this.state.ticket.name}
-                                            required="required"
-                                        />
-                                    </label>
-                                </p>
-                                <p>
-                                    <label>
+                                        </Typography>
+                                    <TextField
+                                        // label="Title"
+                                        name="title"
+                                        multiline
+                                        rowsMax="2"
+                                        type='text'
+                                        value={this.state.ticket.name}
+                                        onChange={this.handleChange}
+                                        fullWidth
+                                        margin="normal"
+                                        variant="outlined"
+                                        placeholder="Title"
+                                        InputLabelProps={{ shrink: true, }}
+                                        required={true}
+                                        error={((this.state.errorText.title !== '' && this.state.ticket.title === '') ? true : false)}
+                                        helperText={this.state.errorText.title}
+                                    >
+
+                                    </TextField>
+                                    <Typography
+                                        align="left" variant="h6"
+                                    >
                                         Category
-                                        <br />
-                                        <input
-                                            type="text"
-                                            name="category"
-                                            onChange={this.handleChange}
-                                            value={this.state.ticket.category}
-                                            required="required"
-                                        />
-                                    </label>
-                                </p>
-                                <p>
-                                    <label>
+                                        </Typography>
+                                    <TextField
+                                        name="category"
+                                        select
+                                        value={this.state.ticket.category}
+                                        onChange={this.handleChange}
+                                        fullWidth
+                                        margin="normal"
+                                        variant="outlined"
+                                        InputLabelProps={{ shrink: true, }}
+                                        required={true}
+                                        error={((this.state.errorText.category !== '' && this.state.ticket.category === '') ? true : false)}
+                                        helperText={this.state.errorText.category}
+                                    >
+                                        {CATEGORY_VALUES.map(option => (
+                                            <MenuItem key={option.value} value={option.value}>
+                                                {option.label}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
+                                    <Typography
+                                        align="left" variant="h6"
+                                    >
                                         Message
-                                        <br />
-                                        <input style={boxStyle}
-                                            type="text"
-                                            name="message"
-                                            onChange={this.handleChange}
-                                            value={this.state.ticket.message}
-                                            required="required"
-                                        />
-                                    </label>
-                                </p>
-                                <p>
-                                    <label>
+                                        </Typography>
+                                    <TextField
+                                        name="message"
+                                        multiline
+                                        value={this.state.ticket.message}
+                                        onChange={this.handleChange}
+                                        fullWidth
+                                        margin="normal"
+                                        variant="outlined"
+                                        placeholder="Message"
+                                        InputLabelProps={{ shrink: true, }}
+                                        required={true}
+                                        error={((this.state.errorText.message !== '' && this.state.ticket.message === '') ? true : false)}
+                                        helperText={this.state.errorText.message}
+                                    />
+                                    <Typography
+                                        align="left" variant="h6"
+                                    >
                                         Email
-                                        <br />
-                                        <input
-                                            type="text"
-                                            name="email"
-                                            onChange={this.handleChange}
-                                            value={this.state.ticket.email}
-                                            required="required"
-                                        />
-                                    </label>
-                                </p>
-                                <input
-                                    type="submit"
-                                    value="Save"
-                                    onClick={this.handleSubmit.bind(this, this.state.ticket)}
-                                />
+                                        </Typography>
+                                    <TextField
+                                        name="email"
+                                        type='email'
+                                        value={this.state.ticket.email}
+                                        onChange={this.handleChange}
+                                        fullWidth
+                                        margin="normal"
+                                        variant="outlined"
+                                        placeholder="eg abc@vaild.com"
+                                        InputLabelProps={{ shrink: true, }}
+                                        required={true}
+                                        error={((this.state.errorText.email !== '' && this.state.ticket.email === '') ? true : false)}
+                                        helperText={this.state.errorText.email}
+                                    />
+
+                                    <Grid item xs>
+                                        <Button
+                                            variant="contained"
+                                            onClick={this.handleSubmit.bind(this, this.state.ticket)}
+                                        >
+                                            Submit
+                                        </Button>
+                                    </Grid>
+
+                                </Grid>
                             </form>
                         </React.Fragment>
                     )} />
@@ -256,11 +332,3 @@ export default class NewTicket extends React.Component {
 // NewTicket.propTypes = {
 // 	addTicket: PropTypes.func.isRequired
 // }
-
-const boxStyle = {
-    textAlign: 'left',
-    padding: '10px',
-    width: '200px',
-    height: '20px',
-
-}

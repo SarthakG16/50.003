@@ -4,8 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TicketMessages from './TicketMessages';
 import uuid from 'uuid';
-import TextField from '@material-ui/core/TextField';
-import { Button, Grid, MenuItem } from '@material-ui/core';
+import { Button, Grid, MenuItem, TextField } from '@material-ui/core';
 import $ from 'jquery';
 import constants from "../../resources/strings.js";
 
@@ -275,7 +274,7 @@ export default class TicketThread extends React.Component {
                         onClick={this.handleSubmit.bind(this, this.state.reply)}
                     >
                         Submit
-                          </Button>
+                    </Button>
                 </div>
             </React.Fragment>
         );
