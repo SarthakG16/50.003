@@ -8,7 +8,7 @@ const styles = theme => ({
         ...theme.mixins.gutters(),
         paddingTop: theme.spacing.unit * 2,
         paddingBottom: theme.spacing.unit * 2,
-        marginTop: theme.spacing.unit *2,
+        marginTop: theme.spacing.unit * 2,
         spacing: theme.spacing.unit * 2,
     },
 });
@@ -24,7 +24,7 @@ class TicketMessages extends React.Component {
 
     render() {
         console.log('Trying to display messages');
-        const {messages} = this.props;
+        const { messages } = this.props;
         return (
             <React.Fragment>
                 {messages.map((message, index) =>

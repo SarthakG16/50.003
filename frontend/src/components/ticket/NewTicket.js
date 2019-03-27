@@ -9,7 +9,7 @@ const RESET_VALUES = {
     message: '',
     title: '',
     email: '',
-    status:'Open'
+    status: 'Open'
 };
 
 // const RESET_VALUES_MESSAGE = { name: '', message: '', date: ''};
@@ -26,7 +26,7 @@ export default class NewTicket extends React.Component {
     }
 
     // returns the date and time the reply was posted in UTC
-    getDateCreated(){
+    getDateCreated() {
         var today = new Date();
         console.log(today);
         return today.toUTCString();
@@ -38,19 +38,19 @@ export default class NewTicket extends React.Component {
         let data = {
             title: e.title,
             category: e.category,
-            replies:[
-                        {
-                            name: "User1",
-                            message: e.message,
-                            date: this.getDateCreated()
-                        }
+            replies: [
+                {
+                    name: "User1",
+                    message: e.message,
+                    date: this.getDateCreated()
+                }
 
-                    ],
-            status:'Open',
+            ],
+            status: 'Open',
             email: e.email
         }
         console.log(data);
-        
+
         fetch('https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets',
             {
                 method: 'POST',
@@ -64,7 +64,7 @@ export default class NewTicket extends React.Component {
             .then(data => console.log(data))
             .catch(err => console.log(err));
 
-        
+
     }
 
     handleSubmit(e) {
@@ -87,7 +87,7 @@ export default class NewTicket extends React.Component {
             this.setState({
                 ticket: Object.assign({}, RESET_VALUES),
             });
-            
+
             return;
             // this.props.history.push('/');
             //return <Redirect to='/' push={true}></Redirect>;
@@ -114,7 +114,7 @@ export default class NewTicket extends React.Component {
             console.log('No message');
             return false;
         }
-        else if (ticket.email === ''){
+        else if (ticket.email === '') {
             console.log('No email');
             return false;
         }
@@ -133,17 +133,17 @@ export default class NewTicket extends React.Component {
     }
 
     //need help
-    sendNotif(e){
+    sendNotif(e) {
         let emailBody = {
-            "subject":"test subject using ACNAPI",
-            "sender":"sarthakganoorkar@gmail.com",
+            "subject": "test subject using ACNAPI",
+            "sender": "sarthakganoorkar@gmail.com",
             "recipient": "zhaotong_tan@mymail.sutd.edu.sg",
             "html": "<h1>HELLO!</h1>"
         }
         console.log(emailBody);
         console.log(JSON.stringify(emailBody));
 
-        
+
         fetch("https://ug-api.acnapiv3.io/swivel/email-services/api/mailer",
             {
                 method: 'POST',

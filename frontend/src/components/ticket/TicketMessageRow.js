@@ -6,23 +6,13 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import AccountIcon from '@material-ui/icons/AccountCircle';
 
-// const styles = theme => ({
-//     root: {
-//         ...theme.mixins.gutters(),
-//         paddingTop: theme.spacing.unit * 2,
-//         paddingBottom: theme.spacing.unit * 2,
-//         marginTop: theme.spacing.unit *2,
-//         spacing: theme.spacing.unit * 2,
-//     },
-// });
-
 const styles = theme => ({
     root: {
-                ...theme.mixins.gutters(),
-                paddingTop: theme.spacing.unit * 2,
-                paddingBottom: theme.spacing.unit * 2,
-                marginTop: theme.spacing.unit *2,
-                spacing: theme.spacing.unit * 2,
+        ...theme.mixins.gutters(),
+        paddingTop: theme.spacing.unit * 2,
+        paddingBottom: theme.spacing.unit * 2,
+        marginTop: theme.spacing.unit * 2,
+        spacing: theme.spacing.unit * 2,
     },
 
     // paper: {
@@ -41,8 +31,8 @@ const styles = theme => ({
     //   maxWidth: '100%',
     //   maxHeight: '100%',
     // },
-  });
-  
+});
+
 
 class TicketMessageRow extends React.Component {
 
@@ -61,26 +51,26 @@ class TicketMessageRow extends React.Component {
                     <Grid container direction="row" justify="space-between" spacing={16}>
                         <Grid item xs>
                             <Paper elevation={2}
-                                style={{ paddingLeft: 10, paddingTop: 20,  paddingRight: 10, height:"100%"}}>
+                                style={{ paddingLeft: 10, paddingTop: 20, paddingRight: 10, height: "100%" }}>
                                 <Grid container direction="column" justify="center" alignItems="center" spacing={8}>
                                     <Grid item xs>
-                                        <AccountIcon/>
+                                        <AccountIcon />
                                     </Grid>
                                     <Grid item xs>
                                         {this.props.user}
                                     </Grid>
                                     <Grid item xs>
-                                    <Typography variant="caption">
-                                        {this.props.date}
-                                    </Typography>
-                                        
+                                        <Typography variant="caption">
+                                            {this.props.date}
+                                        </Typography>
+
                                     </Grid>
                                 </Grid>
                             </Paper>
                         </Grid>
                         <Grid item xs={10}>
                             <Paper elevation={2}
-                                style={{ paddingLeft: 20, paddingTop: 20, paddingRight: 20, height:"100%" }}>
+                                style={{ paddingLeft: 20, paddingTop: 20, paddingRight: 20, height: "100%" }}>
                                 <Typography align="left">
                                     {this.props.message}
                                 </Typography>

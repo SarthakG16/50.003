@@ -1,10 +1,5 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import Login from './Login'
-//import FAQ from './FAQ';
-import NewTicket from "../ticket/NewTicket"
-import Tickets from '../ticket/Tickets';
-import TicketThread from '../ticket/TicketThread'
 import { Grid, Card, Typography, CardActionArea } from '@material-ui/core';
 
 // values of status
@@ -21,8 +16,6 @@ export default class AdminDashboard extends React.Component {
             redirect: false,
             status: null,
         }
-
-
         //this.handleClick = this.handleClick.bind(this);
     }
 
@@ -43,12 +36,11 @@ export default class AdminDashboard extends React.Component {
                 status: "Open"
             });
         }
-
     }
 
     renderRedirect() {
         if (this.state.redirect) {
-            return <Redirect to={{pathname: `/` + this.state.status,}} push={true}></Redirect>;
+            return <Redirect to={{ pathname: `/` + this.state.status, }} push={true}></Redirect>;
         }
     }
 
@@ -56,62 +48,60 @@ export default class AdminDashboard extends React.Component {
         return (
             <div className="App">
                 <div className="container">
-                {this.renderRedirect()}
+                    {this.renderRedirect()}
                     <Route exact path="/AdminHome" render={props => (
-                    <React.Fragment>
-                        <p>Tickets</p>
-                        <Grid
-                            container
-                            direction="row"
-                            justify="center"
-                            spacing={16}
-                            alignItems="center"
-                        >
-                            <Grid item xs>
-                                <Card>
-                                    <CardActionArea
-                                        onClick={this.handleClick.bind(this, STATUS_VALUES.OPEN)}
-                                    >
-                                        <Typography
-                                            style={{ paddingTop: 50, paddingBottom: 50 }}
+                        <React.Fragment>
+                            <p>Tickets</p>
+                            <Grid
+                                container
+                                direction="row"
+                                justify="center"
+                                spacing={16}
+                                alignItems="center"
+                            >
+                                <Grid item xs>
+                                    <Card>
+                                        <CardActionArea
+                                            onClick={this.handleClick.bind(this, STATUS_VALUES.OPEN)}
                                         >
-                                            Open
+                                            <Typography
+                                                style={{ paddingTop: 50, paddingBottom: 50 }}
+                                            >
+                                                Open
                                             </Typography>
-                                    </CardActionArea>
-                                </Card>
-                            </Grid>
+                                        </CardActionArea>
+                                    </Card>
+                                </Grid>
 
-                            <Grid item xs>
-                                <Card>
-                                    <CardActionArea
-                                        onClick={this.handleClick.bind(this, STATUS_VALUES.PENDING)}
-                                    >
-                                        <Typography
-                                            style={{ paddingTop: 50, paddingBottom: 50 }}
+                                <Grid item xs>
+                                    <Card>
+                                        <CardActionArea
+                                            onClick={this.handleClick.bind(this, STATUS_VALUES.PENDING)}
                                         >
-                                            Pending
+                                            <Typography
+                                                style={{ paddingTop: 50, paddingBottom: 50 }}
+                                            >
+                                                Pending
                                             </Typography>
-                                    </CardActionArea>
-                                </Card>
-                            </Grid>
+                                        </CardActionArea>
+                                    </Card>
+                                </Grid>
 
-                            <Grid item xs>
-                                <Card>
-                                    <CardActionArea>
-                                        <Typography
-                                            style={{ paddingTop: 50, paddingBottom: 50 }}
-                                        >
-                                            Something?
+                                <Grid item xs>
+                                    <Card>
+                                        <CardActionArea>
+                                            <Typography
+                                                style={{ paddingTop: 50, paddingBottom: 50 }}
+                                            >
+                                                Something?
                                             </Typography>
-                                    </CardActionArea>
-                                </Card>
+                                        </CardActionArea>
+                                    </Card>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                        {/* <Tickets origin = "Home"></Tickets> */}
-                    </React.Fragment>
+                            {/* <Tickets origin = "Home"></Tickets> */}
+                        </React.Fragment>
                     )} />
-
-                    
 
                     {/* <Route
                         path="/Pending"

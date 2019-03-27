@@ -1,6 +1,5 @@
 import React from 'react';
 //import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TicketMessages from './TicketMessages';
@@ -130,7 +129,7 @@ export default class TicketThread extends React.Component {
                 reply: Object.assign({}, RESET_VALUES),
             });
         }
-        else{
+        else {
             console.log('No messages. Not posted');
             // alert("Your reply has been posted.")
         }
@@ -201,7 +200,7 @@ export default class TicketThread extends React.Component {
                 <div>
                     <Paper elevation={5}
                         width='80%'
-                        style={{ paddingLeft: 20, marginTop: "5%", paddingRight: 20}}>
+                        style={{ paddingLeft: 20, marginTop: "5%", paddingRight: 20 }}>
                         <Typography align="left" variant="subtitle1">
                             Ticket ID: {this.props.location.state.ticket.objectId}
                             <p />
