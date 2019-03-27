@@ -245,7 +245,7 @@ export default class NewTicket extends React.Component {
                         <React.Fragment>
                             <h3>Submit a new ticket request</h3>
                             <form
-                                style={{ paddingLeft: 20, marginTop: "5%", paddingRight: 20 }}
+                                style={{ paddingLeft: 20, marginTop: "1%", paddingRight: 20 }}
                             >
                                 <Grid
                                     container direction="column" justify="space-between" spacing={16}
@@ -287,7 +287,8 @@ export default class NewTicket extends React.Component {
                                         fullWidth
                                         margin="normal"
                                         variant="outlined"
-                                        InputLabelProps={{ shrink: true, }}
+                                        InputProps={{ style: { textAlign: "Left" }}}
+                                        InputLabelProps={{ shrink: true,}}
                                         required={true}
                                         error={((this.state.errorText.category !== '' && this.state.ticket.category === '') ? true : false)}
                                         helperText={this.state.errorText.category}
