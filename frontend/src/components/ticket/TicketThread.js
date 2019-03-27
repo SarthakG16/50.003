@@ -227,6 +227,7 @@ export default class TicketThread extends React.Component {
                                     fullWidth
                                     height='60px'
                                     InputLabelProps={{ shrink: true, }}
+                                    disabled={this.state.disable}
                                 >
                                     {STATUS_VALUES.map(option => (
                                         <MenuItem key={option.value} value={option.value} disabled={this.state.disable}>
