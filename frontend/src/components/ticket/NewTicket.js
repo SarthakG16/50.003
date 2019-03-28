@@ -169,7 +169,7 @@ export default class NewTicket extends React.Component {
         let emailBody = {
             "subject": "test subject using ACNAPI",
             "sender": "sarthakganoorkar@gmail.com",
-            "recipient": "zhaotong_tan@mymail.sutd.edu.sg",
+            "recipient": e.email,
             "html": "<h1>HELLO!</h1>"
         }
         console.log(emailBody);
