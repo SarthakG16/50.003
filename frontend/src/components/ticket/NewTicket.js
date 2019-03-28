@@ -25,7 +25,9 @@ export default class NewTicket extends React.Component {
         this.state = {
             ticket: Object.assign({}, RESET_VALUES),
             errorText: (Object.assign({}, RESET_VALUES_ERROR)),
+            user: this.props.location.user
         };
+        //console.log(this.state.user);
     }
 
     // returns the date and time the reply was posted in UTC
@@ -34,15 +36,14 @@ export default class NewTicket extends React.Component {
         console.log(today);
         return today.toUTCString();
     }
-
     addTicket(e) {
-
-        // setting up the body
+    
         let data = {
             title: e.title,
             category: e.category,
             replies: [
                 {
+                    //name: this.state.user.username,
                     name: "User1",
                     message: e.message,
                     date: this.getDateCreated()
@@ -50,7 +51,21 @@ export default class NewTicket extends React.Component {
 
             ],
             status: 'Open',
-            email: e.email
+            email: e.email,
+            ACL: {
+                "*": {
+                    "read": false
+                },
+                [this.state.user.objectId]: {
+                    "read":true,
+                    "write":true
+                    
+                },
+                "role:admin": {
+                    "read": true,
+                    "write": true
+                }
+            }
         }
         console.log(data);
 
