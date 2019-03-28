@@ -30,11 +30,13 @@ class MyWelcomeDialog extends React.Component {
       if (this.readyState === 4) {
         const responseJSON = JSON.parse(this.responseText);
 
-        if (responseJSON.code === 209) {
+        if (responseJSON.code === 209) { //Error
           myWelcomeDialog.value = Object.assign(myWelcomeDialog.value, { open: true });
         }
         else {
           userProfile.value = responseJSON;
+          console.log("the user id is:"+ userProfile.value.objectId);
+          
         }
       }
     });

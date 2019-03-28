@@ -58,6 +58,7 @@ class MyAppbar extends React.Component {
         myWelcomeDialog.value = Object.assign(myWelcomeDialog.value, { open: true });
 
         localStorage.clear();
+        console.log("Logging Out")
       }
     });
 
@@ -73,7 +74,7 @@ class MyAppbar extends React.Component {
     const { classes } = this.props;
 
     const username = this.userProfile.value.username;
-
+    
     return (
       <AppBar >
         <Toolbar>
@@ -81,7 +82,9 @@ class MyAppbar extends React.Component {
             <AccountBoxIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow}>{constants.title}</Typography>
-          <Link style={linkStyle} to="/">Tickets</Link><Link style={linkStyle} to="/NewTicket">New Ticket</Link><Link style={linkStyle} to="/FAQ">FAQ</Link>
+          <Link style={linkStyle} to="/">Tickets</Link>
+          <Link style={linkStyle} to={{ pathname: "/NewTicket", user: this.userProfile.value}}>New Ticket</Link>
+          <Link style={linkStyle} to="/Archive">Archive</Link>
           <Typography variant="h6" color="inherit" className={classes.grow}></Typography>
           <Typography variant="subtitle2" color="inherit">WELCOME {username}</Typography>
         </Toolbar>
