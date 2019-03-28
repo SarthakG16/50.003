@@ -47,7 +47,8 @@ class TicketMessageRow extends React.Component {
         console.log('displaying individual messages');
         return (
             <React.Fragment>
-                <div>
+                <div
+                    style={{marginTop: "5%"}}>
                     <Grid container direction="row" justify="space-between" spacing={16}>
                         <Grid item xs>
                             <Paper elevation={2}

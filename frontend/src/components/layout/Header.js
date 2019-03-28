@@ -5,8 +5,7 @@ function Header() {
 	return (
 		<header style={headerStyle}>
 			<h1>ACNAPI Services</h1>
-			<Link style={linkStyle} to="/">Home</Link> | <Link style={linkStyle} to="/NewTicket">Contact Us</Link> |
-			 <Link style={linkStyle} to="/Archive">Archive</Link>
+			<Link style={linkStyle} to="/">Home</Link> | <Link style={linkStyle} to="/NewTicket">Contact Us</Link> | <Link style={linkStyle} to="/Archive">Archive</Link>
 		</header>
 	)
 }
