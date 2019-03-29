@@ -42,7 +42,7 @@ export default class NewTicket extends React.Component {
             category: e.category,
             replies: [
                 {
-                    //name: this.state.user.username,
+                    // name: this.state.user.username,
                     name: "User1",
                     message: e.message,
                     date: this.getDateCreated()

@@ -10,12 +10,13 @@ const sessionToken = localStorage.getItem("sessionToken");
 export default class Tickets extends React.Component {
     constructor(props) {
         super(props);
-        
         this.state = {
             origin: this.props.origin,
             tickets: [],
-            isLoaded: false
+            isLoaded: false,
+            // user: this.props.location.user
         };
+        // console.log(this.state.user);
     }
 
     componentDidMount() {
