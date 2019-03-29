@@ -182,7 +182,7 @@ export default class NewTicket extends React.Component {
     sendNotif(e) {
         let emailBody = {
             "subject": "Test subject using ACNAPI",
-            "sender": "sarthakganoothrkar@gmail.com",
+            "sender": "sarthakganoorkar@gmail.com",
             "recipient": e.email,
             "html": "<h1>HELLO!</h1>"
         }
