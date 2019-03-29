@@ -18,6 +18,7 @@ const handleLogin = (username, password, myState) => {
           myWelcomeDialog.value = Object.assign(myWelcomeDialog.value, { open: false });
 
           localStorage.setItem("sessionToken", responseJSON.sessionToken);
+          window.location.reload();
         }
       }
     });

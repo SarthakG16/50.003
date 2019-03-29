@@ -14,6 +14,7 @@ import { Redirect } from 'react-router-dom';
 import $ from 'jquery';
 import constants from "../../resources/strings.js";
 
+const sessionToken = localStorage.getItem("sessionToken");
 
 class SimpleTable extends React.Component {
     constructor(props) {
@@ -79,6 +80,7 @@ class SimpleTable extends React.Component {
             "Content-Type": "application/json",
             "Server-Token": constants.serverToken,
             "cache-control": "no-cache",
+            "X-Parse-Session-Token": sessionToken,
           },
           "processData": false,
           "data": "{\n\t\n\t\"status\": \"Archive\"\n}"
