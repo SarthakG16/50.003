@@ -81,7 +81,7 @@ class MyAppbar extends React.Component {
             <AccountBoxIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow}>{constants.title}</Typography>
-          <Link style={linkStyle} to={{ pathname: "/"}}>Tickets</Link>
+          <Link style={linkStyle} to={{ pathname: "/", user: this.userProfile.value}}>Tickets</Link>
           <Link style={linkStyle} to={{ pathname: "/NewTicket", user: this.userProfile.value}}>New Ticket</Link>
           <Link style={linkStyle} to="/Archive">Archive</Link>
           <Typography variant="h6" color="inherit" className={classes.grow}></Typography>

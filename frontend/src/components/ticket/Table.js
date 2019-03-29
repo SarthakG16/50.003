@@ -25,10 +25,9 @@ class SimpleTable extends React.Component {
       ticketID: -1,
       ticketState: null,
       ticketIndex: 0,
-      // user: this.props.user
     }
-    // console.log(this.state.user);
-
+    this.userProfile = props.myState.userProfile.registerCallback(this);
+    console.log("I have constructed the table");
 
     //this.handleClick = this.handleClick.bind(this);
   }
@@ -97,13 +96,11 @@ class SimpleTable extends React.Component {
 
   }
 
-
-
   renderRedirect() {
     if (this.state.redirect && !this.state.delete) {
       return <Redirect to={{
         pathname: `/Ticket/` + this.state.ticketIndex,
-        state: { id: this.state.ticketID, ticket: this.state.ticketState }
+        state: { id: this.state.ticketID, ticket: this.state.ticketState, myState: this.userProfile.value }
       }} push={true}></Redirect>;
     }
   }
@@ -111,59 +108,59 @@ class SimpleTable extends React.Component {
   render() {
     const { tickets } = this.props;
     var index = 0;
+    // console.log(this.userProfile.value);
     return (
-
-      <Paper className={'whatever'}>
-        <Table className={'Table'}>
-          {this.renderRedirect()}
-          <TableHead>
-            <TableRow>
-              <TableCell>Index</TableCell>
-              <TableCell align="left">Title</TableCell>
-              <TableCell align="left">Category</TableCell>
-              <TableCell align="left">Status</TableCell>
-              <TableCell align="left">Message</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {tickets.map(ticket => {
-              index += 1;
-              if (ticket.status !== "Archive") {
-                return (
-                  //<TableRow key={ticket.id} hover onClick={(e)=> {this.handleClick()}}>
-                  <TableRow key={ticket.objectId} hover onClick={this.handleClick.bind(this, ticket, index)}>
-                    <TableCell component="th" scope="row">
-                      {index}
-                    </TableCell>
-                    <TableCell align="left">{ticket.title}</TableCell>
-                    <TableCell align="left">{ticket.category}</TableCell>
-                    <TableCell align="left">{ticket.status}</TableCell>
-                    <TableCell align="left">{ticket.replies[ticket.replies.length - 1].message}</TableCell>
-                    <TableCell align="left"> <Tooltip title="Delete">
-                      <IconButton aria-label="Delete" onClick={this.handleDelete.bind(this, ticket)}>
-                        <DeleteIcon />
-                      </IconButton>
-                    </Tooltip></TableCell>
-                  </TableRow>
-                );
-              } else {
-                return (
-                  //<TableRow key={ticket.id} hover onClick={(e)=> {this.handleClick()}}>
-                  <TableRow key={ticket.objectId} hover onClick={this.handleClick.bind(this, ticket, index)}>
-                    <TableCell component="th" scope="row">
-                      {index}
-                    </TableCell>
-                    <TableCell align="left">{ticket.title}</TableCell>
-                    <TableCell align="left">{ticket.category}</TableCell>
-                    <TableCell align="left">{ticket.status}</TableCell>
-                    <TableCell align="left">{ticket.replies[ticket.replies.length - 1].message}</TableCell>
-                  </TableRow>
-                );
-              }
-            })}
-          </TableBody>
-        </Table>
-      </Paper>
+        <Paper className={'whatever'}>
+          <Table className={'Table'}>
+            {this.renderRedirect()}
+            <TableHead>
+              <TableRow>
+                <TableCell>Index</TableCell>
+                <TableCell align="left">Title</TableCell>
+                <TableCell align="left">Category</TableCell>
+                <TableCell align="left">Status</TableCell>
+                <TableCell align="left">Message</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {tickets.map(ticket => {
+                index += 1;
+                if (ticket.status !== "Archive") {
+                  return (
+                    //<TableRow key={ticket.id} hover onClick={(e)=> {this.handleClick()}}>
+                    <TableRow key={ticket.objectId} hover onClick={this.handleClick.bind(this, ticket, index)}>
+                      <TableCell component="th" scope="row">
+                        {index}
+                      </TableCell>
+                      <TableCell align="left">{ticket.title}</TableCell>
+                      <TableCell align="left">{ticket.category}</TableCell>
+                      <TableCell align="left">{ticket.status}</TableCell>
+                      <TableCell align="left">{ticket.replies[ticket.replies.length - 1].message}</TableCell>
+                      <TableCell align="left"> <Tooltip title="Delete">
+                        <IconButton aria-label="Delete" onClick={this.handleDelete.bind(this, ticket)}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </Tooltip></TableCell>
+                    </TableRow>
+                  );
+                } else {
+                  return (
+                    //<TableRow key={ticket.id} hover onClick={(e)=> {this.handleClick()}}>
+                    <TableRow key={ticket.objectId} hover onClick={this.handleClick.bind(this, ticket, index)}>
+                      <TableCell component="th" scope="row">
+                        {index}
+                      </TableCell>
+                      <TableCell align="left">{ticket.title}</TableCell>
+                      <TableCell align="left">{ticket.category}</TableCell>
+                      <TableCell align="left">{ticket.status}</TableCell>
+                      <TableCell align="left">{ticket.replies[ticket.replies.length - 1].message}</TableCell>
+                    </TableRow>
+                  );
+                }
+              })}
+            </TableBody>
+          </Table>
+        </Paper>
     );
   }
 }

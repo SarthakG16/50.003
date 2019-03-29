@@ -44,7 +44,7 @@ class TicketMessageRow extends React.Component {
     }
 
     render() {
-        console.log('displaying individual messages');
+        // console.log('displaying individual messages');
         return (
             <React.Fragment>
                 <div

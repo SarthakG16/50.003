@@ -45,7 +45,7 @@ class App extends Component {
         <MySnackbar myState={this.myState} />
         <MyWelcomeDialog open={myWelcomeDialog.open} myState={this.myState} />
         {/* <Header /> */}
-        <Routes />
+        <Routes myState={this.myState} />
       </div>
     );
   }

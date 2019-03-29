@@ -14,8 +14,10 @@ export default class Tickets extends React.Component {
             origin: this.props.origin,
             tickets: [],
             isLoaded: false,
-            // user: this.props.location.user
         };
+
+        this.userProfile = props.myState.userProfile.registerCallback(this);
+        console.log("I have constructed admin dashboard");
         // console.log(this.state.user);
     }
 
@@ -28,28 +30,28 @@ export default class Tickets extends React.Component {
                 "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets?where={%22status%22%20:%20%20{%22$in%22:%20[%22Open%22,%22Pending%22,%22Closed%22]%20}%20}",
                 "method": "GET",
                 "headers": {
-                  "Content-Type": "application/json",
-                  "Server-Token": constants.serverToken,
-                  "cache-control": "no-cache",
-                  "X-Parse-Session-Token": sessionToken,
+                    "Content-Type": "application/json",
+                    "Server-Token": constants.serverToken,
+                    "cache-control": "no-cache",
+                    "X-Parse-Session-Token": sessionToken,
                 },
                 "processData": false,
                 "data": ""
-              }
-              
-              $.ajax(settings).done((response) => {
+            }
+
+            $.ajax(settings).done((response) => {
                 this.setState({
-                    isLoaded:true,
-                    tickets:response.results
+                    isLoaded: true,
+                    tickets: response.results
                 })
-              });
+            });
 
         }
         else {
             settings = {
                 "async": true,
                 "crossDomain": true,
-                "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets?where={%22status%22%20:%20%20{%22$in%22:%20[%22" + this.state.origin+ "%22]%20}%20}",
+                "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets?where={%22status%22%20:%20%20{%22$in%22:%20[%22" + this.state.origin + "%22]%20}%20}",
                 "method": "GET",
                 "headers": {
                     "Content-Type": "application/json",
@@ -59,25 +61,27 @@ export default class Tickets extends React.Component {
                 },
                 "processData": false,
                 "data": ""
-              }
-              
-              $.ajax(settings).done((response) => {
+            }
+
+            $.ajax(settings).done((response) => {
                 this.setState({
-                    isLoaded:true,
-                    tickets:response.results
+                    isLoaded: true,
+                    tickets: response.results
                 })
-              });
-        } 
+            });
+        }
     }
 
-    
+
     render() {
-        if(!this.state.isLoaded) {
+        console.log("I am inside tickets render");
+        // console.log(this.userProfile.value);
+        if (!this.state.isLoaded) {
             return <div>Loading...</div>
         }
         else {
-            if (this.state.tickets.length ===0) {
-                return(
+            if (this.state.tickets.length === 0) {
+                return (
                     <div>
                         <p>
                             No Tickets Found
@@ -85,12 +89,12 @@ export default class Tickets extends React.Component {
                     </div>
                 )
             }
-        return (
-            <div>
-                <SimpleTable tickets={this.state.tickets}></SimpleTable>
-            </div>
-        );
-    }
+            return (
+                <div>
+                    <SimpleTable myState={this.props.myState} tickets={this.state.tickets}></SimpleTable>
+                </div>
+            );
+        }
     }
 }
 

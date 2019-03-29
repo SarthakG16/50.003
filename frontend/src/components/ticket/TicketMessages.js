@@ -23,7 +23,7 @@ class TicketMessages extends React.Component {
     }
 
     render() {
-        console.log('Trying to display messages');
+        // console.log('Trying to display messages');
         const { messages } = this.props;
         return (
             <React.Fragment>

@@ -9,6 +9,21 @@ import AdminDashboard from './AdminDashboard';
 
 export default class Home extends React.Component {
 
+	constructor(props) {
+		super(props);
+		this.state = {
+			redirect: false,
+			status: null,
+
+		}
+		this.userProfile = props.myState.userProfile.registerCallback(this);
+		console.log("I have constructed user dashboard");
+		// console.log(this.userProfile.value);
+
+		//this.handleClick = this.handleClick.bind(this);
+	}
+
+
 	render() {
 		return (
 			<div className="App">
@@ -16,36 +31,32 @@ export default class Home extends React.Component {
 					<Route exact path="/" render={props => (
 						<React.Fragment>
 							<p>Tickets</p>
-							<Tickets origin="Home"></Tickets>
+							<Tickets
+								myState={this.props.myState}
+								origin="Home">
+							</Tickets>
 						</React.Fragment>
 					)} />
 					<Route
 						path="/Archive"
-						render={(origin) => (
-							<Tickets origin="Archive"></Tickets>
+						render={() => (
+							<Tickets
+								myState={this.props.myState}
+								origin="Archive">
+							</Tickets>
 						)}
 					/>
 					<Route path="/NewTicket" component={NewTicket} />
 					<Route path="/login" component={Login} />
 					<Route path="/Ticket" component={TicketThread} />
-					<Route path="/AdminHome" component={AdminDashboard} />
-
-					<Route
-						path="/Pending"
-						render={(origin) => (
-							<Tickets origin="Pending"></Tickets>
+					<Route path='/AdminHome' // to be removed, just to test the see admin dashboard
+						render={() => (
+							<AdminDashboard myState={this.props.myState}></AdminDashboard>
 						)}
 					/>
-
-					<Route
-						path="/Open"
-						render={(origin) => (
-							<Tickets origin="Open"></Tickets>
-						)}
-					/>
-
 				</div>
 			</div>
 		);
 	}
 }
+

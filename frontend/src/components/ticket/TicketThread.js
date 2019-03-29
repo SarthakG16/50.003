@@ -8,6 +8,8 @@ import { Button, Grid, MenuItem, TextField } from '@material-ui/core';
 import $ from 'jquery';
 import constants from "../../resources/strings.js";
 
+const sessionToken = localStorage.getItem("sessionToken");
+
 // const styles = theme => ({
 //     root: {
 //         width: '100%',
@@ -65,8 +67,11 @@ export default class TicketThread extends React.Component {
         this.state = {
             reply: Object.assign({}, RESET_VALUES),
             status: this.props.location.state.ticket.status,
-            disable: ((this.props.location.state.ticket.status === "Archive") ? true : false)
+            disable: ((this.props.location.state.ticket.status === "Archive") ? true : false),
+            // userProfile: this.props.location.state.myState.userProfile.registerCallback(this)
         };
+        this.userProfile = props.location.state.myState;
+        console.log("I have constructed ticketthread");
     }
 
     // returns the date and time the reply was posted in UTC
@@ -104,6 +109,7 @@ export default class TicketThread extends React.Component {
                 "Server-Token": constants.serverToken,
                 "Content-Type": "application/json",
                 "cache-control": "no-cache",
+                "X-Parse-Session-Token": sessionToken,
             },
             "processData": false,
             "data": JSON.stringify(data)
@@ -149,7 +155,8 @@ export default class TicketThread extends React.Component {
     // reflect changes in the text box when the user is typing
     handleChange(e) {
         const value = e.target.value;
-        const name = 'User1';
+        const name = this.userProfile.username;
+        // console.log(name + " is typing ");
 
         this.setState((prevState) => {
             prevState.reply.message = value;
@@ -175,6 +182,7 @@ export default class TicketThread extends React.Component {
                 "Server-Token": constants.serverToken,
                 "Content-Type": "application/json",
                 "cache-control": "no-cache",
+                "X-Parse-Session-Token": sessionToken,
             },
             "processData": false,
             "data": JSON.stringify(data)
@@ -192,8 +200,9 @@ export default class TicketThread extends React.Component {
     }
 
     render() {
-        //console.log('inside a thread');
-        console.log(this.state.disable);
+        // console.log('inside a thread');
+        // console.log(this.userProfile);
+        // console.log(this.state.disable);
         return (
             <React.Fragment>
                 <div>
