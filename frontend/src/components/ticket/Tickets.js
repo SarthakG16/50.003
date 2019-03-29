@@ -75,6 +75,15 @@ export default class Tickets extends React.Component {
             return <div>Loading...</div>
         }
         else {
+            if (this.state.tickets.length ===0) {
+                return(
+                    <div>
+                        <p>
+                            No Tickets Found
+                        </p>
+                    </div>
+                )
+            }
         return (
             <div>
                 <SimpleTable tickets={this.state.tickets}></SimpleTable>
