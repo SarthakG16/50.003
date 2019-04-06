@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import { withRouter } from "react-router-dom";
-import Routes from "./Routes"
-import Header from './components/layout/Header';
 
 import MyState from "./components/MyState";
 import { withStyles } from "@material-ui/core/styles";
@@ -10,7 +8,6 @@ import MyAppbar from "./components/MyAppbar"
 import MySnackbar from "./components/MySnackbar"
 
 import MyWelcomeDialog from "./components/MyWelcomeDialog"
-
 
 const styles = (theme) => ({
   root: {
@@ -32,6 +29,8 @@ class App extends Component {
       myWelcomeDialog: new MyState({ open: false }),
       mySnackbar: new MyState({ open: false, variant: "info", message: "" }),
     };
+
+    this.myState.userProfile.registerCallback(this);
   }
 
   render() {
@@ -41,11 +40,8 @@ class App extends Component {
     return (
       <div className={classes.root}>
         <MyAppbar myState={this.myState} />
-        <div className={classes.toolbar} />
         <MySnackbar myState={this.myState} />
         <MyWelcomeDialog open={myWelcomeDialog.open} myState={this.myState} />
-        {/* <Header /> */}
-        <Routes myState={this.myState} />
       </div>
     );
   }

@@ -4,9 +4,6 @@ import SimpleTable from './Table';
 import $ from 'jquery';
 import constants from "../../resources/strings.js";
 
-const sessionToken = localStorage.getItem("sessionToken");
-
-
 export default class Tickets extends React.Component {
     constructor(props) {
         super(props);
@@ -22,6 +19,8 @@ export default class Tickets extends React.Component {
     }
 
     componentDidMount() {
+        const sessionToken = localStorage.getItem("sessionToken");
+        
         var settings;
         if (this.state.origin === "Home") {
             settings = {
