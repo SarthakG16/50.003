@@ -23,7 +23,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import ArchiveIcon from '@material-ui/icons/Archive';
 import AllInboxIcon from '@material-ui/icons/AllInbox';
 import CreateIcon from '@material-ui/icons/Create';
-
+import { Redirect } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
 import Routes from "../Routes"
@@ -152,6 +152,12 @@ class MyAppbar extends React.Component {
     xhr.setRequestHeader("cache-control", "no-cache");
 
     xhr.send(data);
+
+    // this.props.history.push('/');
+    alert("You have logged out succesfully.")
+    return <Redirect to='/' push={true}></Redirect>
+    // return;
+    
   }
 
   render() {
