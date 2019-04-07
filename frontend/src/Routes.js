@@ -46,7 +46,7 @@ export default class Routes extends React.Component {
             path="/Pending"
             render={() => (
               <Tickets
-                // myState={this.props.myState}
+                myState={this.props.myState}
                 origin="Pending"></Tickets>
             )}
           />
@@ -55,10 +55,10 @@ export default class Routes extends React.Component {
             path="/Open"
             render={() => (
               <Tickets
-                // myState={this.props.myState}
+                myState={this.props.myState}
                 user={this.userProfile} origin="Open"></Tickets>
-            )} */}
-          />
+            )}
+          /> */}
         </Switch>
       </main>
     )

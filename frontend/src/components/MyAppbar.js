@@ -36,7 +36,9 @@ const styles = {
 class MyAppbar extends React.Component {
   constructor(props) {
     super(props);
-    this.userProfile = props.myState.userProfile.registerCallback(this);
+    this.userProfile = props.myState.userProfile;
+    this.userProfile.registerCallback(this);
+    
   }
 
   handleClick = (event) => {

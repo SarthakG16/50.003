@@ -54,6 +54,23 @@ export default class Home extends React.Component {
 							<AdminDashboard myState={this.props.myState}></AdminDashboard>
 						)}
 					/>
+					<Route
+						path="/Pending"
+						render={() => (
+							<Tickets
+								myState={this.props.myState}
+								origin="Pending"></Tickets>
+						)}
+					/>
+
+					<Route
+						path="/Open"
+						render={() => (
+							<Tickets
+								myState={this.props.myState}
+								user={this.userProfile} origin="Open"></Tickets>
+						)}
+					/>
 				</div>
 			</div>
 		);

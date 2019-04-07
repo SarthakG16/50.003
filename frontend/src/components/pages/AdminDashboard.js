@@ -62,7 +62,7 @@ export default class AdminDashboard extends React.Component {
             <div className="App">
                 <div className="container">
                     {this.renderRedirect()}
-                    <Route exact path="/" render={props => (
+                    <Route exact path="/AdminHome" render={props => (
                         <React.Fragment>
                             <p>Tickets</p>
                             <Grid
@@ -117,33 +117,33 @@ export default class AdminDashboard extends React.Component {
                     )} />
 
                     {/* <Switch> */}
-                        <Route
-                            path="/Pending"
-                            render={() => (
-                                <Tickets
-                                    myState={this.props.myState}
-                                    origin="Pending"></Tickets>
-                            )}
-                        />
+                    <Route
+                        path="/Pending"
+                        render={() => (
+                            <Tickets
+                                myState={this.props.myState}
+                                origin="Pending"></Tickets>
+                        )}
+                    />
 
-                        <Route
-                            path="/Open"
-                            render={() => (
-                                <Tickets
-                                    myState={this.props.myState}
-                                    origin="Open"></Tickets>
-                            )}
-                        />
-                        <Route
-                            path="/Archive"
-                            render={() => (
-                                <Tickets
-                                    myState={this.props.myState}
-                                    origin="Archive"></Tickets>
-                            )}
-                        />
-                        <Route path="/NewTicket" component={NewTicket} />
-                        <Route path="/Ticket" component={TicketThread} />
+                    <Route
+                        path="/Open"
+                        render={() => (
+                            <Tickets
+                                myState={this.props.myState}
+                                origin="Open"></Tickets>
+                        )}
+                    />
+                    <Route
+                        path="/Archive"
+                        render={() => (
+                            <Tickets
+                                myState={this.props.myState}
+                                origin="Archive"></Tickets>
+                        )}
+                    />
+                    <Route path="/NewTicket" component={NewTicket} />
+                    <Route path="/Ticket" component={TicketThread} />
                     {/* </Switch> */}
 
                 </div>
