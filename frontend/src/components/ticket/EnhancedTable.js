@@ -171,7 +171,6 @@ class EnhancedTable extends React.Component {
   
     renderRedirect() {
       if (this.state.redirect && !this.state.delete) {
-        console.log("REaced");
         return <Redirect to={{
           pathname: `/Ticket/` + this.state.ticketIndex,
           state: { id: this.state.ticketID, ticket: this.state.ticketState, myState: this.userProfile.value }
