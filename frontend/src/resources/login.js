@@ -8,17 +8,18 @@ const handleLogin = (username, password, myState) => {
 
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === 4) {
-        const responseJSON = JSON.parse(this.responseText);
-
+        const responseJSON = JSON.parse(this.responseText); 
         if (responseJSON.error != null) {
           mySnackbar.value = Object.assign(mySnackbar.value, { open: true, variant: "error", message: responseJSON.error });
         }
         else {
+          window.location.href =  "/";
           localStorage.setItem("objectId", responseJSON.objectId);
-          localStorage.setItem("sessionToken", responseJSON.sessionToken);
-          
+          localStorage.setItem("sessionToken", responseJSON.sessionToken);    
           userProfile.value = responseJSON;
-          myWelcomeDialog.value = Object.assign(myWelcomeDialog.value, { open: false });
+          //myWelcomeDialog.value = Object.assign(myWelcomeDialog.value, { open: false });
+          
+          
         }
       }
     });
