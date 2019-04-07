@@ -3,6 +3,7 @@ import React from 'react';
 import SimpleTable from './Table';
 import $ from 'jquery';
 import constants from "../../resources/strings.js";
+import EnhancedTable from './EnhancedTable';
 
 export default class Tickets extends React.Component {
     constructor(props) {
@@ -90,7 +91,8 @@ export default class Tickets extends React.Component {
             }
             return (
                 <div>
-                    <SimpleTable myState={this.props.myState} tickets={this.state.tickets}></SimpleTable>
+                    {/* <SimpleTable myState={this.props.myState} tickets={this.state.tickets}></SimpleTable> */}
+                    <EnhancedTable tickets = {this.state.tickets}></EnhancedTable>
                 </div>
             );
         }
