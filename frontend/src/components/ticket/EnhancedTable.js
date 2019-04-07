@@ -114,7 +114,7 @@ class EnhancedTable extends React.Component {
       page: 0,
       rowsPerPage: 5,
     };
-    //this.userProfile = props.myState.userProfile.registerCallback(this);
+    this.userProfile = props.myState.userProfile.registerCallback(this);
     //console.log("I have constructed the table");
 
     //this.handleClick = this.handleClick.bind(this);
@@ -174,8 +174,7 @@ class EnhancedTable extends React.Component {
         console.log("REaced");
         return <Redirect to={{
           pathname: `/Ticket/` + this.state.ticketIndex,
-          // state: { id: this.state.ticketID, ticket: this.state.ticketState, myState: this.userProfile.value }
-          state: { id: this.state.ticketID, ticket: this.state.ticketState}
+          state: { id: this.state.ticketID, ticket: this.state.ticketState, myState: this.userProfile.value }
         }} push={true}></Redirect>;
       }
     }
@@ -192,10 +191,11 @@ class EnhancedTable extends React.Component {
     //isSelected = id => this.state.selected.indexOf(id) !== -1;
   
     render() {
+      console.log(this.userProfile.value);
       const { classes } = this.props;
       const { tickets,rowsPerPage, page } = this.state;
       const emptyRows = rowsPerPage - Math.min(rowsPerPage, tickets.length - page * rowsPerPage);
-        
+
       return (
         <Paper className={classes.root}>
           <div className={classes.tableWrapper}>
