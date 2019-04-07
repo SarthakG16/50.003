@@ -105,7 +105,11 @@ class MyWelcomeDialog extends React.Component {
         <DialogTitle id="form-dialog-title">{constants.title}</DialogTitle>
         <DialogContent>
           <DialogContentText />
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} onKeyPress={event => {
+                if (event.key === 'Enter') {
+                  this.handleSubmit(event);
+                }
+              }}>
             <TextField
               autoFocus
               margin="dense"

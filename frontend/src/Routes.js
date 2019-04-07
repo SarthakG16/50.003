@@ -5,7 +5,7 @@ import NewTicket from "./components/ticket/NewTicket"
 import Home from './components/pages/Home';
 import AdminDashboard from './components/pages/AdminDashboard';
 import Tickets from './components/ticket/Tickets';
-import TicketThread from './components/ticket/TicketThread';
+//import TicketThread from './components/ticket/TicketThread';
 
 export default class Routes extends React.Component {
   constructor(props) {

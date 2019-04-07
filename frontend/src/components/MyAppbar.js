@@ -14,12 +14,12 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+//import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+//import InboxIcon from '@material-ui/icons/MoveToInbox';
+//import MailIcon from '@material-ui/icons/Mail';
 import ArchiveIcon from '@material-ui/icons/Archive';
 import AllInboxIcon from '@material-ui/icons/AllInbox';
 import CreateIcon from '@material-ui/icons/Create';
@@ -31,13 +31,13 @@ import Routes from "../Routes"
 // TODO
 import { Link } from 'react-router-dom';
 
-const linkStyle = {
-  color: '#fff',
-  textDecoration: 'none',
-  marginLeft: -12,
-  marginRight: 20,
-}
-//
+// const linkStyle = {
+//   color: '#fff',
+//   textDecoration: 'none',
+//   marginLeft: -12,
+//   marginRight: 20,
+// }
+// //
 
 const drawerWidth = 240;
 
@@ -196,7 +196,7 @@ class MyAppbar extends React.Component {
             </div>
             <Typography variant="h6" color="inherit" className={classes.grow}></Typography>
             <Typography variant="subtitle2" color="inherit">{username}</Typography>
-            <Button onClick={this.handleClick} variant="caption" color="inherit">[LOGOUT]</Button>
+            <Button onClick={this.handleClick} variant="text" color="inherit">[LOGOUT]</Button>
           </Toolbar>
         </AppBar>
         {/* <AppBar
@@ -245,7 +245,7 @@ class MyAppbar extends React.Component {
           <Divider />
           <List>
             {['All', 'Archive'].map((text, index) => (
-              <div>
+              <div key = {index}>
                 {index % 2 === 0 ?
                   <Link to={{ pathname: "/", user: this.userProfile.value }}>
                     <ListItem button key={text}>

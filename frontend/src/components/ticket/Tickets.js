@@ -1,6 +1,4 @@
 import React from 'react';
-//import TicketTable from './TicketTable';
-import SimpleTable from './Table';
 import $ from 'jquery';
 import constants from "../../resources/strings.js";
 import EnhancedTable from './EnhancedTable';
