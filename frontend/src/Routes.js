@@ -14,13 +14,19 @@ export default class Routes extends React.Component {
     //this.handleClick = this.handleClick.bind(this);
   }
   render() {
-    console.log("Im going through routes");
-    // console.log(this.userProfile.value);
+    if (Object.entries(this.userProfile.value).length === 0 && this.userProfile.value.constructor === Object) {
+      return null
+    }
+
+    const {username} = this.userProfile.value;
+    const isAdmin = username.startsWith("admin");
+
     return (
       <main>
         <Switch>
           <Route path='/' // change to userHome after login page is done
             render={() => (
+              isAdmin ? <AdminDashboard myState={this.props.myState}></AdminDashboard> :
               <Home myState={this.props.myState}></Home>
             )}
           />
@@ -37,11 +43,11 @@ export default class Routes extends React.Component {
               <TicketThread myState={this.props.myState}></TicketThread>
             )}
           /> */}
-          <Route path='/AdminHome'
+          {/* <Route path='/AdminHome'
             render={() => (
               <AdminDashboard myState={this.props.myState}></AdminDashboard>
             )}
-          />
+          /> */}
           {/* <Route
             path="/Pending"
             render={() => (
