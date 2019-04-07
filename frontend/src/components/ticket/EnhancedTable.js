@@ -99,6 +99,8 @@ const TablePaginationActionsWrapped = withStyles(actionsStyles, { withTheme: tru
   TablePaginationActions,
 );
 
+var index = 0;
+
 
 class EnhancedTable extends React.Component {
   constructor(props) {
@@ -183,8 +185,13 @@ class EnhancedTable extends React.Component {
     };
   
     handleChangeRowsPerPage = event => {
-      this.state.ticketIndex = 0;
-      this.setState({ rowsPerPage: event.target.value });
+      // this.setState({
+      //   ticketIndex: 0
+      // });
+      index = 0; //added to reset index to 0
+      var number = 0;
+      number = event.target.value;
+      this.setState({ rowsPerPage: number });
     };
   
     //isSelected = id => this.state.selected.indexOf(id) !== -1;
@@ -215,17 +222,25 @@ class EnhancedTable extends React.Component {
                 {this.state.tickets
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(ticket => {
-                    this.state.ticketIndex = (this.state.ticketIndex + 1 ) % tickets.length;
-                    if (this.state.ticketIndex === 0) {
-                      this.state.ticketIndex = tickets.length;
+                    // this.setState({
+                    //   ticketIndex: (this.state.ticketIndex + 1 ) % tickets.length
+                    // })
+                    //this.state.ticketIndex = (this.state.ticketIndex + 1 ) % tickets.length;
+                    index =  (index + 1) % tickets.length;
+                    if (index === 0) {
+                      // this.setState({
+                      //   ticketIndex: ticket.length
+                      // })
+                      //this.state.ticketIndex = tickets.length;
+                      index = tickets.length;
                     }
                     return (
                       <TableRow
                         key={ticket.objectId}
-                        hover onClick={this.handleClick.bind(this, ticket, this.state.ticketIndex )}
+                        hover onClick={this.handleClick.bind(this, ticket, index )}
                       >
                         <TableCell >
-                          {this.state.ticketIndex}
+                          {index}
                         </TableCell>
                         <TableCell align="left">{ticket.title}</TableCell>
                         <TableCell align="left">{ticket.category}</TableCell>
