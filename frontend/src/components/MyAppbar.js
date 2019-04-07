@@ -241,7 +241,7 @@ class MyAppbar extends React.Component {
             {['All', 'Archive'].map((text, index) => (
               <div>
                 {index % 2 === 0 ?
-                  <Link to="/">
+                  <Link to={{ pathname: "/", user: this.userProfile.value }}>
                     <ListItem button key={text}>
                       <ListItemIcon><AllInboxIcon /></ListItemIcon>
                       <ListItemText primary={text} />
