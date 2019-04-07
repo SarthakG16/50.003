@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import Checkbox from '@material-ui/core/Checkbox';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
@@ -196,8 +195,7 @@ class EnhancedTable extends React.Component {
       const { classes } = this.props;
       const { tickets,rowsPerPage, page } = this.state;
       const emptyRows = rowsPerPage - Math.min(rowsPerPage, tickets.length - page * rowsPerPage);
-      var index = 0;
-  
+        
       return (
         <Paper className={classes.root}>
           <div className={classes.tableWrapper}>
@@ -225,7 +223,6 @@ class EnhancedTable extends React.Component {
                     return (
                       <TableRow
                         key={ticket.objectId}
-                        hover
                         hover onClick={this.handleClick.bind(this, ticket, this.state.ticketIndex )}
                       >
                         <TableCell >

@@ -259,7 +259,7 @@ class MyAppbar extends React.Component {
           </List>
           <Divider />
           <List>
-            <Link to="/NewTicket">
+            <Link to={{ pathname: "/NewTicket", user: this.userProfile.value }}>
               <ListItem button key="New Ticket">
                 <ListItemIcon><CreateIcon /></ListItemIcon>
                 <ListItemText primary="New Ticket" />
