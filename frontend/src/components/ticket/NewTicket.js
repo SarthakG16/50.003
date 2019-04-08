@@ -45,8 +45,8 @@ export default class NewTicket extends React.Component {
             category: e.category,
             replies: [
                 {
-                    // name: this.state.user.username,
-                    name: "User1",
+                    name: this.state.user.username,
+                    // name: "User1",
                     message: e.message,
                     date: this.getDateCreated()
                 }
@@ -193,7 +193,9 @@ export default class NewTicket extends React.Component {
             return false;
         }
 
-        const customURL = "https://ug-api.acnapiv3.io/swivel/text-classification/class-1.1?of=json&txt=" + e + "&model=IAB_en";
+        // const customURL = "https://ug-api.acnapiv3.io/swivel/text-classification/class-1.1?of=json&txt=" + e + "&model=IPTC_en";
+        
+        const customURL = "https://ug-api.acnapiv3.io/swivel/text-classification/class-1.1?of=json&txt=" + e + "&model=SocialMedia_en";
         // console.log(customURL);
 
         var catList;
@@ -227,11 +229,31 @@ export default class NewTicket extends React.Component {
 
         // checking if content is relevant
         var relevance = false;
+        var confidence = 0.0;
         catList.map(cat => {
-            if (cat.code === "Technology&Computing") {
-                relevance = true;
+            /*
+            if (cat.code.startsWith("010") || cat.code.startsWith("040") || cat.code.startsWith("130")  )  {
+                confidence += Number(cat.abs_relevance);
+                console.log(cat.abs_relevance);
+                // if(parseInt(cat.abs_relevance) > 0.4){
+                //     relevance = true;
+                // }
             }
+            */
+
+           if (cat.code.startsWith("01") || cat.code.startsWith("04") || cat.code.startsWith("14")  )  {
+            confidence += Number(cat.abs_relevance);
+            console.log(cat.abs_relevance);
+            // if(parseInt(cat.abs_relevance) > 0.4){
+            //     relevance = true;
+            // }
+        }
         });
+        console.log(confidence);
+        if(confidence > 1.0){
+            relevance = true;
+        }
+
         return relevance;
     }
 
