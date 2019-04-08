@@ -26,6 +26,7 @@ export default class NewTicket extends React.Component {
             ticket: Object.assign({}, RESET_VALUES),
             errorText: (Object.assign({}, RESET_VALUES_ERROR)),
             user: this.props.location.user,
+            wordCount: 0,
             // catList: [],
         };
         console.log(this.state.user);
@@ -148,14 +149,15 @@ export default class NewTicket extends React.Component {
         else {
             var relevant = this.checkMessageRevelance(ticket.message);
             console.log("what is the relevance value" + relevant);
-            if (relevant){
+            if (relevant) {
                 errorTextCopy.message = '';
             }
-            else{
+            else {
                 errorTextCopy.message = 'Please add more relevant details of your problem.';
                 count += 1;
+                // alert("Please add more relevant details of your problem.");
             }
-            
+
         }
 
         if (ticket.email === '') {
@@ -182,11 +184,15 @@ export default class NewTicket extends React.Component {
     checkMessageRevelance(e) {
         // console.log("I am in checking messages and this is my message" + e);
         var numWords = e.split(' ').length
+        this.setState({
+            wordCount: numWords
+        });
         // console.log(e.split(' ').length);
-        if(numWords < 5){
+        // console.log(this.state.wordCount);
+        if (numWords < 5) {
             return false;
         }
-        
+
         const customURL = "https://ug-api.acnapiv3.io/swivel/text-classification/class-1.1?of=json&txt=" + e + "&model=IAB_en";
         // console.log(customURL);
 
@@ -200,7 +206,7 @@ export default class NewTicket extends React.Component {
             "url": proxyurl + customURL,
             "method": "POST",
             "headers": {
-                "Server-Token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlF6Y3hRVEl5UkRVeU1qYzNSakEzTnpKQ01qVTROVVJFUlVZelF6VTRPRUV6T0RreE1UVTVPQSJ9.eyJpc3MiOiJodHRwczovL2FjbmFwaS1wcm9kLmF1dGgwLmNvbS8iLCJzdWIiOiJWVkpYS1lmZkdNdFZBRUwwYjFuVmNVcUFYY2IwZzhrM0BjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9wbGFjZWhvbGRlci5jb20vcGxhY2UiLCJpYXQiOjE1NDk5NTI5MzgsImV4cCI6MTU1MjU0NDkzOCwiYXpwIjoiVlZKWEtZZmZHTXRWQUVMMGIxblZjVXFBWGNiMGc4azMiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.XYoNbl50Gyuk7xNPK64GZLEdNMs18uAf4sFMiQn6lOUv3tw0espP5avymr-GsFXgnl2kugClsb_ybBkuSvchqp8dvvL1dyejiumyZCTw0FluNWqGqiNJb4mGTEeNRUCxexgrTm5yV2ZxPNFpfumD44GLYBaW_EVJden3hi9XJ8UpD1MrXuZD8YUEtZ_sHKS9bcZxSJoyqbu3n7l0p0K_q74FSY34xwey2SpbX3Zipng5Mk2KYlw0L6kMiJSsmChgerG_gWkSGjhM8mcuURGtCYTxucEyuaxmBI8kNP7VuvGXYBwiAcL2dH7FSES09XKZS7z0ie5ax_vvO4JoLxztgw",
+                "Server-Token": constants.serverToken,
                 "Content-Type": "application/json",
                 "cache-control": "no-cache",
             },
@@ -223,9 +229,7 @@ export default class NewTicket extends React.Component {
         var relevance = false;
         catList.map(cat => {
             if (cat.code === "Technology&Computing") {
-                if(e.length > 5){
-                    relevance = true;
-                }
+                relevance = true;
             }
         });
         return relevance;
@@ -366,7 +370,8 @@ export default class NewTicket extends React.Component {
                                         placeholder="Message"
                                         InputLabelProps={{ shrink: true, }}
                                         required={true}
-                                        error={((this.state.errorText.message !== '' && this.state.ticket.message === '') ? true : false)}
+                                        error={(((this.state.errorText.message !== '' && (this.state.ticket.message === "")) || (this.state.errorText.message === "Please add more relevant details of your problem." && this.state.ticket.message.split(" ").length <= this.state.wordCount )) ? true : false)}
+                                        //|| this.state.errorText.message === "Please add more relevant details of your problem."
                                         helperText={this.state.errorText.message}
                                     />
                                     <Typography
