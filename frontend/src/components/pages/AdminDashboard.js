@@ -7,12 +7,6 @@ import Tickets from '../ticket/Tickets';
 import TicketThread from '../ticket/TicketThread'
 
 
-// values of status
-const STATUS_VALUES = {
-    PENDING: 'Pending',
-    OPEN: 'Open',
-}
-
 export default class AdminDashboard extends React.Component {
 
     constructor(props) {
@@ -30,40 +24,12 @@ export default class AdminDashboard extends React.Component {
         //this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick(status) {
-        console.log("Clicked " + status);
-        if (status === "Pending") {
-            console.log("Pending");
-            this.setState({
-                redirect: true,
-                status: "Pending"
-            });
-
-        }
-        if (status === 'Open') {
-            console.log("Open");
-            this.setState({
-                redirect: true,
-                status: "Open"
-            });
-        }
-    }
-
-    renderRedirect() {
-        console.log('before redirecting');
-        console.log(this.userProfile.value);
-        if (this.state.redirect) {
-            return <Redirect to={{ pathname: "/" + this.state.status }} push={true}></Redirect>;
-        }
-    }
-
     render() {
         console.log("I am inside admin dashboard render");
         // console.log(this.userProfile.value);
         return (
             <div className="App">
                 <div className="container">
-                    {/* {this.renderRedirect()} */}
                     <Route exact path="/" render={props => (
                         <React.Fragment>
                             <p>Tickets</p>
@@ -78,7 +44,6 @@ export default class AdminDashboard extends React.Component {
                                     <Card>
                                         <CardActionArea
                                             component={Link} to="/Open"
-                                            //onClick={this.handleClick.bind(this, STATUS_VALUES.OPEN)}
                                         >
                                             <Typography
                                                 style={{ paddingTop: 50, paddingBottom: 50 }}
@@ -93,7 +58,6 @@ export default class AdminDashboard extends React.Component {
                                     <Card>
                                         <CardActionArea
                                             component={Link} to="/Pending"
-                                            //onClick={this.handleClick.bind(this, STATUS_VALUES.PENDING)}
                                         >
                                             <Typography
                                                 style={{ paddingTop: 50, paddingBottom: 50 }}
