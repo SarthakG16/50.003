@@ -16,11 +16,11 @@ export default class Routes extends React.Component {
     this.state = {
       isLoaded: false,
       admins: [],
-  };
+    };
     //this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     var settings = {
       "async": true,
       "crossDomain": true,
@@ -34,13 +34,13 @@ export default class Routes extends React.Component {
       "processData": false,
       "data": ""
     }
-    
+
     $.ajax(settings).done((response) => {
       this.setState({
-          isLoaded:true,
-          admins: response.results
+        isLoaded: true,
+        admins: response.results
       })
-  });
+    });
   }
 
   render() {
@@ -48,10 +48,10 @@ export default class Routes extends React.Component {
       return null
     }
     //while (this.state.isLoaded != true) {console.log("Why")};
-    const {objectId} = this.userProfile.value;
+    const { objectId } = this.userProfile.value;
     // console.log(this.state.admins);
     // console.log(objectId);
-    var isAdmin = false; 
+    var isAdmin = false;
     this.state.admins.map(admin => {
       if (admin.objectId === objectId) {
         isAdmin = true;
@@ -67,16 +67,26 @@ export default class Routes extends React.Component {
           <Route path='/' // change to userHome after login page is done
             render={() => (
               isAdmin ? <AdminDashboard myState={this.props.myState} isAdmin={isAdmin}></AdminDashboard> :
-              <Home myState={this.props.myState} isAdmin={isAdmin}></Home>
+                <Home myState={this.props.myState} isAdmin={isAdmin}></Home>
             )}
           />
-          <Route path="/login" component={Login} />
-          <Route path="/NewTicket" component={NewTicket} />
+          {/* <Route path="/login" component={Login} /> */}
+          {/* <Route
+            path="/NewTicket"
+            render={() => (
+              <NewTicket
+                myState={this.userProfile}>
+              </NewTicket>
+            )}
+          />
           <Route
             path="/Archive"
             render={() => (
-              <Tickets user={this.userProfile} origin="Archive"></Tickets>
-            )}
+              <Tickets
+                myState={this.userProfile}
+                origin="Archive">
+              </Tickets>
+            )} */}
           />
           {/* <Route path="/Ticket"
             render={() => (

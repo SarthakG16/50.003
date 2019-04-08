@@ -46,7 +46,15 @@ export default class Home extends React.Component {
 							</Tickets>
 						)}
 					/>
-					<Route path="/NewTicket" component={NewTicket} />
+					<Route
+						path="/NewTicket"
+						render={() => (
+							<NewTicket
+								myState={this.props.myState}>
+							</NewTicket>
+						)}
+					/>
+					{/* <Route path="/NewTicket" component={NewTicket} /> */}
 					<Route path="/login" component={Login} />
 					<Route path="/Ticket" component={TicketThread} />
 					{/* <Route path='/AdminHome' // to be removed, just to test the see admin dashboard

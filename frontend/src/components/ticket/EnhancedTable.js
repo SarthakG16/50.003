@@ -121,6 +121,7 @@ class EnhancedTable extends React.Component {
       rowsPerPage: 5,
     };
     this.userProfile = props.myState.userProfile.registerCallback(this);
+    // this.userProfile = props.myState;
     this.isAdmin = props.isAdmin;
     this.origin = props.origin;
 

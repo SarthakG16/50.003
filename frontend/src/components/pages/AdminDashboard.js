@@ -1,6 +1,6 @@
 import React from 'react';
 //import { Route, Redirect, Switch } from 'react-router-dom';
-import { Route, Link} from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import { Grid, Card, Typography, CardActionArea } from '@material-ui/core';
 import NewTicket from "../ticket/NewTicket"
 import Tickets from '../ticket/Tickets';
@@ -37,7 +37,7 @@ export default class AdminDashboard extends React.Component {
                                 container
                                 direction="row"
                                 justify="center"
-                                spacing={16}
+                                spacing={32}
                                 alignItems="center"
                             >
                                 <Grid item xs>
@@ -68,7 +68,7 @@ export default class AdminDashboard extends React.Component {
                                     </Card>
                                 </Grid>
 
-                                <Grid item xs>
+                                {/* <Grid item xs>
                                     <Card>
                                         <CardActionArea>
                                             <Typography
@@ -78,7 +78,7 @@ export default class AdminDashboard extends React.Component {
                                             </Typography>
                                         </CardActionArea>
                                     </Card>
-                                </Grid>
+                                </Grid> */}
                             </Grid>
                             {/* <Tickets origin = "Home"></Tickets> */}
                         </React.Fragment>
@@ -113,10 +113,17 @@ export default class AdminDashboard extends React.Component {
                                 origin="Archive"></Tickets>
                         )}
                     />
-                    <Route path="/NewTicket" component={NewTicket} />
+                    <Route
+                        path="/NewTicket"
+                        render={() => (
+                            <NewTicket
+                                myState={this.props.myState}>
+                            </NewTicket>
+                        )}
+                    />
+                    {/* <Route path="/NewTicket" component={NewTicket} /> */}
                     <Route path="/Ticket" component={TicketThread} />
                     {/* </Switch> */}
-
                 </div>
             </div>
         );

@@ -25,7 +25,8 @@ export default class NewTicket extends React.Component {
         this.state = {
             ticket: Object.assign({}, RESET_VALUES),
             errorText: (Object.assign({}, RESET_VALUES_ERROR)),
-            user: this.props.location.user,
+            user: props.myState.userProfile.registerCallback(this).value,
+            // this.userProfile = props.myState.userProfile.registerCallback(this);
             wordCount: 0,
             // catList: [],
         };
@@ -101,8 +102,9 @@ export default class NewTicket extends React.Component {
             //send notification
             this.sendNotif(e);
 
+            window.location.replace("/");
             // window.location.herf = '/';
-            this.props.history.push('/');
+            // this.props.history.push('/');
             // reset the form values to blank after submitting:
             this.setState({
                 ticket: Object.assign({}, RESET_VALUES),
