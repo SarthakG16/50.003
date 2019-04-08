@@ -29,8 +29,12 @@ export default class NewTicket extends React.Component {
             // this.userProfile = props.myState.userProfile.registerCallback(this);
             wordCount: 0,
             // catList: [],
+            waiting: false,
         };
         console.log(this.state.user);
+        // $(window).on('load', function () {
+        //     $("#loadingscreen").hide();
+        // });
     }
 
     // returns the date and time the reply was posted in UTC
@@ -88,11 +92,23 @@ export default class NewTicket extends React.Component {
 
     }
 
+    displayLoadingScreen(e) {
+        this.setState((prevState) => ({ waiting: e }));
+        console.log(this.state.waiting);
+        $("#summit_button").click(function () {
+            // Animate loader on screen
+            // $("#loadingscreen").show();
+        });
+        return;
+    }
+
     handleSubmit(e) {
         console.log('clicked submit');
+        this.displayLoadingScreen(true);
+        console.log(this.state.waiting);
         let ticketVaild = this.handleValidation(e);
         console.log('finish checking');
-
+        this.displayLoadingScreen(false);
         if (ticketVaild) {
             //this.addTicket(e);
             console.log(JSON.stringify(e));
@@ -122,6 +138,7 @@ export default class NewTicket extends React.Component {
     }
 
     handleValidation(e) {
+
         let ticket = e;
         var errorTextCopy = Object.assign({}, this.state.errorText);
         var count = 0;
@@ -169,6 +186,17 @@ export default class NewTicket extends React.Component {
         }
         else {
             errorTextCopy.email = '';
+            /*
+            var vaildEmail = this.checkEmail(ticket.email);
+            if(vaildEmail){
+                errorTextCopy.email = '';
+            }
+            else{
+                errorTextCopy.email = 'Please fill in a valid email.';
+                count += 1;
+            }
+            */
+            
         }
 
         this.setState({ errorText: errorTextCopy });
@@ -181,6 +209,11 @@ export default class NewTicket extends React.Component {
         else {
             return false;
         }
+    }
+
+    checkEmail(e) {
+        var re = /\S+@\S+\.\S+/;
+        return re.test(e);
     }
 
     checkMessageRevelance(e) {
@@ -196,7 +229,7 @@ export default class NewTicket extends React.Component {
         }
 
         // const customURL = "https://ug-api.acnapiv3.io/swivel/text-classification/class-1.1?of=json&txt=" + e + "&model=IPTC_en";
-        
+
         const customURL = "https://ug-api.acnapiv3.io/swivel/text-classification/class-1.1?of=json&txt=" + e + "&model=SocialMedia_en";
         // console.log(customURL);
 
@@ -218,13 +251,18 @@ export default class NewTicket extends React.Component {
             "data": ""
         }
 
-        $.ajax(settings).done(function (response) {
-            console.log(response);
-            // console.log(response.category_list);
-            // console.log(response.category_list.type);
-            // this.setState({ catList: response.category_list });
-            catList = response.category_list;
-        });
+        $.ajax(settings)
+            .done(function (response) {
+                console.log(response);
+                // console.log(response.category_list);
+                // console.log(response.category_list.type);
+                // this.setState({ catList: response.category_list });
+                catList = response.category_list;
+            })
+            .always(function () {
+                // alert("complete");
+                // $(".loader").fadeOut("slow");
+            });
 
         // console.log("this is this response: " + catList);
         console.log(catList);
@@ -243,16 +281,16 @@ export default class NewTicket extends React.Component {
             }
             */
 
-           if (cat.code.startsWith("01") || cat.code.startsWith("04") || cat.code.startsWith("09") || cat.code.startsWith("14")  )  {
-            confidence += Number(cat.abs_relevance);
-            console.log(cat.abs_relevance);
-            // if(parseInt(cat.abs_relevance) > 0.4){
-            //     relevance = true;
-            // }
-        }
+            if (cat.code.startsWith("01") || cat.code.startsWith("04") || cat.code.startsWith("09") || cat.code.startsWith("14")) {
+                confidence += Number(cat.abs_relevance);
+                console.log(cat.abs_relevance);
+                // if(parseInt(cat.abs_relevance) > 0.4){
+                //     relevance = true;
+                // }
+            }
         });
         console.log(confidence);
-        if(confidence > 0.3){
+        if (confidence > 0.3) {
             relevance = true;
         }
 
@@ -260,13 +298,25 @@ export default class NewTicket extends React.Component {
     }
 
     handleChange(e) {
+        var errorTextCopy = Object.assign({}, this.state.errorText);
+
         const target = e.target;
         const value = target.value;
         const name = target.name;
 
+        if(name === 'email'){
+            var validEmail = this.checkEmail(value);
+            if (validEmail){
+                errorTextCopy.email = '';
+            }
+            else{
+                errorTextCopy.email = 'Please enter valid email';
+            }
+        }
+
         this.setState((prevState) => {
             prevState.ticket[name] = value;
-            return { ticket: prevState.ticket };
+            return { ticket: prevState.ticket, errorText:errorTextCopy };
         });
     }
 
@@ -317,8 +367,16 @@ export default class NewTicket extends React.Component {
 
 
     render() {
+        // $(window).on('load', function () {
+        //     $("#loadingscreen").hide();
+        // });
         return (
             <div className="App">
+                {/* <div
+                    className="loader"
+                    id="loadingscreen"
+                    hidden={!this.state.waiting}
+                ></div> */}
                 <div className="container">
                     <Route exact path="/NewTicket" render={props => (
                         <React.Fragment>
@@ -394,7 +452,7 @@ export default class NewTicket extends React.Component {
                                         placeholder="Message"
                                         InputLabelProps={{ shrink: true, }}
                                         required={true}
-                                        error={(((this.state.errorText.message !== '' && (this.state.ticket.message === "")) || (this.state.errorText.message === "Please add more relevant details of your problem." && this.state.ticket.message.split(" ").length <= this.state.wordCount )) ? true : false)}
+                                        error={(((this.state.errorText.message !== '' && (this.state.ticket.message === "")) || (this.state.errorText.message === "Please add more relevant details of your problem." && this.state.ticket.message.split(" ").length <= this.state.wordCount)) ? true : false)}
                                         //|| this.state.errorText.message === "Please add more relevant details of your problem."
                                         helperText={this.state.errorText.message}
                                     />
@@ -414,12 +472,14 @@ export default class NewTicket extends React.Component {
                                         placeholder="eg abc@vaild.com"
                                         InputLabelProps={{ shrink: true, }}
                                         required={true}
-                                        error={((this.state.errorText.email !== '' && this.state.ticket.email === '') ? true : false)}
+                                        // error={((this.state.errorText.email !== '' && this.state.ticket.email === '') ? true : false)}
+                                        error={((this.state.errorText.email !== '' && this.state.ticket.email != '' ) ? true : false)}
                                         helperText={this.state.errorText.email}
                                     />
 
                                     <Grid item xs>
                                         <Button
+                                            id="summit_button"
                                             variant="contained"
                                             onClick={this.handleSubmit.bind(this, this.state.ticket)}
                                         >
