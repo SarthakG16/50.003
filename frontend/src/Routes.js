@@ -55,7 +55,9 @@ export default class Routes extends React.Component {
     this.state.admins.map(admin => {
       if (admin.objectId === objectId) {
         isAdmin = true;
+        return true;
       }
+      return true;
     });
     // console.log("admin?" + isAdmin)
     console.log("I am in routes")

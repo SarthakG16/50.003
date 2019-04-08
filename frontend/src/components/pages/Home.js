@@ -5,7 +5,7 @@ import Login from './Login'
 import NewTicket from "../ticket/NewTicket"
 import Tickets from '../ticket/Tickets';
 import TicketThread from '../ticket/TicketThread'
-import AdminDashboard from './AdminDashboard';
+//import AdminDashboard from './AdminDashboard';
 
 export default class Home extends React.Component {
 

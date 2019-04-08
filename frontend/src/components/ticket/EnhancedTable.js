@@ -117,7 +117,7 @@ class EnhancedTable extends React.Component {
       rowsPerPage: 5,
     };
     this.userProfile = props.myState.userProfile.registerCallback(this);
-    index = 0;
+    //index = 0;
     this.isAdmin = props.isAdmin;
     //console.log("I have constructed the table");
 
@@ -204,7 +204,7 @@ class EnhancedTable extends React.Component {
       const { classes } = this.props;
       const { tickets,rowsPerPage, page } = this.state;
       const emptyRows = rowsPerPage - Math.min(rowsPerPage, tickets.length - page * rowsPerPage);
-      index = 0;
+      index = page* rowsPerPage;
       return (
         <Paper className={classes.root}>
           <div className={classes.tableWrapper}>

@@ -23,7 +23,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ArchiveIcon from '@material-ui/icons/Archive';
 import AllInboxIcon from '@material-ui/icons/AllInbox';
 import CreateIcon from '@material-ui/icons/Create';
-import { Redirect } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
 import Routes from "../Routes"
