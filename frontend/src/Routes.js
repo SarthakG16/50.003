@@ -14,6 +14,7 @@ export default class Routes extends React.Component {
     super(props);
     this.userProfile = props.myState.userProfile.registerCallback(this);
     this.state = {
+      isLoaded: false,
       admins: [],
   };
     //this.handleClick = this.handleClick.bind(this);
@@ -36,6 +37,7 @@ export default class Routes extends React.Component {
     
     $.ajax(settings).done((response) => {
       this.setState({
+          isLoaded:true,
           admins: response.results
       })
   });
@@ -45,10 +47,18 @@ export default class Routes extends React.Component {
     if (Object.entries(this.userProfile.value).length === 0 && this.userProfile.value.constructor === Object) {
       return null
     }
-
+    //while (this.state.isLoaded != true) {console.log("Why")};
     const {objectId} = this.userProfile.value;
-    const isAdmin = this.state.admins.includes(objectId);
-
+    // console.log(this.state.admins);
+    // console.log(objectId);
+    var isAdmin = false; 
+    this.state.admins.map(admin => {
+      if (admin.objectId === objectId) {
+        isAdmin = true;
+      }
+    });
+    // console.log("admin?" + isAdmin)
+    console.log("I am in routes")
     return (
       <main>
         <Switch>

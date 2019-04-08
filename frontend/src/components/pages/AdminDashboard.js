@@ -1,6 +1,6 @@
 import React from 'react';
 //import { Route, Redirect, Switch } from 'react-router-dom';
-import { Route, Redirect} from 'react-router-dom';
+import { Route, Redirect, Link} from 'react-router-dom';
 import { Grid, Card, Typography, CardActionArea } from '@material-ui/core';
 import NewTicket from "../ticket/NewTicket"
 import Tickets from '../ticket/Tickets';
@@ -62,7 +62,7 @@ export default class AdminDashboard extends React.Component {
         return (
             <div className="App">
                 <div className="container">
-                    {this.renderRedirect()}
+                    {/* {this.renderRedirect()} */}
                     <Route exact path="/" render={props => (
                         <React.Fragment>
                             <p>Tickets</p>
@@ -76,7 +76,8 @@ export default class AdminDashboard extends React.Component {
                                 <Grid item xs>
                                     <Card>
                                         <CardActionArea
-                                            onClick={this.handleClick.bind(this, STATUS_VALUES.OPEN)}
+                                            component={Link} to="/Open"
+                                            //onClick={this.handleClick.bind(this, STATUS_VALUES.OPEN)}
                                         >
                                             <Typography
                                                 style={{ paddingTop: 50, paddingBottom: 50 }}
@@ -90,7 +91,8 @@ export default class AdminDashboard extends React.Component {
                                 <Grid item xs>
                                     <Card>
                                         <CardActionArea
-                                            onClick={this.handleClick.bind(this, STATUS_VALUES.PENDING)}
+                                            component={Link} to="/Pending"
+                                            //onClick={this.handleClick.bind(this, STATUS_VALUES.PENDING)}
                                         >
                                             <Typography
                                                 style={{ paddingTop: 50, paddingBottom: 50 }}
