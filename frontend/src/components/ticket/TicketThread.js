@@ -69,7 +69,7 @@ export default class TicketThread extends React.Component {
             reply: Object.assign({}, RESET_VALUES),
             status: this.props.location.state.ticket.status,
             disable: ((this.props.location.state.ticket.status === "Archive") ? true : false),
-            isUser: ((this.userProfile.className === "_User") ? true : false),
+            isUser: !this.props.location.state.isAdmin,
             // userProfile: this.props.location.state.myState.userProfile.registerCallback(this)
         };
         console.log(this.userProfile.className);

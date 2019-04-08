@@ -64,8 +64,8 @@ export default class Routes extends React.Component {
         <Switch>
           <Route path='/' // change to userHome after login page is done
             render={() => (
-              isAdmin ? <AdminDashboard myState={this.props.myState}></AdminDashboard> :
-              <Home myState={this.props.myState}></Home>
+              isAdmin ? <AdminDashboard myState={this.props.myState} isAdmin={isAdmin}></AdminDashboard> :
+              <Home myState={this.props.myState} isAdmin={isAdmin}></Home>
             )}
           />
           <Route path="/login" component={Login} />

@@ -118,6 +118,7 @@ class EnhancedTable extends React.Component {
     };
     this.userProfile = props.myState.userProfile.registerCallback(this);
     index = 0;
+    this.isAdmin = props.isAdmin;
     //console.log("I have constructed the table");
 
     //this.handleClick = this.handleClick.bind(this);
@@ -176,7 +177,7 @@ class EnhancedTable extends React.Component {
       if (this.state.redirect && !this.state.delete) {
         return <Redirect to={{
           pathname: `/Ticket/` + this.state.ticketIndex,
-          state: { id: this.state.ticketID, ticket: this.state.ticketState, myState: this.userProfile.value }
+          state: { id: this.state.ticketID, ticket: this.state.ticketState, myState: this.userProfile.value, isAdmin: this.isAdmin }
         }} push={true}></Redirect>;
       }
     }

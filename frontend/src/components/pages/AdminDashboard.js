@@ -22,6 +22,7 @@ export default class AdminDashboard extends React.Component {
             status: null,
 
         }
+        this.isAdmin = props.isAdmin;
         this.userProfile = props.myState.userProfile.registerCallback(this);
         console.log("I have constructed admin dashboard");
         // console.log(this.userProfile.value);
@@ -125,6 +126,7 @@ export default class AdminDashboard extends React.Component {
                         render={() => (
                             <Tickets
                                 myState={this.props.myState}
+                                isAdmin={this.isAdmin}
                                 origin="Pending"></Tickets>
                         )}
                     />
@@ -134,6 +136,7 @@ export default class AdminDashboard extends React.Component {
                         render={() => (
                             <Tickets
                                 myState={this.props.myState}
+                                isAdmin={this.isAdmin}
                                 origin="Open"></Tickets>
                         )}
                     />
@@ -142,6 +145,7 @@ export default class AdminDashboard extends React.Component {
                         render={() => (
                             <Tickets
                                 myState={this.props.myState}
+                                isAdmin={this.isAdmin}
                                 origin="Archive"></Tickets>
                         )}
                     />

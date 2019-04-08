@@ -11,9 +11,9 @@ export default class Tickets extends React.Component {
             tickets: [],
             isLoaded: false,
         };
-
+        this.isAdmin = props.isAdmin;
         this.userProfile = props.myState.userProfile.registerCallback(this);
-        console.log("I have constructed admin dashboard");
+        console.log("I have constructed tickets list");
     }
 
     componentDidMount() {
@@ -89,7 +89,7 @@ export default class Tickets extends React.Component {
             return (
                 <div>
                     {/* <SimpleTable myState={this.props.myState} tickets={this.state.tickets}></SimpleTable> */}
-                    <EnhancedTable myState = {this.props.myState} tickets = {this.state.tickets}></EnhancedTable>
+                    <EnhancedTable myState = {this.props.myState} tickets = {this.state.tickets} isAdmin={this.isAdmin}></EnhancedTable>
                 </div>
             );
         }
