@@ -124,7 +124,7 @@ class EnhancedTable extends React.Component {
     this.isAdmin = props.isAdmin;
     this.origin = props.origin;
 
-    var flag = false;
+    this.flag = false;
     //console.log("I have constructed the table");
 
     //this.handleClick = this.handleClick.bind(this);
@@ -225,7 +225,7 @@ class EnhancedTable extends React.Component {
           delete : false,
           redirect:false,          
         });
-        
+
         this.flag = true;
     }
   
