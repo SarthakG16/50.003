@@ -20,6 +20,8 @@ import { Redirect } from 'react-router-dom';
 import $ from 'jquery';
 import constants from "../../resources/strings.js";
 
+const sessionToken = localStorage.getItem("sessionToken");
+
 const actionsStyles = theme => ({
   root: {
     flexShrink: 0,
@@ -108,6 +110,8 @@ class EnhancedTable extends React.Component {
     this.state = {
       redirect: false,
       delete: false,
+      idk: false,
+
       ticketID: -1, //I think this is redundant/
       ticketState: null,
       ticketIndex: 0,
@@ -117,8 +121,10 @@ class EnhancedTable extends React.Component {
       rowsPerPage: 5,
     };
     this.userProfile = props.myState.userProfile.registerCallback(this);
-    //index = 0;
     this.isAdmin = props.isAdmin;
+    this.origin = props.origin;
+
+    this.flag = false;
     //console.log("I have constructed the table");
 
     //this.handleClick = this.handleClick.bind(this);
@@ -126,13 +132,13 @@ class EnhancedTable extends React.Component {
     
 
     handleClick(ticket, index) {
-      //console.log("Clicked " + ticket.objectId);
-
-      if (this.state.delete) {
-        this.setState({
-          delete: false
-        })
+      if (this.flag) {
+        console.log("UHM");
+        this.flag = false;
+        return;
       }
+      console.log("Clicked " + ticket.objectId);
+
       this.setState({
         redirect: true,
         ticketID: ticket.objectId,
@@ -146,31 +152,81 @@ class EnhancedTable extends React.Component {
       this.setState({
         delete: true
       })
+
+      var settings;
   
       if (window.confirm('Are you sure you want to delete the ticket: ' + ticket.title)) {
-        
-        var settings = {
-          "async": true,
-          "crossDomain": true,
-          "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets/" + ticket.objectId,
-          "method": "PUT",
-          "headers": {
-            "Content-Type": "application/json",
-            "Server-Token": constants.serverToken,
-            "cache-control": "no-cache",
-            //"X-Parse-Session-Token": sessionToken,
-          },
-          "processData": false,
-          "data": "{\n\t\n\t\"status\": \"Archive\"\n}"
+        if (this.origin === "Archive" && this.isAdmin)  {
+          settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets/" + ticket.objectId,
+            "method": "DELETE",
+            "headers": {
+              "Content-Type": "application/json",
+              "Server-Token": constants.serverToken,
+              "X-Parse-Session-Token": sessionToken,
+              "cache-control": "no-cache",
+            },
+            "processData": false,
+            "data": ""
+          }
+          
+          $.ajax(settings).done(function (response) {
+            console.log("ticket deleted succesfully");
+            window.location.reload();
+          });
         }
-  
-        $.ajax(settings).done(function (response) {
-          console.log("ticket deleted succesfully");
-          window.location.reload();
-        });
-  
+        else if (this.origin === "Archive" && !this.isAdmin) {
+          settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets/" + ticket.objectId,
+            "method": "PUT",
+            "headers": {
+              "Content-Type": "application/json",
+              "Server-Token": constants.serverToken,
+              "cache-control": "no-cache",
+              "X-Parse-Session-Token": sessionToken,
+            },
+            "processData": false,
+            "data": "{\n\t\n\t\"status\": \"Deleted\"\n}"
+          }
+    
+          $.ajax(settings).done(function (response) {
+            console.log("ticket deleted succesfully");
+            window.location.reload();
+          });
+
+        }
+        else {
+          settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets/" + ticket.objectId,
+            "method": "PUT",
+            "headers": {
+              "Content-Type": "application/json",
+              "Server-Token": constants.serverToken,
+              "cache-control": "no-cache",
+              "X-Parse-Session-Token": sessionToken,
+            },
+            "processData": false,
+            "data": "{\n\t\n\t\"status\": \"Archive\"\n}"
+          }
+    
+          $.ajax(settings).done(function (response) {
+            console.log("ticket deleted succesfully");
+            window.location.reload();
+          });
+        }
       }
-  
+       this.setState({
+          delete : false,
+          redirect:false,          
+        });
+
+        this.flag = true;
     }
   
     renderRedirect() {
@@ -225,20 +281,12 @@ class EnhancedTable extends React.Component {
                 {this.state.tickets
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(ticket => {
-                    // this.setState({
-                    //   ticketIndex: (this.state.ticketIndex + 1 ) % tickets.length
-                    // })
-                    //this.state.ticketIndex = (this.state.ticketIndex + 1 ) % tickets.length;
                     index =  (index + 1) % tickets.length;
                     if (index === 0) {
-                      // this.setState({
-                      //   ticketIndex: ticket.length
-                      // })
-                      //this.state.ticketIndex = tickets.length;
                       index = tickets.length;
                     }
                     return (
-                      <TableRow
+                      <TableRow              
                         key={ticket.objectId}
                         hover onClick={this.handleClick.bind(this, ticket, index )}
                       >
@@ -282,21 +330,6 @@ class EnhancedTable extends React.Component {
             </TableFooter>
             </Table>
           </div>
-          {/* <TablePagination
-            rowsPerPageOptions={[tickets.length,5, 10]}
-            component="div"
-            count={tickets.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            backIconButtonProps={{
-              'aria-label': 'Previous Page',
-            }}
-            nextIconButtonProps={{
-              'aria-label': 'Next Page',
-            }}
-            onChangePage={this.handleChangePage}
-            onChangeRowsPerPage={this.handleChangeRowsPerPage}
-          /> */}
         </Paper>
       );
     }
