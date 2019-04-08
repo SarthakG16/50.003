@@ -64,13 +64,15 @@ export default class TicketThread extends React.Component {
         this.handleStatusChange = this.handleStatusChange.bind(this);
         this.addReply = this.addReply.bind(this);
         this.getDateCreated = this.getDateCreated.bind(this);
+        this.userProfile = props.location.state.myState;
         this.state = {
             reply: Object.assign({}, RESET_VALUES),
             status: this.props.location.state.ticket.status,
             disable: ((this.props.location.state.ticket.status === "Archive") ? true : false),
+            isUser: ((this.userProfile.className === "_User") ? true : false),
             // userProfile: this.props.location.state.myState.userProfile.registerCallback(this)
         };
-        this.userProfile = props.location.state.myState;
+        console.log(this.userProfile.className);
         console.log("I have constructed ticketthread");
     }
 
@@ -236,7 +238,7 @@ export default class TicketThread extends React.Component {
                                     fullWidth
                                     height='60px'
                                     InputLabelProps={{ shrink: true, }}
-                                    disabled={this.state.disable}
+                                    disabled={this.state.disable || this.state.isUser}
                                 >
                                     {STATUS_VALUES.map(option => (
                                         <MenuItem key={option.value} value={option.value} disabled={this.state.disable}>
