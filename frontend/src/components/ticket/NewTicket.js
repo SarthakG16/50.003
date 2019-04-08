@@ -241,7 +241,7 @@ export default class NewTicket extends React.Component {
             }
             */
 
-           if (cat.code.startsWith("01") || cat.code.startsWith("04") || cat.code.startsWith("14")  )  {
+           if (cat.code.startsWith("01") || cat.code.startsWith("04") || cat.code.startsWith("09") || cat.code.startsWith("14")  )  {
             confidence += Number(cat.abs_relevance);
             console.log(cat.abs_relevance);
             // if(parseInt(cat.abs_relevance) > 0.4){
@@ -250,7 +250,7 @@ export default class NewTicket extends React.Component {
         }
         });
         console.log(confidence);
-        if(confidence > 1.0){
+        if(confidence > 0.3){
             relevance = true;
         }
 
