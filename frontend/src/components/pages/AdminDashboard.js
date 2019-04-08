@@ -52,7 +52,7 @@ export default class AdminDashboard extends React.Component {
         console.log('before redirecting');
         console.log(this.userProfile.value);
         if (this.state.redirect) {
-            return <Redirect to={{ pathname: `/` + this.state.status }} push={true}></Redirect>;
+            return <Redirect to={{ pathname: "/" + this.state.status }} push={true}></Redirect>;
         }
     }
 
@@ -63,7 +63,7 @@ export default class AdminDashboard extends React.Component {
             <div className="App">
                 <div className="container">
                     {this.renderRedirect()}
-                    <Route exact path="/AdminHome" render={props => (
+                    <Route exact path="/" render={props => (
                         <React.Fragment>
                             <p>Tickets</p>
                             <Grid

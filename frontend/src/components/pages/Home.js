@@ -49,12 +49,12 @@ export default class Home extends React.Component {
 					<Route path="/NewTicket" component={NewTicket} />
 					<Route path="/login" component={Login} />
 					<Route path="/Ticket" component={TicketThread} />
-					<Route path='/AdminHome' // to be removed, just to test the see admin dashboard
+					{/* <Route path='/AdminHome' // to be removed, just to test the see admin dashboard
 						render={() => (
 							<AdminDashboard myState={this.props.myState}></AdminDashboard>
 						)}
-					/>
-					<Route
+					/> */}
+					{/* <Route
 						path="/Pending"
 						render={() => (
 							<Tickets
@@ -70,7 +70,7 @@ export default class Home extends React.Component {
 								myState={this.props.myState}
 								user={this.userProfile} origin="Open"></Tickets>
 						)}
-					/>
+					/> */}
 				</div>
 			</div>
 		);

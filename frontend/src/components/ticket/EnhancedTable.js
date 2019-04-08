@@ -245,7 +245,7 @@ class EnhancedTable extends React.Component {
                         <TableCell align="left">{ticket.title}</TableCell>
                         <TableCell align="left">{ticket.category}</TableCell>
                         <TableCell align="left">{ticket.status}</TableCell>
-                        <TableCell align="left">{ticket.objectId}</TableCell>
+                        <TableCell align="left">{ticket.replies[ticket.replies.length - 1].message}</TableCell>
                         <TableCell padding = "none"> <Tooltip title="Delete" padding = "none">
                         <IconButton padding = "none" aria-label="Delete" onClick={this.handleDelete.bind(this, ticket)}>
                           <DeleteIcon size = "20"/>
