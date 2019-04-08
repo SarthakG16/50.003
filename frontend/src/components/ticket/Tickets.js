@@ -44,6 +44,30 @@ export default class Tickets extends React.Component {
             });
 
         }
+        else if (this.state.origin === "Archive" && this.isAdmin) {
+            settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets?where={%22status%22%20:%20%20{%22$in%22:%20[%22Archive%22,%22Deleted%22]%20}%20}",
+                "method": "GET",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Server-Token": constants.serverToken,
+                    "cache-control": "no-cache",
+                    "X-Parse-Session-Token": sessionToken,
+                },
+                "processData": false,
+                "data": ""
+            }
+
+            $.ajax(settings).done((response) => {
+                this.setState({
+                    isLoaded: true,
+                    tickets: response.results
+                })
+            });
+
+        }
         else {
             settings = {
                 "async": true,
@@ -65,6 +89,7 @@ export default class Tickets extends React.Component {
                     isLoaded: true,
                     tickets: response.results
                 })
+                console.log("why ami here");
             });
         }
     }
@@ -89,7 +114,8 @@ export default class Tickets extends React.Component {
             return (
                 <div>
                     {/* <SimpleTable myState={this.props.myState} tickets={this.state.tickets}></SimpleTable> */}
-                    <EnhancedTable myState = {this.props.myState} tickets = {this.state.tickets} isAdmin={this.isAdmin}></EnhancedTable>
+                    <EnhancedTable myState = {this.props.myState} tickets = {this.state.tickets}
+                     isAdmin={this.isAdmin} origin = {this.props.origin}></EnhancedTable>
                 </div>
             );
         }
