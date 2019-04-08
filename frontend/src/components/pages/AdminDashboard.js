@@ -1,6 +1,6 @@
 import React from 'react';
 //import { Route, Redirect, Switch } from 'react-router-dom';
-import { Route, Redirect, Link} from 'react-router-dom';
+import { Route, Link} from 'react-router-dom';
 import { Grid, Card, Typography, CardActionArea } from '@material-ui/core';
 import NewTicket from "../ticket/NewTicket"
 import Tickets from '../ticket/Tickets';
