@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom';
 import constants from "../../resources/strings.js";
 import CATEGORY_VALUES from "../../resources/CategoryConst";
 import { Button, Grid, MenuItem, TextField, Typography } from '@material-ui/core';
+import $ from 'jquery';
 
 const RESET_VALUES = {
     category: '',
@@ -24,7 +25,8 @@ export default class NewTicket extends React.Component {
         this.state = {
             ticket: Object.assign({}, RESET_VALUES),
             errorText: (Object.assign({}, RESET_VALUES_ERROR)),
-            user: this.props.location.user
+            user: this.props.location.user,
+            // catList: [],
         };
         console.log(this.state.user);
     }
@@ -36,7 +38,7 @@ export default class NewTicket extends React.Component {
         return today.toUTCString();
     }
     addTicket(e) {
-    
+
         let data = {
             title: e.title,
             category: e.category,
@@ -56,9 +58,9 @@ export default class NewTicket extends React.Component {
                     "read": false
                 },
                 [this.state.user.objectId]: {
-                    "read":true,
-                    "write":true
-                    
+                    "read": true,
+                    "write": true
+
                 },
                 "role:admin": {
                     "read": true,
@@ -125,46 +127,108 @@ export default class NewTicket extends React.Component {
             errorTextCopy.title = 'Please fill in a title';
             count += 1;
         }
-        else{
+        else {
             errorTextCopy.title = '';
         }
-        
+
         if (ticket.category === '') {
             console.log('No category');
             errorTextCopy.category = 'Please fill in a category';
             count += 1;
         }
-        else{
+        else {
             errorTextCopy.category = '';
         }
-        
+
         if (ticket.message === '') {
             console.log('No message');
             errorTextCopy.message = 'Please fill in a message';
             count += 1;
         }
-        else{
-            errorTextCopy.message = '';
+        else {
+            var relevant = this.checkMessageRevelance(ticket.message);
+            console.log("what is the relevance value" + relevant);
+            if (relevant){
+                errorTextCopy.message = '';
+            }
+            else{
+                errorTextCopy.message = 'Please add more relevant details of your problem.';
+                count += 1;
+            }
+            
         }
-        
+
         if (ticket.email === '') {
             console.log('No email');
             errorTextCopy.email = 'Please fill in a email';
             count += 1;
         }
-        else{
+        else {
             errorTextCopy.email = '';
         }
 
-        this.setState({errorText: errorTextCopy});
+        this.setState({ errorText: errorTextCopy });
         // console.log("count is " + count);
-        if(count === 0){
-            this.setState({errorText: Object.assign({}, RESET_VALUES_ERROR)});
+
+        if (count === 0) {
+            this.setState({ errorText: Object.assign({}, RESET_VALUES_ERROR) });
             return true;
         }
-        else{
+        else {
             return false;
         }
+    }
+
+    checkMessageRevelance(e) {
+        // console.log("I am in checking messages and this is my message" + e);
+        var numWords = e.split(' ').length
+        // console.log(e.split(' ').length);
+        if(numWords < 5){
+            return false;
+        }
+        
+        const customURL = "https://ug-api.acnapiv3.io/swivel/text-classification/class-1.1?of=json&txt=" + e + "&model=IAB_en";
+        // console.log(customURL);
+
+        var catList;
+        const proxyurl = "https://cors-anywhere.herokuapp.com/";
+
+        var settings = {
+            "async": false,
+            "crossDomain": true,
+            // "url": "https://ug-api.acnapiv3.io/swivel/text-classification/class-1.1?of=json&txt=I need help withmy interet. so they keep saying I am not connected to the internet but i am. I only happens for internet explore not edge not crome or firefox. Why is that so? hahaahahaha you what the problem now. I have no problem. blah blah blah. ===&model=SocialMedia_en",
+            "url": proxyurl + customURL,
+            "method": "POST",
+            "headers": {
+                "Server-Token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlF6Y3hRVEl5UkRVeU1qYzNSakEzTnpKQ01qVTROVVJFUlVZelF6VTRPRUV6T0RreE1UVTVPQSJ9.eyJpc3MiOiJodHRwczovL2FjbmFwaS1wcm9kLmF1dGgwLmNvbS8iLCJzdWIiOiJWVkpYS1lmZkdNdFZBRUwwYjFuVmNVcUFYY2IwZzhrM0BjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9wbGFjZWhvbGRlci5jb20vcGxhY2UiLCJpYXQiOjE1NDk5NTI5MzgsImV4cCI6MTU1MjU0NDkzOCwiYXpwIjoiVlZKWEtZZmZHTXRWQUVMMGIxblZjVXFBWGNiMGc4azMiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.XYoNbl50Gyuk7xNPK64GZLEdNMs18uAf4sFMiQn6lOUv3tw0espP5avymr-GsFXgnl2kugClsb_ybBkuSvchqp8dvvL1dyejiumyZCTw0FluNWqGqiNJb4mGTEeNRUCxexgrTm5yV2ZxPNFpfumD44GLYBaW_EVJden3hi9XJ8UpD1MrXuZD8YUEtZ_sHKS9bcZxSJoyqbu3n7l0p0K_q74FSY34xwey2SpbX3Zipng5Mk2KYlw0L6kMiJSsmChgerG_gWkSGjhM8mcuURGtCYTxucEyuaxmBI8kNP7VuvGXYBwiAcL2dH7FSES09XKZS7z0ie5ax_vvO4JoLxztgw",
+                "Content-Type": "application/json",
+                "cache-control": "no-cache",
+            },
+            "processData": false,
+            "data": ""
+        }
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+            // console.log(response.category_list);
+            // console.log(response.category_list.type);
+            // this.setState({ catList: response.category_list });
+            catList = response.category_list;
+        });
+
+        // console.log("this is this response: " + catList);
+        console.log(catList);
+
+        // checking if content is relevant
+        var relevance = false;
+        catList.map(cat => {
+            if (cat.code === "Technology&Computing") {
+                if(e.length > 5){
+                    relevance = true;
+                }
+            }
+        });
+        return relevance;
     }
 
     handleChange(e) {
@@ -274,8 +338,8 @@ export default class NewTicket extends React.Component {
                                         fullWidth
                                         margin="normal"
                                         variant="outlined"
-                                        InputProps={{ style: { textAlign: "Left" }}}
-                                        InputLabelProps={{ shrink: true,}}
+                                        InputProps={{ style: { textAlign: "Left" } }}
+                                        InputLabelProps={{ shrink: true, }}
                                         required={true}
                                         error={((this.state.errorText.category !== '' && this.state.ticket.category === '') ? true : false)}
                                         helperText={this.state.errorText.category}
