@@ -261,7 +261,7 @@ export default class TicketThread extends React.Component {
                         <Grid container direction="row" justify="space-between" alignItems="flex-start" spacing={8}>
                             <Grid item xs={8}>
                                 <Typography align="left" variant="caption">
-                                    Timestamp: {this.props.location.state.ticket.createdAt} <br />
+                                    Timestamp: {this.props.location.state.ticket.replies[0].date} <br />
                                     Status: {this.state.status}
                                 </Typography>
                             </Grid>
