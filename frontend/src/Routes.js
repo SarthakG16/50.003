@@ -1,10 +1,10 @@
 import React from 'react';
 import { Switch, Route } from "react-router-dom";
-import Login from "./components/pages/Login";
-import NewTicket from "./components/ticket/NewTicket"
+// import Login from "./components/pages/Login";
+// import NewTicket from "./components/ticket/NewTicket"
 import Home from './components/pages/Home';
 import AdminDashboard from './components/pages/AdminDashboard';
-import Tickets from './components/ticket/Tickets';
+// import Tickets from './components/ticket/Tickets';
 import $ from 'jquery';
 import constants from "./resources/strings.js";
 //import TicketThread from './components/ticket/TicketThread';

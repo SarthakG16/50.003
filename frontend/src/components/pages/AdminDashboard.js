@@ -1,6 +1,6 @@
 import React from 'react';
 //import { Route, Redirect, Switch } from 'react-router-dom';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import { Grid, Card, Typography, CardActionArea } from '@material-ui/core';
 import NewTicket from "../ticket/NewTicket"
 import Tickets from '../ticket/Tickets';
@@ -83,8 +83,6 @@ export default class AdminDashboard extends React.Component {
                             {/* <Tickets origin = "Home"></Tickets> */}
                         </React.Fragment>
                     )} />
-
-                    {/* <Switch> */}
                     <Route
                         path="/Pending"
                         render={() => (
@@ -94,7 +92,6 @@ export default class AdminDashboard extends React.Component {
                                 origin="Pending"></Tickets>
                         )}
                     />
-
                     <Route
                         path="/Open"
                         render={() => (
@@ -123,7 +120,6 @@ export default class AdminDashboard extends React.Component {
                     />
                     {/* <Route path="/NewTicket" component={NewTicket} /> */}
                     <Route path="/Ticket" component={TicketThread} />
-                    {/* </Switch> */}
                 </div>
             </div>
         );

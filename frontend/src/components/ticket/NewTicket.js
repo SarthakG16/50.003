@@ -573,7 +573,6 @@ export default class NewTicket extends React.Component {
                                         error={((this.state.errorText.title !== '' && this.state.ticket.title === '') ? true : false)}
                                         helperText={this.state.errorText.title}
                                     >
-
                                     </TextField>
                                     <Typography
                                         align="left" variant="h6"

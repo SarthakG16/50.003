@@ -260,7 +260,7 @@ class EnhancedTable extends React.Component {
       console.log(this.userProfile.value);
       const { classes } = this.props;
       const { tickets,rowsPerPage, page } = this.state;
-      const emptyRows = rowsPerPage - Math.min(rowsPerPage, tickets.length - page * rowsPerPage);
+      // const emptyRows = rowsPerPage - Math.min(rowsPerPage, tickets.length - page * rowsPerPage);
       index = page* rowsPerPage;
       return (
         <Paper className={classes.root}>

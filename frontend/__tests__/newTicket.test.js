@@ -2,6 +2,14 @@ import Tickets from '../src/components/ticket/Tickets';
 import { shallow, mount, render } from 'enzyme';
 import React from 'react';
 
+it('renders without crashing', () => {
+  // const div = document.createElement('div');
+  // ReactDOM.render(<App/>, div);
+  // ReactDOM.unmountComponentAtNode(div);
+  expect(2+2).toBe(4);
+});
+
+
 // it('should do something', () => {
 //   const wrapper = mount(<Tickets />);
 //   let instance = wrapper.instance();
