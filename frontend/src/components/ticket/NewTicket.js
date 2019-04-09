@@ -1,7 +1,7 @@
 import React from "react";
 //import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
-//import $ from 'jquery';
+import $ from 'jquery';
 import constants from "../../resources/strings.js";
 import CATEGORY_VALUES from "../../resources/CategoryConst";
 import { Button, Grid, MenuItem, TextField, Typography } from '@material-ui/core';
@@ -32,7 +32,7 @@ export default class NewTicket extends React.Component {
     // returns the date and time the reply was posted in UTC
     getDateCreated() {
         var today = new Date();
-        console.log(today);
+        // console.log(today);
         return today.toUTCString();
     }
     addTicket(e) {
@@ -42,8 +42,8 @@ export default class NewTicket extends React.Component {
             category: e.category,
             replies: [
                 {
-                    // name: this.state.user.username,
-                    name: "User1",
+                    name: this.state.user.username,
+                    // name: "User1",
                     message: e.message,
                     date: this.getDateCreated()
                 }
@@ -51,6 +51,7 @@ export default class NewTicket extends React.Component {
             ],
             status: 'Open',
             email: e.email,
+            replyCount: 1,
             ACL: {
                 "*": {
                     "read": false
@@ -81,32 +82,84 @@ export default class NewTicket extends React.Component {
             .then(data => console.log(data))
             .catch(err => console.log(err));
 
+    }
 
+    changeField(field, param){
+        if (typeof param === 'string') { param = "\"" + param + "\""; }
+        var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/users/" + this.state.user.objectId,
+        "method": "PUT",
+        "headers": {
+            "Content-Type": "application/json",
+            "Server-Token": constants.serverToken,
+            "X-Parse-Session-Token": localStorage.getItem("sessionToken"),
+            "cache-control": "no-cache",
+        },
+        "processData": false,
+        "data": "{  \n\t\"" + field + "\":" + param + "\n}"
+        }
+        
+        $.ajax(settings).done(function (response) {
+        console.log(response);
+        });
     }
 
     handleSubmit(e) {
         console.log('clicked submit');
-        let ticketVaild = this.handleValidation(e);
+        let ticketValid = this.handleValidation(e);
         console.log('finish checking');
 
-        if (ticketVaild) {
-            //this.addTicket(e);
-            console.log(JSON.stringify(e));
-            this.addTicket(e);
-            alert("Ticket has been created.")
+        if (ticketValid) {
+            let ticketLimit = 3;
+            //check ticket limit
+            var now = new Date(new Date().toUTCString()); //current date/time 
+            var lastTicketDate = new Date(this.state.user.lastTicket); //date/time of last posted ticket
+            var nextDay = (now.getDay() !== lastTicketDate.getDay() && now.getTime() > lastTicketDate.getTime()); //check if current day > last posted day
+            if(this.state.user.numberOfTickets < ticketLimit || nextDay){
+                //reset numberOfTickets if nextDay, and increment by 1
+                if (nextDay) { 
+                    this.state.user.numberOfTickets = 1;
+                    this.changeField("numberOfTickets", this.state.user.numberOfTickets); 
+                } else { 
+                    this.changeField("numberOfTickets", this.state.user.numberOfTickets++); 
+                }
 
-            //send notification
-            this.sendNotif(e);
+                //this.addTicket(e);
+                console.log(JSON.stringify(e));
+                this.addTicket(e);
+                alert("Ticket has been created.")
+                this.state.user.lastTicket = this.getDateCreated();
+                this.changeField("lastTicket", this.state.user.lastTicket); //updating user lastTicket field
 
-            // window.location.herf = '/';
-            this.props.history.push('/');
-            // reset the form values to blank after submitting:
-            this.setState({
-                ticket: Object.assign({}, RESET_VALUES),
-            });
-            return;
-            // this.props.history.push('/');
-            //return <Redirect to='/' push={true}></Redirect>;
+                //send notification
+                this.sendNotif(e);
+
+                // window.location.herf = '/';
+                this.props.history.push('/');
+                // reset the form values to blank after submitting:
+                this.setState({
+                    ticket: Object.assign({}, RESET_VALUES),
+                });
+                return;
+                // this.props.history.push('/');
+                //return <Redirect to='/' push={true}></Redirect>;
+            } else {
+                // lastTicketDate.setHours(23);
+                // lastTicketDate.setMinutes(59);
+                // lastTicketDate.setSeconds(59);
+                // var hoursLeft = (lastTicketDate.getTime() - now.getTime())/3600000;
+                // if (hoursLeft < 1) {
+                //     var ans = Math.abs(Math.round(hoursLeft * 60));
+                //     alert("Exceeded daily ticket limit, please try again in " + ans + " minutes.");
+                // } else {
+                //     var ans = Math.abs(Math.round(hoursLeft));
+                //     alert("Exceeded daily ticket limit, please try again in " + ans + " hour(s).");
+                // }
+                alert("Exceeded daily ticket limit, please try again tomorrow.");
+            }
+            
         } else {
             alert("Please fill in all the required fills.");
             return;
@@ -178,13 +231,12 @@ export default class NewTicket extends React.Component {
         });
     }
 
-    //need help
     sendNotif(e) {
         let emailBody = {
-            "subject": "Test subject using ACNAPI",
-            "sender": "sarthakganoorkar@gmail.com",
+            "subject": "Ticket submission",
+            "sender": "Accenture@do-not-reply.com",
             "recipient": e.email,
-            "html": "<h1>HELLO!</h1>"
+            "html": "<p>Hello " + this.state.user.username + ",</p><p>Your submission has been received. Please be patient as an administrator will reply to your ticket shortly.</p><p>-Ticket details-<br />Title: " + e.title + "<br />Category: " + e.category + "<br />Date/time of submission: " + this.getDateCreated() + "<br />Message: " + e.message
         }
         console.log(emailBody);
         console.log(JSON.stringify(emailBody));
@@ -202,25 +254,6 @@ export default class NewTicket extends React.Component {
             }).then(res => res.json())
             .then(data => console.log(data))
             .catch(err => console.log(err));
-
-        /*
-        var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": "https://ug-api.acnapiv3.io/swivel/email-services/api/mailer",
-            "method": "POST",
-            "headers": {
-                "Server-Token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlF6Y3hRVEl5UkRVeU1qYzNSakEzTnpKQ01qVTROVVJFUlVZelF6VTRPRUV6T0RreE1UVTVPQSJ9.eyJpc3MiOiJodHRwczovL2FjbmFwaS1wcm9kLmF1dGgwLmNvbS8iLCJzdWIiOiJWVkpYS1lmZkdNdFZBRUwwYjFuVmNVcUFYY2IwZzhrM0BjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9wbGFjZWhvbGRlci5jb20vcGxhY2UiLCJpYXQiOjE1NDk5NTI5MzgsImV4cCI6MTU1MjU0NDkzOCwiYXpwIjoiVlZKWEtZZmZHTXRWQUVMMGIxblZjVXFBWGNiMGc4azMiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.XYoNbl50Gyuk7xNPK64GZLEdNMs18uAf4sFMiQn6lOUv3tw0espP5avymr-GsFXgnl2kugClsb_ybBkuSvchqp8dvvL1dyejiumyZCTw0FluNWqGqiNJb4mGTEeNRUCxexgrTm5yV2ZxPNFpfumD44GLYBaW_EVJden3hi9XJ8UpD1MrXuZD8YUEtZ_sHKS9bcZxSJoyqbu3n7l0p0K_q74FSY34xwey2SpbX3Zipng5Mk2KYlw0L6kMiJSsmChgerG_gWkSGjhM8mcuURGtCYTxucEyuaxmBI8kNP7VuvGXYBwiAcL2dH7FSES09XKZS7z0ie5ax_vvO4JoLxztgw",
-                "Content-Type": "application/json",
-                "cache-control": "no-cache",
-            },
-            "processData": false,
-            "data": JSON.stringify(emailBody)
-          }
-          
-          $.ajax(settings).done(function (response) {
-            console.log("Email sent");
-          });*/
     }
 
 
