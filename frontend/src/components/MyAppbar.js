@@ -23,6 +23,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ArchiveIcon from '@material-ui/icons/Archive';
 import AllInboxIcon from '@material-ui/icons/AllInbox';
 import CreateIcon from '@material-ui/icons/Create';
+import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
 
 import Button from '@material-ui/core/Button';
 import Routes from "../Routes"
@@ -87,9 +88,9 @@ const styles = theme => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: 'hidden',
-    width: theme.spacing.unit * 7 + 1,
+    width: theme.spacing.unit * 7,
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing.unit * 9 + 1,
+      width: theme.spacing.unit * 9,
     },
   },
   toolbar: {
@@ -156,7 +157,7 @@ class MyAppbar extends React.Component {
     alert("You have logged out succesfully.")
     // return <Redirect to='/' push={true}></Redirect>
     // return;
-    
+
   }
 
   render() {
@@ -194,8 +195,19 @@ class MyAppbar extends React.Component {
               </Typography>
             </div>
             <Typography variant="h6" color="inherit" className={classes.grow}></Typography>
-            <Typography variant="subtitle2" color="inherit">{username}</Typography>
-            <Button onClick={this.handleClick} variant="text" color="inherit">[LOGOUT]</Button>
+            <Typography style={{ marginRight: 12 }} variant="subtitle2" color="inherit">{"Welcome back " + username}</Typography>
+            <IconButton
+              style={{ marginRight: 12 }}
+              onClick={this.handleClick} variant="text" color="inherit"
+            >
+              <PowerSettingsNew/>
+            </IconButton>
+            {/* <PowerSettingsNew
+              style={{ marginRight: 25 }}
+              onClick={this.handleClick} variant="text" color="inherit"
+            >
+            </PowerSettingsNew> */}
+            {/* <Button onClick={this.handleClick} variant="text" color="inherit">[LOGOUT]</Button> */}
           </Toolbar>
         </AppBar>
         {/* <AppBar
@@ -244,7 +256,7 @@ class MyAppbar extends React.Component {
           <Divider />
           <List>
             {['All', 'Archive'].map((text, index) => (
-              <div key = {index}>
+              <div key={index}>
                 {index % 2 === 0 ?
                   <Link to={{ pathname: "/", user: this.userProfile.value }}>
                     <ListItem button key={text}>

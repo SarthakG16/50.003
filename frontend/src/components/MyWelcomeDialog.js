@@ -13,11 +13,11 @@ import handleLogin from "../resources/login";
 class MyWelcomeDialog extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.myWelcomeDialog = props.myState.myWelcomeDialog.registerCallback(this);
 
     // restoring session
-    const {userProfile, myWelcomeDialog} = this.props.myState;
+    const { userProfile, myWelcomeDialog } = this.props.myState;
 
     const sessionToken = localStorage.getItem("sessionToken");
 
@@ -34,7 +34,7 @@ class MyWelcomeDialog extends React.Component {
           myWelcomeDialog.value = Object.assign(myWelcomeDialog.value, { open: true });
         }
         else {
-          userProfile.value = responseJSON;          
+          userProfile.value = responseJSON;
         }
       }
     });
@@ -106,10 +106,10 @@ class MyWelcomeDialog extends React.Component {
         <DialogContent>
           <DialogContentText />
           <form onSubmit={this.handleSubmit} onKeyPress={event => {
-                if (event.key === 'Enter') {
-                  this.handleSubmit(event);
-                }
-              }}>
+            if (event.key === 'Enter') {
+              this.handleSubmit(event);
+            }
+          }}>
             <TextField
               autoFocus
               margin="dense"
@@ -128,9 +128,13 @@ class MyWelcomeDialog extends React.Component {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.handleSubmit} color="primary">
-            Submit
+          <div
+            id="loginSubmit"
+          >
+            <Button onClick={this.handleSubmit} color="primary">
+              Submit
           </Button>
+          </div>
         </DialogActions>
       </Dialog>
     );
