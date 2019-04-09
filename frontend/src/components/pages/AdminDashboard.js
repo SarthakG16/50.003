@@ -32,7 +32,7 @@ export default class AdminDashboard extends React.Component {
                 <div className="container">
                     <Route exact path="/" render={props => (
                         <React.Fragment>
-                            <p>Tickets</p>
+                            <h3>Categories</h3>
                             <Grid
                                 container
                                 direction="row"

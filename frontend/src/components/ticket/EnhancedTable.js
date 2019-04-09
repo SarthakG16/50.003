@@ -263,8 +263,10 @@ class EnhancedTable extends React.Component {
       const emptyRows = rowsPerPage - Math.min(rowsPerPage, tickets.length - page * rowsPerPage);
       index = page* rowsPerPage;
       return (
+        
         <Paper className={classes.root}>
           <div className={classes.tableWrapper}>
+            <h4>Your Tickets</h4>
             <Table className={classes.table} aria-labelledby="tableTitle">
             {this.renderRedirect()}
             <TableHead>
