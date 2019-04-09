@@ -74,6 +74,7 @@ export default class TicketThread extends React.Component {
         };
         console.log(this.userProfile.className);
         console.log("I have constructed ticketthread");
+        console.log(this.props.location.state.ticket.replies[0]);
     }
 
     // returns the date and time the reply was posted in UTC
@@ -98,7 +99,14 @@ export default class TicketThread extends React.Component {
         // adding the new reply to the original
         replies.push(e);
         console.log(replies);
-        let data = { "replies": replies };
+
+        if (this.props.location.state.isAdmin) { this.props.location.state.ticket.replyCount = 0; }
+        else { this.props.location.state.ticket.replyCount++; }
+
+        let data = { 
+            "replyCount": this.props.location.state.ticket.replyCount,
+            "replies": replies
+        };
         console.log(JSON.stringify(data));
         // console.log(JSON.stringify(replies));
 
@@ -120,21 +128,52 @@ export default class TicketThread extends React.Component {
         $.ajax(settings).done(function (response) {
             console.log("reply added succesfully");
         });
+    }
 
+    sendNotif(e) {
+        let emailBody = {
+            "subject": "Reply received",
+            "sender": "Accenture@do-not-reply.com",
+            "recipient": this.props.location.state.ticket.email,
+            "html": "<p>Hello " + this.props.location.state.ticket.replies[0].name + ",</p><p>An admin has replied to your ticket: <em>'" + e.message + "'</em> on " + e.date + ".</p><p>-Ticket details-<br />Title: " + this.props.location.state.ticket.title + "<br />Category: " + this.props.location.state.ticket.category + "<br />Date/time of submission: " + this.props.location.state.ticket.createdAt + "<br />Original message: " + this.props.location.state.ticket.replies[0].message
+        }
+        console.log(emailBody);
+        console.log(JSON.stringify(emailBody));
+
+        const proxyurl = "https://cors-anywhere.herokuapp.com/";
+        fetch(proxyurl + "https://ug-api.acnapiv3.io/swivel/email-services/api/mailer",
+            {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Server-Token": constants.serverToken,
+                    "cache-control": "no-cache"
+                },
+                body: JSON.stringify(emailBody)
+            }).then(res => res.json())
+            .then(data => console.log(data))
+            .catch(err => console.log(err));
     }
 
     // handles event when submit button is clicked
     handleSubmit(e) {
         console.log('clicked submit');
-        let ticketVaild = this.handleValidation(e);
+        let ticketValid = this.handleValidation(e);
         console.log('finish checking');
-        if (ticketVaild) {
-            this.addReply(e);
-            alert("Your reply has been posted.")
-            // reset the form values to blank after submitting:
-            this.setState({
-                reply: Object.assign({}, RESET_VALUES),
-            });
+        if (ticketValid) {
+            if (this.props.location.state.ticket.replyCount < 3 || this.props.location.state.isAdmin) {
+                this.addReply(e);
+                alert("Your reply has been posted.")
+                //email notification
+                if (this.props.location.state.isAdmin) this.sendNotif(e);
+                // reset the form values to blank after submitting:
+                this.setState({
+                    reply: Object.assign({}, RESET_VALUES),
+                });
+            }
+            else {
+                alert("You have exceeded your reply limit. Please wait for an admin to reply.");
+            }
         }
         else {
             console.log('No messages. Not posted');
