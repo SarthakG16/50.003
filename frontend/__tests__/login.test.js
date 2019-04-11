@@ -1,5 +1,5 @@
-import handleLogin from "./login";
-import MyState from "../components/MyState";
+import handleLogin from "../src/resources/login";
+import MyState from "../src/components/MyState";
 
 function sleep(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
