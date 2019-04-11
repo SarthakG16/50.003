@@ -9,7 +9,7 @@ it("testing", () => {
     expect(false).toEqual(false);
 });
 
-/*
+
 it("login with correct credentials", async () => {
     const myState = {
         userProfile: new MyState({ }),
@@ -89,4 +89,3 @@ it("login with no password", async () => {
     expect(myState.myWelcomeDialog.value.open).toBe(true);
     expect(myState.userProfile.value).toEqual({ });
 });
-*/

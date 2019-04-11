@@ -229,6 +229,8 @@ export default class NewTicket extends React.Component {
             count += 1;
         }
         else {
+            errorTextCopy.message = '';
+            /*
             var relevant = this.checkMessageRevelance(ticket.message);
             console.log("what is the relevance value" + relevant);
             if (relevant) {
@@ -239,6 +241,7 @@ export default class NewTicket extends React.Component {
                 count += 1;
                 // alert("Please add more relevant details of your problem.");
             }
+            */
 
         }
 
@@ -270,6 +273,7 @@ export default class NewTicket extends React.Component {
     }
 
     removeDiacritics(str) {
+        /*
         var defaultDiacriticsRemovalMap = [
             { 'base': 'A', 'letters': /[\u0041\u24B6\uFF21\u1EA6\u1EA4\u1EAA\u1EA8\u0100\u0102\u1EB0\u1EAE\u1EB4\u1EB2\u0226\u01E0\u01DE\u1EA2\u01FA\u01CD\u0200\u0202\u1EA0\u1EAC\u1EB6\u1E00\u0104\u023A\u2C6F]/g },
             { 'base': '', 'letters': /[\uA732]/g },
@@ -363,9 +367,11 @@ export default class NewTicket extends React.Component {
         }
 
         return str;
+        */
     }
 
     translate(e) {
+        /*
         var body = [{ "Text": e }];
         // for return statement
         var translated = null;
@@ -393,9 +399,11 @@ export default class NewTicket extends React.Component {
         });
 
         return translated;
+        */
     }
 
     checkMessageRevelance(e) {
+        /*
         // console.log("I am in checking messages and this is my message" + e);
         var translated = this.translate(e);
         console.log(translated);
@@ -472,13 +480,13 @@ export default class NewTicket extends React.Component {
             // }
         });
         console.log(confidence);
-        */
+        
         if (parseInt(catList.length) > 0) {
             relevance = true;
         }
 
         return relevance;
-
+        */
     }
 
     handleChange(e) {
@@ -641,13 +649,13 @@ export default class NewTicket extends React.Component {
                                     />
 
                                     <Grid item xs>
-                                        <Button
-                                            id="summit_button"
-                                            variant="contained"
-                                            onClick={this.handleSubmit.bind(this, this.state.ticket)}
-                                        >
-                                            Submit
-                                        </Button>
+                                            <Button
+                                                id="submit_button"
+                                                variant="contained"
+                                                onClick={this.handleSubmit.bind(this, this.state.ticket)}
+                                            >
+                                                Submit
+                                                </Button>
                                     </Grid>
 
                                 </Grid>

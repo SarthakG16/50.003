@@ -66,6 +66,7 @@ function checkEmail(e) {
     return re.test(e);
 }
 
+/*
 function removeDiacritics(str) {
     var defaultDiacriticsRemovalMap = [
         { 'base': 'A', 'letters': /[\u0041\u24B6\uFF21\u1EA6\u1EA4\u1EAA\u1EA8\u0100\u0102\u1EB0\u1EAE\u1EB4\u1EB2\u0226\u01E0\u01DE\u1EA2\u01FA\u01CD\u0200\u0202\u1EA0\u1EAC\u1EB6\u1E00\u0104\u023A\u2C6F]/g },
@@ -244,6 +245,7 @@ function checkMessageRevelance(e) {
     return relevance;
 
 }
+*/
 
 describe('#check if params are filled', () => {
     it('all fields filled and valid', () => {
@@ -357,6 +359,7 @@ describe('#check if params are filled', () => {
         expect(result).toEqual(false);
     });
 
+    /*
     it('checking if string is cleaned (true) test 1', () => {
         var txtIn = "Hola, soy Sarthak, les compré un producto el verano pasado, me enfrento a algunos problemas. Parece que sigue fallando una vez que inicie sesión en el servicio. Por favor, consejos sobre qué puedo hacer. Gracias. Mi número de membresía es 12345678.";
         let result = removeDiacritics(txtIn);
@@ -420,6 +423,7 @@ describe('#check if params are filled', () => {
         let result = checkMessageRevelance(txtIn);
 
         expect(result).toEqual(false);
-    });
+    })
+    */
 
 })
