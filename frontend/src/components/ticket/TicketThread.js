@@ -65,11 +65,13 @@ export default class TicketThread extends React.Component {
         this.addReply = this.addReply.bind(this);
         this.getDateCreated = this.getDateCreated.bind(this);
         this.userProfile = props.location.state.myState;
+        this.maxMessageChars = 1000;
         this.state = {
             reply: Object.assign({}, RESET_VALUES),
             status: this.props.location.state.ticket.status,
             disable: ((this.props.location.state.ticket.status === "Archive") ? true : false),
             isUser: !this.props.location.state.isAdmin,
+            messageCharsLeft: this.maxMessageChars,
             // userProfile: this.props.location.state.myState.userProfile.registerCallback(this)
         };
         console.log(this.userProfile.className);
@@ -162,14 +164,19 @@ export default class TicketThread extends React.Component {
         console.log('finish checking');
         if (ticketValid) {
             if (this.props.location.state.ticket.replyCount < 3 || this.props.location.state.isAdmin) {
-                this.addReply(e);
-                alert("Your reply has been posted.")
-                //email notification
-                if (this.props.location.state.isAdmin) this.sendNotif(e);
-                // reset the form values to blank after submitting:
-                this.setState({
-                    reply: Object.assign({}, RESET_VALUES),
-                });
+                if (this.state.messageCharsLeft < 0) {
+                    alert("Message character count is too high, please shorten your message.");
+                }
+                else {
+                    this.addReply(e);
+                    alert("Your reply has been posted.")
+                    //email notification
+                    if (this.props.location.state.isAdmin) this.sendNotif(e);
+                    // reset the form values to blank after submitting:
+                    this.setState({
+                        reply: Object.assign({}, RESET_VALUES),
+                    });
+                 }
             }
             else {
                 alert("You have exceeded your reply limit. Please wait for an admin to reply.");
@@ -198,6 +205,10 @@ export default class TicketThread extends React.Component {
         const value = e.target.value;
         const name = this.userProfile.username;
         // console.log(name + " is typing ");
+
+        this.setState({
+            messageCharsLeft: this.maxMessageChars - value.length,
+        });
 
         this.setState((prevState) => {
             prevState.reply.message = value;
@@ -316,9 +327,17 @@ export default class TicketThread extends React.Component {
                         margin="normal"
                         variant="outlined"
                         InputLabelProps={{ shrink: true, }}
+                        error={((this.state.messageCharsLeft < 0) ? true : false)}
                         disabled={this.state.disable}
                     // required="required"
                     />
+                    <Typography 
+                        align="right" 
+                        color={(this.state.messageCharsLeft >= 0) ? "textSecondary" : "error"}> 
+                        {
+                        this.state.messageCharsLeft + " characters left"
+                        } 
+                    </Typography>
                     <Button
                         variant="contained"
                         disabled={this.state.disable}

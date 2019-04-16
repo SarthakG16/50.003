@@ -21,14 +21,16 @@ export default class NewTicket extends React.Component {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.maxChars = 1000;
+        // this.emailMaxChars = 320;
+        this.titleMaxChars = 100;
+        this.maxMessageChars = 1000;
         this.state = {
             ticket: Object.assign({}, RESET_VALUES),
             errorText: (Object.assign({}, RESET_VALUES_ERROR)),
             user: props.myState.userProfile.registerCallback(this).value,
             // this.userProfile = props.myState.userProfile.registerCallback(this);
             wordCount: 0,
-            charsLeft: this.maxChars,
+            messageCharsLeft: this.maxMessageChars,
             // catList: [],
             waiting: false,
         };
@@ -138,8 +140,11 @@ export default class NewTicket extends React.Component {
         var nextDay = checkYear || checkMonth || checkDate;
         // var nextDay = +now > +lastTicketDate;
         // if (this.state.user.numberOfTickets < ticketLimit || nextDay) {
-        if ((this.numberOfTickets < ticketLimit || nextDay) && e.message.length <= this.maxChars) {
+        if ((this.numberOfTickets < ticketLimit || nextDay) && e.message.length <= this.maxMessageChars) {
             //reset numberOfTickets if nextDay, and increment by 1
+            // if (this.props.location.state.isAdmin) {
+            //     console.log("Admin has no ticket limit");
+            // }
             if (nextDay) {
                 this.numberOfTickets = 1;
                 this.changeField("numberOfTickets", this.numberOfTickets);
@@ -150,8 +155,8 @@ export default class NewTicket extends React.Component {
             }
             return true;
         } 
-        else if (e.message.length > this.maxChars) {
-            alert("Message character count is too high.");
+        else if (e.message.length > this.maxMessageChars) {
+            alert("Message character count is too high, please shorten your message.");
         }
         else {
             // lastTicketDate.setHours(23);
@@ -182,7 +187,9 @@ export default class NewTicket extends React.Component {
             console.log(JSON.stringify(e));
             this.addTicket(e);
             alert("Ticket has been created.")
-            this.state.user.lastTicket = this.getDateCreated();
+            this.setState({
+                lastTicket: this.getDateCreated()
+            })
             this.changeField("lastTicket", this.state.user.lastTicket); //updating user lastTicket field
 
             //send notification
@@ -504,12 +511,23 @@ export default class NewTicket extends React.Component {
         var value = target.value;
         const name = target.name;
         
+        if (name === 'title'){
+            if (value.length > this.titleMaxChars) {
+                errorTextCopy.title = 'Please shorten your title';
+            }
+            else{
+                errorTextCopy.title = '';
+            }
+        }
 
         if (name === 'email') {
             var validEmail = this.checkEmail(value);
             if (validEmail) {
                 errorTextCopy.email = '';
             }
+            // else if (value.length > this.emailMaxChars) {
+            //     errorTextCopy.email = 'Email is too long';
+            // }
             else {
                 errorTextCopy.email = 'Please enter valid email';
             }
@@ -517,7 +535,7 @@ export default class NewTicket extends React.Component {
 
         if (name === 'message') {
             this.setState({
-                charsLeft: this.maxChars - value.length,
+                messageCharsLeft: this.maxMessageChars - value.length,
             });
         }
         
@@ -593,7 +611,10 @@ export default class NewTicket extends React.Component {
                                         placeholder="Title"
                                         InputLabelProps={{ shrink: true, }}
                                         required={true}
-                                        error={((this.state.errorText.title !== '' && this.state.ticket.title === '') ? true : false)}
+                                        error={((
+                                            (this.state.errorText.title !== '' && this.state.ticket.title === '') ||
+                                            (this.state.ticket.title.length > this.titleMaxChars)
+                                            ) ? true : false)}
                                         helperText={this.state.errorText.title}
                                     >
                                     </TextField>
@@ -641,16 +662,16 @@ export default class NewTicket extends React.Component {
                                         error={(( 
                                             (this.state.errorText.message !== '' && (this.state.ticket.message === "")) || 
                                             (this.state.errorText.message === "Please add more relevant details of your problem." && this.state.ticket.message.split(" ").length <= this.state.wordCount) || 
-                                            (this.state.charsLeft < 0)
+                                            (this.state.messageCharsLeft < 0)
                                             ) ? true : false)}
                                         //|| this.state.errorText.message === "Please add more relevant details of your problem."
                                         helperText={this.state.errorText.message}
                                     />
                                     <Typography 
                                         align="right" 
-                                        color={(this.state.charsLeft >= 0) ? "textSecondary" : "error"}> 
+                                        color={(this.state.messageCharsLeft >= 0) ? "textSecondary" : "error"}> 
                                         {
-                                        this.state.charsLeft + " characters left"
+                                        this.state.messageCharsLeft + " characters left"
                                         } 
                                     </Typography>
                                     <Typography
@@ -666,11 +687,13 @@ export default class NewTicket extends React.Component {
                                         fullWidth
                                         margin="normal"
                                         variant="outlined"
-                                        placeholder="eg abc@vaild.com"
+                                        placeholder="eg abc@valid.com"
                                         InputLabelProps={{ shrink: true, }}
                                         required={true}
                                         // error={((this.state.errorText.email !== '' && this.state.ticket.email === '') ? true : false)}
-                                        error={((this.state.errorText.email !== '') ? true : false)}
+                                        error={(
+                                            (this.state.errorText.email !== '' 
+                                            ) ? true : false)}
                                         helperText={this.state.errorText.email}
                                     />
 
