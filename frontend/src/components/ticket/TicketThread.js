@@ -249,8 +249,8 @@ export default class TicketThread extends React.Component {
                 <div>
                     <Paper elevation={5}
                         width='80%'
-                        style={{ paddingLeft: 20, marginTop: "5%", paddingRight: 20 }}>
-                        <Typography align="left" variant="subtitle1">
+                        style={{ paddingLeft: 20, paddingRight: 20, paddingTop:10, paddingBottom:10 }}>
+                        <Typography align="left" variant="subtitle1" >
                             Ticket ID: {this.props.location.state.ticket.objectId}
                             <p />
                         </Typography>
@@ -275,7 +275,7 @@ export default class TicketThread extends React.Component {
                                     margin="normal"
                                     variant="outlined"
                                     fullWidth
-                                    height='60px'
+                                    height='36px'
                                     InputLabelProps={{ shrink: true, }}
                                     disabled={this.state.disable || this.state.isUser}
                                 >
@@ -290,7 +290,7 @@ export default class TicketThread extends React.Component {
                     </Paper>
                 </div>
                 <div
-                    style={{ paddingLeft: 20, marginTop: "5%", paddingRight: 20 }}
+                    style={{ paddingLeft: 20, marginTop: "2%", paddingRight: 20 }}
                 >
                     <Typography align="left" variant="subtitle1">
                         Messages:<br />
@@ -301,7 +301,7 @@ export default class TicketThread extends React.Component {
                     </TicketMessages>
                 </div>
                 <div
-                    style={{ marginLeft: 20, marginTop: "5%", marginRight: 20 }}
+                    style={{ marginLeft: 20, marginTop: "1%", marginRight: 20 }}
                 >
                     <TextField
                         id="outlined-full-width"

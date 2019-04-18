@@ -26,11 +26,11 @@ export default class Home extends React.Component {
 
 	render() {
 		return (
-			<div className="App">
+			<div className="App-body">
 				<div className="container">
 					<Route exact path="/" render={props => (
 						<React.Fragment>
-							<p>Tickets</p>
+							{/* <p>Tickets</p> */}
 							<Tickets
 								myState={this.props.myState}
 								origin="Home">
@@ -54,31 +54,9 @@ export default class Home extends React.Component {
 							</NewTicket>
 						)}
 					/>
-					{/* <Route path="/NewTicket" component={NewTicket} /> */}
 					<Route path="/login" component={Login} />
 					<Route path="/Ticket" component={TicketThread} />
-					{/* <Route path='/AdminHome' // to be removed, just to test the see admin dashboard
-						render={() => (
-							<AdminDashboard myState={this.props.myState}></AdminDashboard>
-						)}
-					/> */}
-					{/* <Route
-						path="/Pending"
-						render={() => (
-							<Tickets
-								myState={this.props.myState}
-								origin="Pending"></Tickets>
-						)}
-					/>
-
-					<Route
-						path="/Open"
-						render={() => (
-							<Tickets
-								myState={this.props.myState}
-								user={this.userProfile} origin="Open"></Tickets>
-						)}
-					/> */}
+					
 				</div>
 			</div>
 		);

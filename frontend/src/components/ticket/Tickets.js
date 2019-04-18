@@ -90,7 +90,6 @@ export default class Tickets extends React.Component {
                     isLoaded: true,
                     tickets: response.results
                 })
-                console.log("why ami here");
             });
         }
     }

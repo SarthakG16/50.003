@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { withRouter } from "react-router-dom";
-
+import Routes from "./Routes.js";
 import MyState from "./components/MyState";
 import { withStyles } from "@material-ui/core/styles";
 import MyAppbar from "./components/MyAppbar"
@@ -24,7 +24,7 @@ class App extends Component {
     super(props);
 
     this.myState = {
-      userProfile: new MyState({ }),
+      userProfile: new MyState({}),
 
       myWelcomeDialog: new MyState({ open: false }),
       mySnackbar: new MyState({ open: false, variant: "info", message: "" }),
@@ -38,11 +38,12 @@ class App extends Component {
     const myWelcomeDialog = this.myState.myWelcomeDialog;
 
     return (
-      <div className={classes.root}>
+      <main className={classes.root}>
         <MyAppbar myState={this.myState} />
         <MySnackbar myState={this.myState} />
         <MyWelcomeDialog open={myWelcomeDialog.open} myState={this.myState} />
-      </div>
+        <Routes myState={this.myState} />
+      </main>
     );
   }
 }

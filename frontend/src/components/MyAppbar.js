@@ -285,10 +285,10 @@ class MyAppbar extends React.Component {
             </Link>
           </List>
         </Drawer>
-        <main className={classes.content}>
+        {/* <main className={classes.content}>
           <div className={classes.toolbar} />
           <Routes myState={this.props.myState} />
-        </main>
+        </main> */}
       </div>
     );
   }

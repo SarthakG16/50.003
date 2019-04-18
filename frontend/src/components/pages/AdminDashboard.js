@@ -28,11 +28,11 @@ export default class AdminDashboard extends React.Component {
         console.log("I am inside admin dashboard render");
         // console.log(this.userProfile.value);
         return (
-            <div className="App">
+            <div className="App-body">
                 <div className="container">
                     <Route exact path="/" render={props => (
                         <React.Fragment>
-                            <h3>Categories</h3>
+                            <h3 align="center">Categories</h3>
                             <Grid
                                 container
                                 direction="row"
@@ -46,7 +46,8 @@ export default class AdminDashboard extends React.Component {
                                             component={Link} to="/Open"
                                         >
                                             <Typography
-                                                style={{ paddingTop: 50, paddingBottom: 50 }}
+                                                style={{ paddingTop: 50, paddingBottom: 50}}
+                                                align="center"
                                             >
                                                 Open
                                             </Typography>
@@ -61,6 +62,7 @@ export default class AdminDashboard extends React.Component {
                                         >
                                             <Typography
                                                 style={{ paddingTop: 50, paddingBottom: 50 }}
+                                                align="center"
                                             >
                                                 Pending
                                             </Typography>
@@ -68,17 +70,6 @@ export default class AdminDashboard extends React.Component {
                                     </Card>
                                 </Grid>
 
-                                {/* <Grid item xs>
-                                    <Card>
-                                        <CardActionArea>
-                                            <Typography
-                                                style={{ paddingTop: 50, paddingBottom: 50 }}
-                                            >
-                                                Something?
-                                            </Typography>
-                                        </CardActionArea>
-                                    </Card>
-                                </Grid> */}
                             </Grid>
                             {/* <Tickets origin = "Home"></Tickets> */}
                         </React.Fragment>
@@ -118,7 +109,6 @@ export default class AdminDashboard extends React.Component {
                             </NewTicket>
                         )}
                     />
-                    {/* <Route path="/NewTicket" component={NewTicket} /> */}
                     <Route path="/Ticket" component={TicketThread} />
                 </div>
             </div>

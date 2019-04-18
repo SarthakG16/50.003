@@ -43,6 +43,7 @@ export default class NewTicket extends React.Component {
         // console.log(today);
         return today.toUTCString();
     }
+
     addTicket(e) {
 
         let data = {
@@ -543,128 +544,118 @@ export default class NewTicket extends React.Component {
         //     $("#loadingscreen").hide();
         // });
         return (
-            <div className="App">
-                {/* <div
-                    className="loader"
-                    id="loadingscreen"
-                    hidden={!this.state.waiting}
-                ></div> */}
-                <div className="container">
-                    <Route exact path="/NewTicket" render={props => (
-                        <React.Fragment>
-                            <h3>Submit a new ticket request</h3>
-                            <form
-                                style={{ paddingLeft: 20, marginTop: "1%", paddingRight: 20 }}
+            <Route exact path="/NewTicket" render={props => (
+                <React.Fragment>
+                    <h3 align="center">Submit a new ticket request</h3>
+                    <form
+                        style={{ paddingLeft: 20, marginTop: "1%", paddingRight: 20 }}
+                    >
+                        <Grid
+                            container direction="column" justify="space-between" spacing={16}
+                        >
+                            <Typography
+                                align="left" variant="h6"
                             >
-                                <Grid
-                                    container direction="column" justify="space-between" spacing={16}
+                                Title
+                                        </Typography>
+                            <TextField
+                                // label="Title"
+                                name="title"
+                                multiline
+                                rowsMax="2"
+                                type='text'
+                                value={this.state.ticket.name}
+                                onChange={this.handleChange}
+                                fullWidth
+                                margin="normal"
+                                variant="outlined"
+                                placeholder="Title"
+                                InputLabelProps={{ shrink: true, }}
+                                required={true}
+                                error={((this.state.errorText.title !== '' && this.state.ticket.title === '') ? true : false)}
+                                helperText={this.state.errorText.title}
+                            >
+                            </TextField>
+                            <Typography
+                                align="left" variant="h6"
+                            >
+                                Category
+                                        </Typography>
+                            <TextField
+                                name="category"
+                                select
+                                value={this.state.ticket.category}
+                                onChange={this.handleChange}
+                                fullWidth
+                                margin="normal"
+                                variant="outlined"
+                                InputProps={{ style: { textAlign: "Left" } }}
+                                InputLabelProps={{ shrink: true, }}
+                                required={true}
+                                error={((this.state.errorText.category !== '' && this.state.ticket.category === '') ? true : false)}
+                                helperText={this.state.errorText.category}
+                            >
+                                {CATEGORY_VALUES.map(option => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                            <Typography
+                                align="left" variant="h6"
+                            >
+                                Message
+                                        </Typography>
+                            <TextField
+                                name="message"
+                                multiline
+                                value={this.state.ticket.message}
+                                onChange={this.handleChange}
+                                fullWidth
+                                margin="normal"
+                                variant="outlined"
+                                placeholder="Message"
+                                InputLabelProps={{ shrink: true, }}
+                                required={true}
+                                error={(((this.state.errorText.message !== '' && (this.state.ticket.message === "")) || (this.state.errorText.message === "Please add more relevant details of your problem." && this.state.ticket.message.split(" ").length <= this.state.wordCount)) ? true : false)}
+                                //|| this.state.errorText.message === "Please add more relevant details of your problem."
+                                helperText={this.state.errorText.message}
+                            />
+                            <Typography
+                                align="left" variant="h6"
+                            >
+                                Email
+                                        </Typography>
+                            <TextField
+                                name="email"
+                                type='email'
+                                value={this.state.ticket.email}
+                                onChange={this.handleChange}
+                                fullWidth
+                                margin="normal"
+                                variant="outlined"
+                                placeholder="eg abc@vaild.com"
+                                InputLabelProps={{ shrink: true, }}
+                                required={true}
+                                // error={((this.state.errorText.email !== '' && this.state.ticket.email === '') ? true : false)}
+                                error={((this.state.errorText.email !== '') ? true : false)}
+                                helperText={this.state.errorText.email}
+                            />
+
+                            <Grid item xs>
+                                <Button
+                                    id="submit_button"
+                                    variant="contained"
+                                    onClick={this.handleSubmit.bind(this, this.state.ticket)}
                                 >
-                                    <Typography
-                                        align="left" variant="h6"
-                                    >
-                                        Title
-                                        </Typography>
-                                    <TextField
-                                        // label="Title"
-                                        name="title"
-                                        multiline
-                                        rowsMax="2"
-                                        type='text'
-                                        value={this.state.ticket.name}
-                                        onChange={this.handleChange}
-                                        fullWidth
-                                        margin="normal"
-                                        variant="outlined"
-                                        placeholder="Title"
-                                        InputLabelProps={{ shrink: true, }}
-                                        required={true}
-                                        error={((this.state.errorText.title !== '' && this.state.ticket.title === '') ? true : false)}
-                                        helperText={this.state.errorText.title}
-                                    >
-                                    </TextField>
-                                    <Typography
-                                        align="left" variant="h6"
-                                    >
-                                        Category
-                                        </Typography>
-                                    <TextField
-                                        name="category"
-                                        select
-                                        value={this.state.ticket.category}
-                                        onChange={this.handleChange}
-                                        fullWidth
-                                        margin="normal"
-                                        variant="outlined"
-                                        InputProps={{ style: { textAlign: "Left" } }}
-                                        InputLabelProps={{ shrink: true, }}
-                                        required={true}
-                                        error={((this.state.errorText.category !== '' && this.state.ticket.category === '') ? true : false)}
-                                        helperText={this.state.errorText.category}
-                                    >
-                                        {CATEGORY_VALUES.map(option => (
-                                            <MenuItem key={option.value} value={option.value}>
-                                                {option.label}
-                                            </MenuItem>
-                                        ))}
-                                    </TextField>
-                                    <Typography
-                                        align="left" variant="h6"
-                                    >
-                                        Message
-                                        </Typography>
-                                    <TextField
-                                        name="message"
-                                        multiline
-                                        value={this.state.ticket.message}
-                                        onChange={this.handleChange}
-                                        fullWidth
-                                        margin="normal"
-                                        variant="outlined"
-                                        placeholder="Message"
-                                        InputLabelProps={{ shrink: true, }}
-                                        required={true}
-                                        error={(((this.state.errorText.message !== '' && (this.state.ticket.message === "")) || (this.state.errorText.message === "Please add more relevant details of your problem." && this.state.ticket.message.split(" ").length <= this.state.wordCount)) ? true : false)}
-                                        //|| this.state.errorText.message === "Please add more relevant details of your problem."
-                                        helperText={this.state.errorText.message}
-                                    />
-                                    <Typography
-                                        align="left" variant="h6"
-                                    >
-                                        Email
-                                        </Typography>
-                                    <TextField
-                                        name="email"
-                                        type='email'
-                                        value={this.state.ticket.email}
-                                        onChange={this.handleChange}
-                                        fullWidth
-                                        margin="normal"
-                                        variant="outlined"
-                                        placeholder="eg abc@vaild.com"
-                                        InputLabelProps={{ shrink: true, }}
-                                        required={true}
-                                        // error={((this.state.errorText.email !== '' && this.state.ticket.email === '') ? true : false)}
-                                        error={((this.state.errorText.email !== '') ? true : false)}
-                                        helperText={this.state.errorText.email}
-                                    />
-
-                                    <Grid item xs>
-                                            <Button
-                                                id="submit_button"
-                                                variant="contained"
-                                                onClick={this.handleSubmit.bind(this, this.state.ticket)}
-                                            >
-                                                Submit
+                                    Submit
                                                 </Button>
-                                    </Grid>
+                            </Grid>
 
-                                </Grid>
-                            </form>
-                        </React.Fragment>
-                    )} />
-                </div>
-            </div>
-
+                        </Grid>
+                    </form>
+                </React.Fragment>
+            )} />
         );
     }
 }

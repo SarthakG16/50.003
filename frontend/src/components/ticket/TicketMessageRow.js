@@ -48,12 +48,12 @@ class TicketMessageRow extends React.Component {
         return (
             <React.Fragment>
                 <div
-                    style={{marginTop: "5%"}}>
+                    style={{ marginTop: "2%" }}>
                     <Grid container direction="row" justify="space-between" spacing={16}>
                         <Grid item xs>
                             <Paper elevation={2}
-                                style={{ paddingLeft: 10, paddingTop: 20, paddingRight: 10, height: "100%" }}>
-                                <Grid container direction="column" justify="center" alignItems="center" spacing={8}>
+                                style={{ paddingLeft: 10, paddingTop: 20, paddingRight: 10, paddingBottom: 20, height: "100%" }}>
+                                <Grid container direction="column" alignItems="center" spacing={8}>
                                     <Grid item xs>
                                         <AccountIcon />
                                     </Grid>
@@ -61,17 +61,16 @@ class TicketMessageRow extends React.Component {
                                         {this.props.user}
                                     </Grid>
                                     <Grid item xs>
-                                        <Typography variant="caption">
+                                        <Typography align="center" variant="caption">
                                             {this.props.date}
                                         </Typography>
-
                                     </Grid>
                                 </Grid>
                             </Paper>
                         </Grid>
                         <Grid item xs={10}>
                             <Paper elevation={2}
-                                style={{ paddingLeft: 20, paddingTop: 20, paddingRight: 20, height: "100%" }}>
+                                style={{ paddingLeft: 20, paddingTop: 20, paddingRight: 20, paddingBottom: 20, height: "100%" }}>
                                 <Typography align="left">
                                     {this.props.message}
                                 </Typography>

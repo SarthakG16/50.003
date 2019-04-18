@@ -266,7 +266,7 @@ class EnhancedTable extends React.Component {
         
         <Paper className={classes.root}>
           <div className={classes.tableWrapper}>
-            <h4>Your Tickets</h4>
+            <h4 align="center">Your Tickets</h4>
             <Table className={classes.table} aria-labelledby="tableTitle">
             {this.renderRedirect()}
             <TableHead>
@@ -276,7 +276,7 @@ class EnhancedTable extends React.Component {
                 <TableCell align="left">Category</TableCell>
                 <TableCell align="left">Status</TableCell>
                 <TableCell align="left">Message</TableCell>
-                <TableCell align="left"> </TableCell>
+                <TableCell align="left"></TableCell>
               </TableRow>
             </TableHead>
 
@@ -300,8 +300,8 @@ class EnhancedTable extends React.Component {
                         <TableCell align="left">{ticket.category}</TableCell>
                         <TableCell align="left">{ticket.status}</TableCell>
                         <TableCell align="left">{ticket.replies[ticket.replies.length - 1].message}</TableCell>
-                        <TableCell padding = "none"> <Tooltip title="Delete" padding = "none">
-                        <IconButton padding = "none" aria-label="Delete" onClick={this.handleDelete.bind(this, ticket)}>
+                        <TableCell align = "left"> <Tooltip title="Delete">
+                        <IconButton align = "left" onClick={this.handleDelete.bind(this, ticket)}>
                           <DeleteIcon size = "20"/>
                         </IconButton>
                       </Tooltip></TableCell>
@@ -346,13 +346,13 @@ class EnhancedTable extends React.Component {
 const styles = theme => ({
     root: {
       width: '100%',
-      marginTop: theme.spacing.unit * 3,
+      // marginTop: theme.spacing.unit *3,
     },
     table: {
       minWidth: 1020,
     },
     tableWrapper: {
-      overflowX: 'auto',
+      overflowX: 'auto'
     },
   });
   export default withStyles(styles)(EnhancedTable);

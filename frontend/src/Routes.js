@@ -44,6 +44,8 @@ export default class Routes extends React.Component {
   }
 
   render() {
+    // const { classes } = this.props;
+
     if (Object.entries(this.userProfile.value).length === 0 && this.userProfile.value.constructor === Object) {
       return null
     }
@@ -62,61 +64,16 @@ export default class Routes extends React.Component {
     // console.log("admin?" + isAdmin)
     console.log("I am in routes")
     return (
-      <main>
+      <div>
         <Switch>
-          <Route path='/' // change to userHome after login page is done
+          <Route path='/' 
             render={() => (
               isAdmin ? <AdminDashboard myState={this.props.myState} isAdmin={isAdmin}></AdminDashboard> :
                 <Home myState={this.props.myState} isAdmin={isAdmin}></Home>
             )}
           />
-          {/* <Route path="/login" component={Login} /> */}
-          {/* <Route
-            path="/NewTicket"
-            render={() => (
-              <NewTicket
-                myState={this.userProfile}>
-              </NewTicket>
-            )}
-          />
-          <Route
-            path="/Archive"
-            render={() => (
-              <Tickets
-                myState={this.userProfile}
-                origin="Archive">
-              </Tickets>
-            )} */}
-          />
-          {/* <Route path="/Ticket"
-            render={() => (
-              <TicketThread myState={this.props.myState}></TicketThread>
-            )}
-          /> */}
-          {/* <Route path='/AdminHome'
-            render={() => (
-              <AdminDashboard myState={this.props.myState}></AdminDashboard>
-            )}
-          /> */}
-          {/* <Route
-            path="/Pending"
-            render={() => (
-              <Tickets
-                myState={this.props.myState}
-                origin="Pending"></Tickets>
-            )}
-          />
-
-          <Route
-            path="/Open"
-            render={() => (
-              <Tickets
-                myState={this.props.myState}
-                user={this.userProfile} origin="Open"></Tickets>
-            )}
-          /> */}
         </Switch>
-      </main>
+      </div>
     )
   }
 }
