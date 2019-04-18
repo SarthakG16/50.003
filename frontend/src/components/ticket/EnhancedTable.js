@@ -299,7 +299,7 @@ class EnhancedTable extends React.Component {
                         <TableCell align="left">{ticket.title}</TableCell>
                         <TableCell align="left">{ticket.category}</TableCell>
                         <TableCell align="left">{ticket.status}</TableCell>
-                        <TableCell align="left">{ticket.replies[ticket.replies.length - 1].message}</TableCell>
+                        <TableCell align="left">{ticket.replies[ticket.replies.length - 1].message.substr(0,15)+ "..."}</TableCell>
                         <TableCell align = "left"> <Tooltip title="Delete">
                         <IconButton align = "left" onClick={this.handleDelete.bind(this, ticket)}>
                           <DeleteIcon size = "20"/>
