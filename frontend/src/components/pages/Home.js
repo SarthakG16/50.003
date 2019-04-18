@@ -17,6 +17,7 @@ export default class Home extends React.Component {
 
 		}
 		this.userProfile = props.myState.userProfile.registerCallback(this);
+		this.isAdmin = props.isAdmin;
 		console.log("I have constructed user dashboard");
 		// console.log(this.userProfile.value);
 
@@ -33,7 +34,8 @@ export default class Home extends React.Component {
 							{/* <p>Tickets</p> */}
 							<Tickets
 								myState={this.props.myState}
-								origin="Home">
+								origin="Home"
+								isAdmin={this.isAdmin}>
 							</Tickets>
 						</React.Fragment>
 					)} />
@@ -42,7 +44,8 @@ export default class Home extends React.Component {
 						render={() => (
 							<Tickets
 								myState={this.props.myState}
-								origin="Archive">
+								origin="Archive"
+								isAdmin={this.isAdmin}>
 							</Tickets>
 						)}
 					/>
@@ -50,7 +53,8 @@ export default class Home extends React.Component {
 						path="/NewTicket"
 						render={() => (
 							<NewTicket
-								myState={this.props.myState}>
+								myState={this.props.myState}
+								isAdmin={this.isAdmin}>
 							</NewTicket>
 						)}
 					/>

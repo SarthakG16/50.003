@@ -105,7 +105,8 @@ export default class AdminDashboard extends React.Component {
                         path="/NewTicket"
                         render={() => (
                             <NewTicket
-                                myState={this.props.myState}>
+                                myState={this.props.myState}
+                                isAdmin={this.isAdmin}>
                             </NewTicket>
                         )}
                     />
