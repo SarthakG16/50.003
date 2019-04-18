@@ -34,6 +34,7 @@ export default class NewTicket extends React.Component {
             // catList: [],
             waiting: false,
         };
+        this.isAdmin = props.isAdmin;
         this.numberOfTickets = this.state.user.numberOfTickets;
         console.log(this.state.user);
         // $(window).on('load', function () {
@@ -139,6 +140,9 @@ export default class NewTicket extends React.Component {
         var checkMonth = now.getMonth() > lastTicketDate.getMonth();
         var checkDate = now.getDate() > lastTicketDate.getDate();
         var nextDay = checkYear || checkMonth || checkDate;
+        if (this.isAdmin) {
+            return true;
+        }
         // var nextDay = +now > +lastTicketDate;
         // if (this.state.user.numberOfTickets < ticketLimit || nextDay) {
         if ((this.numberOfTickets < ticketLimit || nextDay) && e.message.length <= this.maxMessageChars) {
