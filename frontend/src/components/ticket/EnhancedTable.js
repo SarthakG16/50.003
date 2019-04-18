@@ -295,6 +295,11 @@ class EnhancedTable extends React.Component {
                       message = ticket.replies[ticket.replies.length - 1].message.substr(0,15) + "...";
                     }
 
+                    var title = ticket.title;
+
+                    if(title.length > 15) {
+                      title = title.substr(0,15) + "..."
+                    }
                     return (
                       <TableRow              
                         key={ticket.objectId}
@@ -303,7 +308,7 @@ class EnhancedTable extends React.Component {
                         <TableCell >
                           {index}
                         </TableCell>
-                        <TableCell align="left">{ticket.title}</TableCell>
+                        <TableCell align="left">{title}</TableCell>
                         <TableCell align="left">{ticket.category}</TableCell>
                         <TableCell align="left">{ticket.status}</TableCell>
                         <TableCell align="left">{message}</TableCell>
