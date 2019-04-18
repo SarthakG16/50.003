@@ -21,12 +21,16 @@ export default class NewTicket extends React.Component {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        // this.emailMaxChars = 320;
+        this.titleMaxChars = 100;
+        this.maxMessageChars = 1000;
         this.state = {
             ticket: Object.assign({}, RESET_VALUES),
             errorText: (Object.assign({}, RESET_VALUES_ERROR)),
             user: props.myState.userProfile.registerCallback(this).value,
             // this.userProfile = props.myState.userProfile.registerCallback(this);
             wordCount: 0,
+            messageCharsLeft: this.maxMessageChars,
             // catList: [],
             waiting: false,
         };
@@ -125,75 +129,86 @@ export default class NewTicket extends React.Component {
         return;
     }
 
+    checkSpam(e) {
+        let ticketLimit = 3;
+        //check ticket limit
+        var now = new Date(new Date().toUTCString()); //current date/time 
+        var lastTicketDate = new Date(this.state.user.lastTicket); //date/time of last posted ticket
+        //var nextDay = (now.getDay() !== lastTicketDate.getDay() && now.getTime() > lastTicketDate.getTime()); //check if current day > last posted day
+        var checkYear = now.getYear() > lastTicketDate.getYear();
+        var checkMonth = now.getMonth() > lastTicketDate.getMonth();
+        var checkDate = now.getDate() > lastTicketDate.getDate();
+        var nextDay = checkYear || checkMonth || checkDate;
+        // var nextDay = +now > +lastTicketDate;
+        // if (this.state.user.numberOfTickets < ticketLimit || nextDay) {
+        if ((this.numberOfTickets < ticketLimit || nextDay) && e.message.length <= this.maxMessageChars) {
+            //reset numberOfTickets if nextDay, and increment by 1
+            // if (this.props.location.state.isAdmin) {
+            //     console.log("Admin has no ticket limit");
+            // }
+            if (nextDay) {
+                this.numberOfTickets = 1;
+                this.changeField("numberOfTickets", this.numberOfTickets);
+            } else {
+                this.numberOfTickets = this.numberOfTickets + 1
+                console.log(this.numberOfTickets);
+                this.changeField("numberOfTickets", this.numberOfTickets);
+            }
+            return true;
+        } 
+        else if (e.message.length > this.maxMessageChars) {
+            alert("Message character count is too high, please shorten your message.");
+        }
+        else {
+            // lastTicketDate.setHours(23);
+            // lastTicketDate.setMinutes(59);
+            // lastTicketDate.setSeconds(59);
+            // var hoursLeft = (lastTicketDate.getTime() - now.getTime())/3600000;
+            // if (hoursLeft < 1) {
+            //     var ans = Math.abs(Math.round(hoursLeft * 60));
+            //     alert("Exceeded daily ticket limit, please try again in " + ans + " minutes.");
+            // } else {
+            //     var ans = Math.abs(Math.round(hoursLeft));
+            //     alert("Exceeded daily ticket limit, please try again in " + ans + " hour(s).");
+            // }
+            alert("Exceeded daily ticket limit, please try again tomorrow.");
+            return false;
+        }
+    }
+
     handleSubmit(e) {
         console.log('clicked submit');
         // this.displayLoadingScreen(true);
         // console.log(this.state.waiting);
-        let ticketVaild = this.handleValidation(e);
+        let ticketValid = this.handleValidation(e);
+        let notSpam = this.checkSpam(e);
         // console.log('finish checking');
         // this.displayLoadingScreen(false);
-        if (ticketVaild) {
-            let ticketLimit = 3;
-            //check ticket limit
-            var now = new Date(new Date().toUTCString()); //current date/time 
-            var lastTicketDate = new Date(this.state.user.lastTicket); //date/time of last posted ticket
-            //var nextDay = (now.getDay() !== lastTicketDate.getDay() && now.getTime() > lastTicketDate.getTime()); //check if current day > last posted day
-            var checkYear = now.getYear() > lastTicketDate.getYear();
-            var checkMonth = now.getMonth() > lastTicketDate.getMonth();
-            var checkDate = now.getDate() > lastTicketDate.getDate();
-            var nextDay = checkYear || checkMonth || checkDate;
-            // var nextDay = +now > +lastTicketDate;
-            // if (this.state.user.numberOfTickets < ticketLimit || nextDay) {
-            if (this.numberOfTickets < ticketLimit || nextDay) {
-                //reset numberOfTickets if nextDay, and increment by 1
-                if (nextDay) {
-                    this.numberOfTickets = 1;
-                    this.changeField("numberOfTickets", this.numberOfTickets);
-                } else {
-                    this.numberOfTickets = this.numberOfTickets + 1
-                    console.log(this.numberOfTickets);
-                    this.changeField("numberOfTickets", this.numberOfTickets);
-                }
+        if (ticketValid && notSpam) {
+            console.log(JSON.stringify(e));
+            this.addTicket(e);
+            alert("Ticket has been created.")
+            this.setState({
+                lastTicket: this.getDateCreated()
+            })
+            this.changeField("lastTicket", this.state.user.lastTicket); //updating user lastTicket field
 
-                //this.addTicket(e);
-                console.log(JSON.stringify(e));
-                this.addTicket(e);
-                alert("Ticket has been created.")
-                this.state.user.lastTicket = this.getDateCreated();
-                this.changeField("lastTicket", this.state.user.lastTicket); //updating user lastTicket field
+            //send notification
+            this.sendNotif(e);
 
-                //send notification
-                this.sendNotif(e);
-
-                window.location.replace("/");
-                // window.location.herf = '/';
-                // this.props.history.push('/');
-                // reset the form values to blank after submitting:
-                this.setState({
-                    ticket: Object.assign({}, RESET_VALUES),
-                });
-                return;
-                // this.props.history.push('/');
-                //return <Redirect to='/' push={true}></Redirect>;
-            }
-            else {
-                // lastTicketDate.setHours(23);
-                // lastTicketDate.setMinutes(59);
-                // lastTicketDate.setSeconds(59);
-                // var hoursLeft = (lastTicketDate.getTime() - now.getTime())/3600000;
-                // if (hoursLeft < 1) {
-                //     var ans = Math.abs(Math.round(hoursLeft * 60));
-                //     alert("Exceeded daily ticket limit, please try again in " + ans + " minutes.");
-                // } else {
-                //     var ans = Math.abs(Math.round(hoursLeft));
-                //     alert("Exceeded daily ticket limit, please try again in " + ans + " hour(s).");
-                // }
-                alert("Exceeded daily ticket limit, please try again tomorrow.");
-                return;
-            }
-
+            window.location.replace("/");
+            // window.location.herf = '/';
+            // this.props.history.push('/');
+            // reset the form values to blank after submitting:
+            this.setState({
+                ticket: Object.assign({}, RESET_VALUES),
+            });
+            return;
+            // this.props.history.push('/');
+            //return <Redirect to='/' push={true}></Redirect>;
+            
         }
-        else {
+        else if (notSpam){
             alert("Please fill in all the required fills.");
             return;
         }
@@ -243,7 +258,6 @@ export default class NewTicket extends React.Component {
                 // alert("Please add more relevant details of your problem.");
             }
             */
-
         }
 
         if (ticket.email === '') {
@@ -254,6 +268,7 @@ export default class NewTicket extends React.Component {
         else {
             errorTextCopy.email = '';
         }
+        
 
         this.setState({ errorText: errorTextCopy });
         // console.log("count is " + count);
@@ -494,19 +509,37 @@ export default class NewTicket extends React.Component {
         var errorTextCopy = Object.assign({}, this.state.errorText);
 
         const target = e.target;
-        const value = target.value;
+        var value = target.value;
         const name = target.name;
+        
+        if (name === 'title'){
+            if (value.length > this.titleMaxChars) {
+                errorTextCopy.title = 'Please shorten your title';
+            }
+            else{
+                errorTextCopy.title = '';
+            }
+        }
 
         if (name === 'email') {
             var validEmail = this.checkEmail(value);
             if (validEmail) {
                 errorTextCopy.email = '';
             }
+            // else if (value.length > this.emailMaxChars) {
+            //     errorTextCopy.email = 'Email is too long';
+            // }
             else {
                 errorTextCopy.email = 'Please enter valid email';
             }
         }
 
+        if (name === 'message') {
+            this.setState({
+                messageCharsLeft: this.maxMessageChars - value.length,
+            });
+        }
+        
         this.setState((prevState) => {
             prevState.ticket[name] = value;
             return { ticket: prevState.ticket, errorText: errorTextCopy };
@@ -558,28 +591,31 @@ export default class NewTicket extends React.Component {
                             >
                                 Title
                                         </Typography>
-                            <TextField
-                                // label="Title"
-                                name="title"
-                                multiline
-                                rowsMax="2"
-                                type='text'
-                                value={this.state.ticket.name}
-                                onChange={this.handleChange}
-                                fullWidth
-                                margin="normal"
-                                variant="outlined"
-                                placeholder="Title"
-                                InputLabelProps={{ shrink: true, }}
-                                required={true}
-                                error={((this.state.errorText.title !== '' && this.state.ticket.title === '') ? true : false)}
-                                helperText={this.state.errorText.title}
-                            >
-                            </TextField>
-                            <Typography
-                                align="left" variant="h6"
-                            >
-                                Category
+                                    <TextField
+                                        // label="Title"
+                                        name="title"
+                                        multiline
+                                        rowsMax="2"
+                                        type='text'
+                                        value={this.state.ticket.name}
+                                        onChange={this.handleChange}
+                                        fullWidth
+                                        margin="normal"
+                                        variant="outlined"
+                                        placeholder="Title"
+                                        InputLabelProps={{ shrink: true, }}
+                                        required={true}
+                                        error={((
+                                            (this.state.errorText.title !== '' && this.state.ticket.title === '') ||
+                                            (this.state.ticket.title.length > this.titleMaxChars)
+                                            ) ? true : false)}
+                                        helperText={this.state.errorText.title}
+                                    >
+                                    </TextField>
+                                    <Typography
+                                        align="left" variant="h6"
+                                    >
+                                        Category
                                         </Typography>
                             <TextField
                                 name="category"
@@ -606,49 +642,62 @@ export default class NewTicket extends React.Component {
                             >
                                 Message
                                         </Typography>
-                            <TextField
-                                name="message"
-                                multiline
-                                value={this.state.ticket.message}
-                                onChange={this.handleChange}
-                                fullWidth
-                                margin="normal"
-                                variant="outlined"
-                                placeholder="Message"
-                                InputLabelProps={{ shrink: true, }}
-                                required={true}
-                                error={(((this.state.errorText.message !== '' && (this.state.ticket.message === "")) || (this.state.errorText.message === "Please add more relevant details of your problem." && this.state.ticket.message.split(" ").length <= this.state.wordCount)) ? true : false)}
-                                //|| this.state.errorText.message === "Please add more relevant details of your problem."
-                                helperText={this.state.errorText.message}
-                            />
-                            <Typography
-                                align="left" variant="h6"
-                            >
-                                Email
+                                    <TextField
+                                        name="message"
+                                        multiline
+                                        value={this.state.ticket.message}
+                                        onChange={this.handleChange}
+                                        fullWidth
+                                        margin="normal"
+                                        variant="outlined"
+                                        placeholder="Message"
+                                        InputLabelProps={{ shrink: true, }}
+                                        required={true}
+                                        error={(( 
+                                            (this.state.errorText.message !== '' && (this.state.ticket.message === "")) || 
+                                            (this.state.errorText.message === "Please add more relevant details of your problem." && this.state.ticket.message.split(" ").length <= this.state.wordCount) || 
+                                            (this.state.messageCharsLeft < 0)
+                                            ) ? true : false)}
+                                        //|| this.state.errorText.message === "Please add more relevant details of your problem."
+                                        helperText={this.state.errorText.message}
+                                    />
+                                    <Typography 
+                                        align="right" 
+                                        color={(this.state.messageCharsLeft >= 0) ? "textSecondary" : "error"}> 
+                                        {
+                                        this.state.messageCharsLeft + " characters left"
+                                        } 
+                                    </Typography>
+                                    <Typography
+                                        align="left" variant="h6"
+                                    >
+                                        Email
                                         </Typography>
-                            <TextField
-                                name="email"
-                                type='email'
-                                value={this.state.ticket.email}
-                                onChange={this.handleChange}
-                                fullWidth
-                                margin="normal"
-                                variant="outlined"
-                                placeholder="eg abc@vaild.com"
-                                InputLabelProps={{ shrink: true, }}
-                                required={true}
-                                // error={((this.state.errorText.email !== '' && this.state.ticket.email === '') ? true : false)}
-                                error={((this.state.errorText.email !== '') ? true : false)}
-                                helperText={this.state.errorText.email}
-                            />
+                                    <TextField
+                                        name="email"
+                                        type='email'
+                                        value={this.state.ticket.email}
+                                        onChange={this.handleChange}
+                                        fullWidth
+                                        margin="normal"
+                                        variant="outlined"
+                                        placeholder="eg abc@valid.com"
+                                        InputLabelProps={{ shrink: true, }}
+                                        required={true}
+                                        // error={((this.state.errorText.email !== '' && this.state.ticket.email === '') ? true : false)}
+                                        error={(
+                                            (this.state.errorText.email !== '' 
+                                            ) ? true : false)}
+                                        helperText={this.state.errorText.email}
+                                    />
 
-                            <Grid item xs>
-                                <Button
-                                    id="submit_button"
-                                    variant="contained"
-                                    onClick={this.handleSubmit.bind(this, this.state.ticket)}
-                                >
-                                    Submit
+                                    <Grid item xs>
+                                            <Button
+                                                id="submit_button"
+                                                variant="contained"
+                                                onClick={this.handleSubmit.bind(this, this.state.ticket)}
+                                            >
+                                                Submit
                                                 </Button>
                             </Grid>
 
