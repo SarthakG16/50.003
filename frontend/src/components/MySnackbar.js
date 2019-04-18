@@ -113,6 +113,7 @@ class MySnackbar extends React.Component {
     return (
       <div>
         <Snackbar
+          id="accentureSnackBar"
           anchorOrigin={{
             vertical: "bottom",
             horizontal: "left",

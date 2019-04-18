@@ -1,6 +1,11 @@
 const handleLogin = (username, password, myState) => {
     const {userProfile, mySnackbar, myWelcomeDialog} = myState;
 
+    if (username.length > 128 || password.length > 128) {
+      mySnackbar.value = Object.assign(mySnackbar.value, { open: true, variant: "error", message: "Your username and/ or password is too long. " });
+      return
+    }
+
     var data = null;
 
     var xhr = new XMLHttpRequest();
