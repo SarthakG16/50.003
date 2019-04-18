@@ -145,12 +145,12 @@ export default class NewTicket extends React.Component {
         }
         // var nextDay = +now > +lastTicketDate;
         // if (this.state.user.numberOfTickets < ticketLimit || nextDay) {
-        if ((this.numberOfTickets < ticketLimit || nextDay) && e.message.length <= this.maxMessageChars) {
-            //reset numberOfTickets if nextDay, and increment by 1
-            // if (this.props.location.state.isAdmin) {
-            //     console.log("Admin has no ticket limit");
-            // }
-            if (nextDay) {
+        if ((this.numberOfTickets < ticketLimit || nextDay || this.isAdmin) && e.message.length <= this.maxMessageChars) {
+            // reset numberOfTickets if nextDay, and increment by 1
+            if (this.isAdmin) {
+                console.log("Admin has no ticket limit");
+            }
+            else if (nextDay) {
                 this.numberOfTickets = 1;
                 this.changeField("numberOfTickets", this.numberOfTickets);
             } else {
