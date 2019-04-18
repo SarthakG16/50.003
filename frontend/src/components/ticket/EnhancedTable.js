@@ -284,10 +284,17 @@ class EnhancedTable extends React.Component {
                 {this.state.tickets
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(ticket => {
+                  
                     index =  (index + 1) % tickets.length;
                     if (index === 0) {
                       index = tickets.length;
                     }
+                    var message = ticket.replies[ticket.replies.length - 1].message;
+
+                    if (message.length > 15) {
+                      message = ticket.replies[ticket.replies.length - 1].message.substr(0,15) + "...";
+                    }
+
                     return (
                       <TableRow              
                         key={ticket.objectId}
@@ -299,7 +306,7 @@ class EnhancedTable extends React.Component {
                         <TableCell align="left">{ticket.title}</TableCell>
                         <TableCell align="left">{ticket.category}</TableCell>
                         <TableCell align="left">{ticket.status}</TableCell>
-                        <TableCell align="left">{ticket.replies[ticket.replies.length - 1].message.substr(0,15)+ "..."}</TableCell>
+                        <TableCell align="left">{message}</TableCell>
                         <TableCell align = "left"> <Tooltip title="Delete">
                         <IconButton align = "left" onClick={this.handleDelete.bind(this, ticket)}>
                           <DeleteIcon size = "20"/>
