@@ -70,6 +70,7 @@ class TablePaginationActions extends React.Component {
           {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
         </IconButton>
         <IconButton
+          id = "NextPageButton"
           onClick={this.handleNextButtonClick}
           disabled={page >= Math.ceil(count / rowsPerPage) - 1}
           aria-label="Next Page"
@@ -102,6 +103,7 @@ const TablePaginationActionsWrapped = withStyles(actionsStyles, { withTheme: tru
 );
 
 var index = 0;
+var ticketindex = 0;
 
 
 class EnhancedTable extends React.Component {
@@ -110,7 +112,6 @@ class EnhancedTable extends React.Component {
     this.state = {
       redirect: false,
       delete: false,
-      idk: false,
 
       ticketID: -1, //I think this is redundant/
       ticketState: null,
@@ -120,6 +121,7 @@ class EnhancedTable extends React.Component {
       page: 0,
       rowsPerPage: 5,
     };
+    this.changingpage = false;
     this.userProfile = props.myState.userProfile.registerCallback(this);
     // this.userProfile = props.myState;
     this.isAdmin = props.isAdmin;
@@ -232,6 +234,7 @@ class EnhancedTable extends React.Component {
   
     renderRedirect() {
       if (this.state.redirect && !this.state.delete) {
+        ticketindex = this.state.ticketIndex;
         return <Redirect to={{
           pathname: `/Ticket/` + this.state.ticketIndex,
           state: { id: this.state.ticketID, ticket: this.state.ticketState, myState: this.userProfile.value, isAdmin: this.isAdmin }
@@ -240,7 +243,9 @@ class EnhancedTable extends React.Component {
     }
   
     handleChangePage = (event, page) => {
-      index = this.state.rowsPerPage;
+      console.log(page);  
+      index = (this.state.rowsPerPage+1)*page;
+      this.changingpage = true;
       this.setState({ page });
     };
   
@@ -259,9 +264,20 @@ class EnhancedTable extends React.Component {
     render() {
       console.log(this.userProfile.value);
       const { classes } = this.props;
-      const { tickets,rowsPerPage, page } = this.state;
+      const { tickets,rowsPerPage} = this.state;
+      var page = this.state.page;
       // const emptyRows = rowsPerPage - Math.min(rowsPerPage, tickets.length - page * rowsPerPage);
+      // page = Math.floor(Math.max(index-1,0)/rowsPerPage) + 1;
+      if (index <  rowsPerPage) {
+        page = 0;
+      } 
+      else if (!this.changingpage) {
+        page = Math.floor((ticketindex -1)/rowsPerPage);
+      }
+      //console.log(index,page)
+
       index = page* rowsPerPage;
+
       return (
         
         <Paper className={classes.root}>
@@ -284,8 +300,11 @@ class EnhancedTable extends React.Component {
                 {this.state.tickets
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(ticket => {
-                  
+                    if (this.state.redirect){
+                      return;
+                    }
                     index =  (index + 1) % tickets.length;
+                    console.log(index)
                     if (index === 0) {
                       index = tickets.length;
                     }
