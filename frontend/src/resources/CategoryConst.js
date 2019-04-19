@@ -395,7 +395,7 @@ export var helpWords = [
     "functions", "approach", "support", "customer", "api",
 
     // products
-    "product", "choice", "afford", "work", "version", "compatible", "price", "sales", "chatbot",
+    "choice", "afford", "work", "version", "compatible", "price", "sales", "chatbot",
     "demo", "implementation", "purchase", "language", "languages", "information", "info",
     "feature", "features", "dashboard", "example", "select", "admin", "membership", "member",
     "account", "connect", "connectivity", "connections", "mobile",
@@ -411,7 +411,7 @@ export var helpWords = [
     "boolean", "broadband", "browser", "buffer", "storage", "byte", "cache", "capacity",
     "central processing unit", "cpu", "client", "code", "configure", "cookie", "copyright",
     "cyber", "base", "data", "debug", "decompress", "desktop", "desktop publishing",
-    "digitize", "directory", "disk", "domain name", "download", "emoticon", "encryption",
+    "digitize", "directory", "disk", "domain", "name", "download", "emoticon", "encryption",
     "exabyte", "export", "external storage", "faq", "feedback", "field", "file", "filename",
     "extension", "firewall", "firmware", "font", "format", "frame", "freeware", "function",
     "gigabyte", "gps", "graphical", "user", "interface", "gui", "hack", "hacker", "drive",

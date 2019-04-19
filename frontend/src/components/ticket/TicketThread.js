@@ -105,7 +105,9 @@ export default class TicketThread extends React.Component {
         if (this.props.location.state.isAdmin) { this.props.location.state.ticket.replyCount = 0; }
         else { this.props.location.state.ticket.replyCount++; }
 
+
         let data = { 
+            "status": (this.state.isUser) ? 'Open' : 'Pending',
             "replyCount": this.props.location.state.ticket.replyCount,
             "replies": replies
         };

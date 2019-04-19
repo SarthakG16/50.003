@@ -213,7 +213,7 @@ export default class NewTicket extends React.Component {
         let ticket = e;
         var errorTextCopy = Object.assign({}, this.state.errorText);
         var count = 0;
-        var catList = 0;
+        var catList = 24; // default is others
         if (ticket.title === '') {
             console.log('No title');
             errorTextCopy.title = 'Please fill in a title';
@@ -251,7 +251,6 @@ export default class NewTicket extends React.Component {
                 errorTextCopy.message = 'Please add more relevant details of your problem.';
                 count += 1;
                 this.previousMsg = ticket.message;
-                alert("Please add more relevant details of your problem.");
             }
             
         }
@@ -273,9 +272,12 @@ export default class NewTicket extends React.Component {
             return true;
         }
         else {
-            if (this.state.errorText.message === ""){
+            if (errorTextCopy.message === "Please add more relevant details of your problem."){
+                alert("Please fill in all the required fills. \nPlease add more relevant details of your problem.");
+            }else{
                 alert("Please fill in all the required fills.");
             }
+            
             return false;
         }
     }
