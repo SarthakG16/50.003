@@ -272,11 +272,10 @@ class EnhancedTable extends React.Component {
         page = 0;
       } 
       else if (!this.changingpage) {
-        page = Math.floor((ticketindex -1)/rowsPerPage);
+        page = Math.max(Math.floor((ticketindex -1)/rowsPerPage),0);
       }
-      //console.log(index,page)
-
       index = page* rowsPerPage;
+      console.log(index,page,rowsPerPage);
 
       return (
         
