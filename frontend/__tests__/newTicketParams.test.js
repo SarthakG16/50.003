@@ -1,148 +1,131 @@
-import NewTicket from '../src/components/ticket/NewTicket';
-import { shallow, mount, render } from 'enzyme';
-// import handleLogin from "../src/resources/login";
-// import MyState from "../src/components/MyState";
+const RESET_VALUES_ERROR = { title: '', message: '', category: '', email: '' };
 
-/*
-function sleep (time) {
-  return new Promise((resolve) => setTimeout(resolve, time));
+function handleValidation(e) {
+    let ticket = e;
+    var errorTextCopy = Object.assign({}, RESET_VALUES_ERROR);
+    var count = 0;
+    if (ticket.title === '') {
+        // console.log('No title');
+        errorTextCopy.title = 'Please fill in a title';
+        count += 1;
+    }
+    else {
+        errorTextCopy.title = '';
+    }
+
+    if (ticket.category === '') {
+        // console.log('No category');
+        errorTextCopy.category = 'Please fill in a category';
+        count += 1;
+    }
+    else {
+        errorTextCopy.category = '';
+    }
+
+    if (ticket.message === '') {
+        // console.log('No message');
+        errorTextCopy.message = 'Please fill in a message';
+        count += 1;
+    }
+    else {
+        // var relevant = checkMessageRevelance(ticket.message);
+        var relevant = true
+        // console.log("what is the relevance value " + relevant);
+        if (relevant) {
+            errorTextCopy.message = '';
+        }
+        else {
+            errorTextCopy.message = 'Please add more relevant details of your problem.';
+            count += 1;
+        }
+    }
+
+    if (ticket.email === '') {
+        // console.log('No email');
+        errorTextCopy.email = 'Please fill in a email';
+        count += 1;
+    }
+    else {
+        errorTextCopy.email = '';
+    }
+
+    if (count === 0) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
-beforeEach(async () => {
-  const myState = {
-    userProfile: new MyState({}),
+describe('#check if params are filled', () => {
+    it('all fields filled and valid', () => {
 
-    myWelcomeDialog: new MyState({ open: true }),
-    mySnackbar: new MyState({ open: false, variant: "info", message: "" }),
-  };
+        const newticket = {
+            title: "Problems with sending email",
+            message: "I can't sent emails. I am having this problem since last week. I have already contacted you guys 5 times  but there was no reply. HOw can you keep a customer waiting so long.",
+            category: "Others",
+            email: "1003031@mymail.sutd.edu.sg"
+        }
 
-  handleLogin("userOne", "password", myState);
+        let result = handleValidation(newticket);
+        expect(result).toEqual(true);
+    });
 
-  await sleep(3000);
-  localStorage.getItem("sessionToken");
-  expect(myState.myWelcomeDialog.value.open).toBe(false);
-  expect(myState.userProfile.value).toBeDefined();
-});
-*/
+    it('no email so fail', () => {
 
-function getUser() {
-  const myState = {
-    "objectId": "ub7BztoxJi",
-    "username": "userOne",
-    "phone": "415-392-0205",
-    "createdAt": "2019-03-19T07:41:01.809Z",
-    "updatedAt": "2019-04-09T10:11:42.514Z",
-    "test": "",
-    "numberOfTickets": 3,
-    "lastTicket": "Tue, 09 Apr 2019 10:10:17 GMT",
-    "ACL": {
-      "*": {
-        "read": true
-      },
-      "ub7BztoxJi": {
-        "read": true,
-        "write": true
-      }
-    }
-  }
-  return { myState };
-}
+        const newticket = {
+            title: "Problems with sending email",
+            message: "I can't sent emails. I am having this problem since last week. I have already contacted you guys 5 times  but there was no reply. HOw can you keep a customer waiting so long.",
+            category: "Others",
+            email: ""
+        }
 
-describe('#check params', () => {
-  it('all fields filled', () => {
-    let myState = getUser();
-    // let wrapper = shallow(<NewTicket myState = {{myState}}/>);
-    // let wrapper = shallow(<NewTicket/>)
-  
-    // let myState = getUser();
-    // let tick = new NewTicket(myState);
-    // tick.setState()
-    // this.setState((prevState) => ({ waiting: e }));
-    // expect(tick).toBeTruthy();
-    // expect(props.myState.userProfile.value).toBeDefined();
-    // expect(tick.state.user).toBeDefined();
+        let result = handleValidation(newticket);
 
-    const newticket = {
-      title: "Problems with sending email",
-      message: "I can't sent emails.",
-      category: "Server problems",
-      email: "1003031@mymail.sutd.edu.sg"
-    }
+        expect(result).toEqual(false);
+    });
 
-    // const {tick} = render(
-    //   <NewTicket myState={myState} />,
-    // );
-    // let tick = NewTicket.handleValidation(newticket);
-    // tick.state.user = myState;
+    it('no category so fail', () => {
 
-    // let result = tick.handleValidation(newticket);
+        const newticket = {
+            title: "Problems with sending email",
+            message: "I can't sent emails. I am having this problem since last week. I have already contacted you guys 5 times  but there was no reply. HOw can you keep a customer waiting so long.",
+            category: "",
+            email: "1003031@mymail.sutd.edu.sg"
+        }
 
-    expect(true).toEqual(true);
-  });
-/*
-  it('no email so fail', () => {
-    let tick = new NewTicket();
-    expect(tick).toBeTruthy();
+        let result = handleValidation(newticket);
 
-    const newticket = {
-      title: "Problems with sending email",
-      message: "I can't sent emails.",
-      category: "Server problems",
-      email: ""
-    }
+        expect(result).toEqual(false);
+    });
 
-    let result = tick.handleValidation(newticket);
+    it('no message so fail', () => {
 
-    expect(result).toEqual(false);
-  });
+        const newticket = {
+            title: "Problems with sending email",
+            message: "",
+            category: "Others",
+            email: "1003031@mymail.sutd.edu.sg"
+        }
+
+        let result = handleValidation(newticket);
+
+        expect(result).toEqual(false);
+    });
+
+    it('no title so fail', () => {
+
+        const newticket = {
+            title: "",
+            message: "I can't sent emails. I am having this problem since last week. I have already contacted you guys 5 times  but there was no reply. HOw can you keep a customer waiting so long.",
+            category: "Others",
+            email: "1003031@mymail.sutd.edu.sg"
+        }
+
+        let result = handleValidation(newticket);
+
+        expect(result).toEqual(false);
+    });
 
 
-  it('no category so fail', () => {
-    let tick = new NewTicket();
-    expect(tick).toBeTruthy();
-
-    const newticket = {
-      title: "Problems with sending email",
-      message: "I can't sent emails.",
-      category: "",
-      email: "1003031@mymail.sutd.edu.sg"
-    }
-
-    let result = tick.handleValidation(newticket);
-
-    expect(result).toEqual(false);
-  });
-
-  it('no message so fail', () => {
-    let tick = new NewTicket();
-    expect(tick).toBeTruthy();
-
-    const newticket = {
-      title: "Problems with sending email",
-      message: "",
-      category: "Server problems",
-      email: "1003031@mymail.sutd.edu.sg"
-    }
-
-    let result = tick.handleValidation(newticket);
-
-    expect(result).toEqual(false);
-  });
-
-  it('no title so fail', () => {
-    let tick = new NewTicket();
-    expect(tick).toBeTruthy();
-
-    const newticket = {
-      title: "",
-      message: "I can't sent emails.",
-      category: "Server problems",
-      email: "1003031@mymail.sutd.edu.sg"
-    }
-
-    let result = tick.handleValidation(newticket);
-
-    expect(result).toEqual(false);
-  });
-  */
 })

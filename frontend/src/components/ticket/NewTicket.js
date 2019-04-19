@@ -273,7 +273,7 @@ export default class NewTicket extends React.Component {
             return true;
         }
         else {
-            if (this.state.errorText.message == ""){
+            if (this.state.errorText.message === ""){
                 alert("Please fill in all the required fills.");
             }
             return false;

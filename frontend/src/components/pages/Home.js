@@ -60,7 +60,6 @@ export default class Home extends React.Component {
 					/>
 					<Route path="/login" component={Login} />
 					<Route path="/Ticket" component={TicketThread} />
-					
 				</div>
 			</div>
 		);
