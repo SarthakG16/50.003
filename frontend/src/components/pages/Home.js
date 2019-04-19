@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Login from './Login'
 //import FAQ from './FAQ';
 import NewTicket from "../ticket/NewTicket"
 import Tickets from '../ticket/Tickets';
@@ -58,7 +57,6 @@ export default class Home extends React.Component {
 							</NewTicket>
 						)}
 					/>
-					<Route path="/login" component={Login} />
 					<Route path="/Ticket" component={TicketThread} />
 				</div>
 			</div>
