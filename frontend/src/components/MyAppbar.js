@@ -24,6 +24,7 @@ import ArchiveIcon from '@material-ui/icons/Archive';
 import AllInboxIcon from '@material-ui/icons/AllInbox';
 import CreateIcon from '@material-ui/icons/Create';
 import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
+import Tooltip from '@material-ui/core/Tooltip';
 
 // import Button from '@material-ui/core/Button';
 import Routes from "../Routes"
@@ -94,10 +95,10 @@ const styles = theme => ({
     },
   },
   toolbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
+    // display: 'flex',
+    // alignItems: 'center',
+    // justifyContent: 'flex-end',
+    // padding: '0 8px',
     ...theme.mixins.toolbar,
   },
   content: {
@@ -190,18 +191,20 @@ class MyAppbar extends React.Component {
               <MenuIcon />
             </IconButton>
             <div style={{ paddingLeft: this.state.open ? 25 : 0 }}>
-              <Typography variant="h6" color="inherit" noWrap>
+              <Typography align="left" variant="h6" color="inherit" noWrap>
                 {constants.title}
               </Typography>
             </div>
             <Typography variant="h6" color="inherit" className={classes.grow}></Typography>
-            <Typography style={{ marginRight: 12 }} variant="subtitle2" color="inherit">{"Welcome back " + username}</Typography>
+            <Typography align="right" style={{ marginRight: 12 }} variant="subtitle2" color="inherit">{"Welcome back " + username}</Typography>
             <IconButton
               id="logout"
               style={{ marginRight: 12 }}
               onClick={this.handleClick} variant="text" color="inherit"
             >
-              <PowerSettingsNew />
+            <Tooltip title="Logout">
+            <PowerSettingsNew />
+            </Tooltip>
             </IconButton>
             {/* <PowerSettingsNew
               style={{ marginRight: 25 }}
