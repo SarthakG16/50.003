@@ -3,7 +3,7 @@ import React from "react";
 import { Route } from 'react-router-dom';
 import $ from 'jquery';
 import constants from "../../resources/strings.js";
-import CATEGORY_VALUES from "../../resources/CategoryConst";
+import {CATEGORY_VALUES, categoriesOnly} from "../../resources/CategoryConst";
 import { Button, Grid, MenuItem, TextField, Typography } from '@material-ui/core';
 
 const RESET_VALUES = {
@@ -222,6 +222,7 @@ export default class NewTicket extends React.Component {
         let ticket = e;
         var errorTextCopy = Object.assign({}, this.state.errorText);
         var count = 0;
+        var catList = 0;
         if (ticket.title === '') {
             console.log('No title');
             errorTextCopy.title = 'Please fill in a title';
@@ -238,6 +239,8 @@ export default class NewTicket extends React.Component {
         }
         else {
             errorTextCopy.category = '';
+            catList = categoriesOnly.indexOf(ticket.category);
+            console.log(catList);
         }
 
         if (ticket.message === '') {
