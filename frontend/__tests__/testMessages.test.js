@@ -77,7 +77,7 @@ function checkMessageRevelance(e, number) {
 
     var relevance = false;
 
-    if (prob > 0.25 && prob < 0.9) {
+    if (prob > 0.25 && prob < 1) {
         relevance = true
     }
     return relevance;

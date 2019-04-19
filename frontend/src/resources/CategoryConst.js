@@ -382,8 +382,7 @@ export var helpWords = [
     "hassle", "worry", "worried", "difficulties", "complaint",
 
     "bug", "breakdown", "failure", "fault", "flaw", "error", "errors",
-    "defect", "malfunction", 'fail', "failing",
-    "trouble", "wrong", "report", "terrible",
+    "defect", "malfunction", 'fail', "failing", "wrong", "report", "terrible",
 
     "enquire",
 
