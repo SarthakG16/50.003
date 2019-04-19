@@ -2,6 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import constants from "../../resources/strings.js";
 import EnhancedTable from './EnhancedTable';
+import { Typography } from '@material-ui/core';
 
 export default class Tickets extends React.Component {
     constructor(props) {
@@ -19,7 +20,7 @@ export default class Tickets extends React.Component {
 
     componentDidMount() {
         const sessionToken = localStorage.getItem("sessionToken");
-        
+
         var settings;
         if (this.state.origin === "Home") {
             settings = {
@@ -99,7 +100,11 @@ export default class Tickets extends React.Component {
         console.log("I am inside tickets render");
         //console.log(this.userProfile.value);
         if (!this.state.isLoaded) {
-            return <div>Loading...</div>
+            return <div>
+                    <Typography align="center">
+                        Loading...
+                    </Typography>
+                    </div>
         }
         else {
             if (this.state.tickets.length === 0) {
@@ -114,8 +119,8 @@ export default class Tickets extends React.Component {
             return (
                 <div>
                     {/* <SimpleTable myState={this.props.myState} tickets={this.state.tickets}></SimpleTable> */}
-                    <EnhancedTable myState = {this.props.myState} tickets = {this.state.tickets}
-                     isAdmin={this.isAdmin} origin = {this.props.origin}></EnhancedTable>
+                    <EnhancedTable myState={this.props.myState} tickets={this.state.tickets}
+                        isAdmin={this.isAdmin} origin={this.props.origin}></EnhancedTable>
                 </div>
             );
         }
