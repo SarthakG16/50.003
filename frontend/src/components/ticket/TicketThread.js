@@ -49,10 +49,10 @@ const STATUS_VALUES = [
         value: 'Closed',
         label: 'Closed',
     },
-    {
-        value: 'Archive',
-        label: 'Archive',
-    },
+    // {
+    //     value: 'Archive',
+    //     label: 'Archive',
+    // },
 ];
 
 
