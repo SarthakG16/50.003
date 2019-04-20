@@ -14,6 +14,11 @@
   padding: 1%;
 }
 
+.newticket{
+  margin-left: 15%;
+  margin-right: 20%;
+}
+
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;

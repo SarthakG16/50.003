@@ -152,17 +152,7 @@ export default class NewTicket extends React.Component {
             alert("Message character count is too high, please shorten your message.");
         }
         else {
-            // lastTicketDate.setHours(23);
-            // lastTicketDate.setMinutes(59);
-            // lastTicketDate.setSeconds(59);
-            // var hoursLeft = (lastTicketDate.getTime() - now.getTime())/3600000;
-            // if (hoursLeft < 1) {
-            //     var ans = Math.abs(Math.round(hoursLeft * 60));
-            //     alert("Exceeded daily ticket limit, please try again in " + ans + " minutes.");
-            // } else {
-            //     var ans = Math.abs(Math.round(hoursLeft));
-            //     alert("Exceeded daily ticket limit, please try again in " + ans + " hour(s).");
-            // }
+
             alert("Exceeded daily ticket limit, please try again tomorrow.");
             return false;
         }
@@ -442,6 +432,7 @@ export default class NewTicket extends React.Component {
         return (
             <Route exact path="/NewTicket" render={props => (
                 <React.Fragment>
+                    <div className = "newticket">
                     <h3 align="center">Submit a new ticket request</h3>
                     <form
                         style={{ paddingLeft: 20, marginTop: "1%", paddingRight: 20 }}
@@ -566,6 +557,7 @@ export default class NewTicket extends React.Component {
 
                         </Grid>
                     </form>
+                    </div>
                 </React.Fragment>
             )} />
         );
