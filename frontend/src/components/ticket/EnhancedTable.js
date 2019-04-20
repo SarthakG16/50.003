@@ -104,6 +104,7 @@ const TablePaginationActionsWrapped = withStyles(actionsStyles, { withTheme: tru
 
 var index = 0;
 var ticketindex = 0;
+var lastOrigin = "WTF";
 
 
 class EnhancedTable extends React.Component {
@@ -235,6 +236,7 @@ class EnhancedTable extends React.Component {
     renderRedirect() {
       if (this.state.redirect && !this.state.delete) {
         ticketindex = this.state.ticketIndex;
+        lastOrigin = this.origin;
         return <Redirect to={{
           pathname: `/Ticket/` + this.state.ticketIndex,
           state: { id: this.state.ticketID, ticket: this.state.ticketState, myState: this.userProfile.value, isAdmin: this.isAdmin }
@@ -265,6 +267,10 @@ class EnhancedTable extends React.Component {
       const { classes } = this.props;
       const { tickets,rowsPerPage} = this.state;
       var page = this.state.page;
+
+      if (!(lastOrigin === this.origin)) {
+        ticketindex = 0;
+      }
 
       console.log(ticketindex);
       if (index <  rowsPerPage) {
