@@ -197,15 +197,15 @@ class MyAppbar extends React.Component {
             </div>
             <Typography variant="h6" color="inherit" className={classes.grow}></Typography>
             <Typography align="right" style={{ marginRight: 12 }} variant="subtitle2" color="inherit">{"Welcome back " + username}</Typography>
+            <Tooltip title="Logout">
             <IconButton
               id="logout"
               style={{ marginRight: 12 }}
               onClick={this.handleClick} variant="text" color="inherit"
             >
-            <Tooltip title="Logout">
             <PowerSettingsNew />
-            </Tooltip>
             </IconButton>
+            </Tooltip>
             {/* <PowerSettingsNew
               style={{ marginRight: 25 }}
               onClick={this.handleClick} variant="text" color="inherit"
