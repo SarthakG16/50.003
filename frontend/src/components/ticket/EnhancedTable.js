@@ -284,11 +284,11 @@ class EnhancedTable extends React.Component {
             {this.renderRedirect()}
             <TableHead>
               <TableRow>
-                <TableCell>Index</TableCell>
-                <TableCell align="left">Title</TableCell>
-                <TableCell align="left">Category</TableCell>
-                <TableCell align="left">Status</TableCell>
-                <TableCell align="left">Message</TableCell>
+                <TableCell><h4>Index</h4></TableCell>
+                <TableCell align="left"><h4>Title</h4></TableCell>
+                <TableCell align="left"><h4>Category</h4></TableCell>
+                <TableCell align="left"><h4>Status</h4></TableCell>
+                <TableCell align="left"><h4>Last Message</h4></TableCell>
                 <TableCell align="left"></TableCell>
               </TableRow>
             </TableHead>
@@ -298,13 +298,13 @@ class EnhancedTable extends React.Component {
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(ticket => {
                     if (this.state.redirect){
-                      return;
+                      return true;
                     }
                     var color  = 'blue';
                     if (ticket.status === "Pending") {
                       color = 'green';
                     }
-                    
+
                     index =  (index + 1) % tickets.length;
 
                     if (index === 0) {
