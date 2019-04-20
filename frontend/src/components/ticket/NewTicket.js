@@ -546,6 +546,7 @@ export default class NewTicket extends React.Component {
                                     />
 
                                     <Grid item xs>
+                                            <div align = "center">
                                             <Button
                                                 id="submit_button"
                                                 variant="contained"
@@ -553,7 +554,9 @@ export default class NewTicket extends React.Component {
                                             >
                                                 Submit
                                                 </Button>
-                            </Grid>
+                                            </div>
+                                           
+                                    </Grid>
 
                         </Grid>
                     </form>
