@@ -226,25 +226,25 @@ export const catWords = {
     ],
     17: [
         //Smart Home
-        "monitor", "monitoring", "controlling", "controls", "environment",
+        "smart","home","monitor", "monitoring", "controlling", "controls", "environment",
         "temperature", "humidity", "track"
 
     ],
     18: [
         //Smart Lock
-        "secure", "lend", "track", "monitor", "monitoring", "controlling", "controls",
+        "smart","lock","secure", "lend", "track", "monitor", "monitoring", "controlling", "controls",
 
 
     ],
     19: [
         //Smart Parking
-        "monitor", "monitoring", "controlling", "controls", "extend", "hours",
+        "smart","parking","monitor", "monitoring", "controlling", "controls", "extend", "hours",
         "payment", "automated", "coupons", "scanner", "scan", "qr", "rate", "mimute",
 
     ],
     20: [
         //Smart Restaurant
-        "monitor", "monitoring", "controlling", "controls", "extend", "hours",
+        "smart","resturant", "monitor", "monitoring", "controlling", "controls", "extend", "hours",
         "payment", "automated", "coupons", "scanner", "scan", "qr", "rate", "mimute",
         "item", "items", "pub", "menu"
 
@@ -269,6 +269,7 @@ export const catWords = {
     ],
     24: [
         // others
+        "smart", "ar","ai","artifical","intelligence","product"
         
     ]
 
@@ -371,7 +372,7 @@ export var helpWords = [
     "lift", "advice", "care", "counsel", "guidance", "mentoring", "hopefully",
     "attention", "service", "facilitate", "favour", "affected", "affecting", "affects",
     "cause", "causes", "fix", "suggest", "concerning", "facing", "face", "faced",
-    "unhappy", "dissatisfied", "dissapointed", "displeased",
+    "unhappy", "dissatisfied", "dissapointed", "displeased", "check",
 
     "resulted", "resulting", "results", "right", "weakness", "interested",
 
@@ -384,7 +385,7 @@ export var helpWords = [
     "bug", "breakdown", "failure", "fault", "flaw", "error", "errors",
     "defect", "malfunction", 'fail', "failing", "wrong", "report", "terrible",
 
-    "enquire",
+    "enquire", "clarify",
 
     "benefits", "benefit", "gains", "cons", "satisfy", "satisfied",
 
@@ -424,5 +425,5 @@ export var helpWords = [
     "ram", "memory", "redundancy", "router", "search", "engine", "server", "simulation",
     "software", "spam", "spreadsheet", "spyware", "streaming", "subsystem", "symbol",
     "telecommunication", "template", "templates", "transistor", "upload", "url", "virus",
-    "webcam", "wan", "wifi", "documentation", "document", "doc"
+    "webcam", "webpage", "wan", "wifi", "documentation", "document", "doc"
 ]
