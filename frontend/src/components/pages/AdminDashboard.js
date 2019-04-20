@@ -70,6 +70,21 @@ export default class AdminDashboard extends React.Component {
                                     </Card>
                                 </Grid>
 
+                                <Grid item xs>
+                                    <Card>
+                                        <CardActionArea
+                                            component={Link} to="/Closed"
+                                        >
+                                            <Typography
+                                                style={{ paddingTop: 50, paddingBottom: 50 }}
+                                                align="center"
+                                            >
+                                                Closed
+                                            </Typography>
+                                        </CardActionArea>
+                                    </Card>
+                                </Grid>
+
                             </Grid>
                             {/* <Tickets origin = "Home"></Tickets> */}
                         </React.Fragment>
@@ -90,6 +105,15 @@ export default class AdminDashboard extends React.Component {
                                 myState={this.props.myState}
                                 isAdmin={this.isAdmin}
                                 origin="Open"></Tickets>
+                        )}
+                    />
+                    <Route
+                        path="/Closed"
+                        render={() => (
+                            <Tickets
+                                myState={this.props.myState}
+                                isAdmin={this.isAdmin}
+                                origin="Closed"></Tickets>
                         )}
                     />
                     <Route
