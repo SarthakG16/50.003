@@ -258,14 +258,15 @@ class EnhancedTable extends React.Component {
       number = event.target.value;
       this.setState({ rowsPerPage: number });
     };
-  
-    //isSelected = id => this.state.selected.indexOf(id) !== -1;
-  
+
+
     render() {
       console.log(this.userProfile.value);
       const { classes } = this.props;
       const { tickets,rowsPerPage} = this.state;
       var page = this.state.page;
+
+      console.log(ticketindex);
       if (index <  rowsPerPage) {
         page = 0;
       } 
@@ -273,13 +274,18 @@ class EnhancedTable extends React.Component {
         page = Math.max(Math.floor((ticketindex -1)/rowsPerPage),0);
       }
       index = page* rowsPerPage;
+
+      var header = "Your Tickets";
+      if (this.origin === "Archive") {
+        header = "Archived Tickets"
+      }
       console.log(index,page,rowsPerPage);
 
       return (
         
         <Paper className={classes.root}>
           <div className={classes.tableWrapper}>
-            <h4 align="center">Your Tickets</h4>
+            <h4 align="center">{header}</h4>
             <Table className={classes.table} aria-labelledby="tableTitle">
             {this.renderRedirect()}
             <TableHead>
@@ -305,6 +311,8 @@ class EnhancedTable extends React.Component {
                       color = 'green';
                     } else if (ticket.status === "Archive") {
                       color = 'grey'
+                    } else if (ticket.status === 'Closed') {
+                      color = 'red'
                     }
 
                     index =  (index + 1) % tickets.length;
