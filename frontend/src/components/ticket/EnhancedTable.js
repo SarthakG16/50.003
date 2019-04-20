@@ -266,8 +266,6 @@ class EnhancedTable extends React.Component {
       const { classes } = this.props;
       const { tickets,rowsPerPage} = this.state;
       var page = this.state.page;
-      // const emptyRows = rowsPerPage - Math.min(rowsPerPage, tickets.length - page * rowsPerPage);
-      // page = Math.floor(Math.max(index-1,0)/rowsPerPage) + 1;
       if (index <  rowsPerPage) {
         page = 0;
       } 
@@ -302,8 +300,13 @@ class EnhancedTable extends React.Component {
                     if (this.state.redirect){
                       return;
                     }
+                    var color  = 'blue';
+                    if (ticket.status === "Pending") {
+                      color = 'green';
+                    }
+                    
                     index =  (index + 1) % tickets.length;
-                    console.log(index)
+
                     if (index === 0) {
                       index = tickets.length;
                     }
@@ -328,7 +331,7 @@ class EnhancedTable extends React.Component {
                         </TableCell>
                         <TableCell align="left">{title}</TableCell>
                         <TableCell align="left">{ticket.category}</TableCell>
-                        <TableCell align="left">{ticket.status}</TableCell>
+                        <TableCell align="left">{<p style={{ color: color }}>{ticket.status}</p>}</TableCell>
                         <TableCell align="left">{message}</TableCell>
                         <TableCell align = "left"> <Tooltip title="Delete">
                         <IconButton align = "left" onClick={this.handleDelete.bind(this, ticket)}>
