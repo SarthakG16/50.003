@@ -118,7 +118,6 @@ export default class Tickets extends React.Component {
             }
             return (
                 <div>
-                    {/* <SimpleTable myState={this.props.myState} tickets={this.state.tickets}></SimpleTable> */}
                     <EnhancedTable myState={this.props.myState} tickets={this.state.tickets}
                         isAdmin={this.isAdmin} origin={this.props.origin}></EnhancedTable>
                 </div>
