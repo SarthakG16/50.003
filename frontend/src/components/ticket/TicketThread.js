@@ -290,6 +290,7 @@ export default class TicketThread extends React.Component {
                                     fullWidth
                                     height='36px'
                                     InputLabelProps={{ shrink: true, }}
+                                    style = {{visibility : this.state.status === "Archive" ? 'hidden' : 'visible'}}
                                     disabled={this.state.disable || this.state.isUser}
                                 >
                                     {STATUS_VALUES.map(option => (
