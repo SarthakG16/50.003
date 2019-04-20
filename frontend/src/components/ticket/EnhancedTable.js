@@ -303,6 +303,8 @@ class EnhancedTable extends React.Component {
                     var color  = 'blue';
                     if (ticket.status === "Pending") {
                       color = 'green';
+                    } else if (ticket.status === "Archive") {
+                      color = 'grey'
                     }
 
                     index =  (index + 1) % tickets.length;
