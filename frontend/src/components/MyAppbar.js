@@ -14,31 +14,17 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-//import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-//import InboxIcon from '@material-ui/icons/MoveToInbox';
-//import MailIcon from '@material-ui/icons/Mail';
 import ArchiveIcon from '@material-ui/icons/Archive';
 import AllInboxIcon from '@material-ui/icons/AllInbox';
 import CreateIcon from '@material-ui/icons/Create';
 import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
 import Tooltip from '@material-ui/core/Tooltip';
 
-// import Button from '@material-ui/core/Button';
-import Routes from "../Routes"
-
-// TODO
 import { Link } from 'react-router-dom';
 
-// const linkStyle = {
-//   color: '#fff',
-//   textDecoration: 'none',
-//   marginLeft: -12,
-//   marginRight: 20,
-// }
-// //
 
 const drawerWidth = 240;
 
