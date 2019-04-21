@@ -80,7 +80,9 @@ export default class NewTicket extends React.Component {
                     "read": true,
                     "write": true
                 }
-            }
+            },
+            adminNew : true,
+            userNew : true
         }
         console.log(data);
 

@@ -232,11 +232,56 @@ class EnhancedTable extends React.Component {
 
         this.flag = true;
     }
+
+    handleSeenTicket() {
+      if (this.isAdmin) {
+        var settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets/" + this.state.ticketState.objectId,
+          "method": "PUT",
+          "headers": {
+            "Content-Type": "application/json",
+            "Server-Token": constants.serverToken,
+            "cache-control": "no-cache",
+            "X-Parse-Session-Token": sessionToken,
+          },
+          "processData": false,
+          "data": "{\n\t\"adminNew\":false\n}"
+        }
+
+        $.ajax(settings).done(function (response) {
+          console.log("ticket updated");
+        });
+      }else {
+        var settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets/" + this.state.ticketState.objectId,
+          "method": "PUT",
+          "headers": {
+            "Content-Type": "application/json",
+            "Server-Token": constants.serverToken,
+            "cache-control": "no-cache",
+            "X-Parse-Session-Token": sessionToken,
+          },
+          "processData": false,
+          "data": "{\n\t\"userNew\":false\n}"
+        }
+
+        $.ajax(settings).done(function (response) {
+          console.log("ticket updated");
+        });
+    
+      }
+
+  } 
   
     renderRedirect() {
       if (this.state.redirect && !this.state.delete) {
         ticketindex = this.state.ticketIndex;
         lastOrigin = this.origin;
+        this.handleSeenTicket();
         return <Redirect to={{
           pathname: `/Ticket/` + this.state.ticketIndex,
           state: { id: this.state.ticketID, ticket: this.state.ticketState, myState: this.userProfile.value, isAdmin: this.isAdmin }
@@ -301,6 +346,7 @@ class EnhancedTable extends React.Component {
                 <TableCell align="left"><h4>Category</h4></TableCell>
                 <TableCell align="left"><h4>Status</h4></TableCell>
                 <TableCell align="left"><h4>Last Message</h4></TableCell>
+                <TableCell align="left"><h4>New</h4></TableCell>
                 <TableCell align="left"></TableCell>
               </TableRow>
             </TableHead>
@@ -333,6 +379,12 @@ class EnhancedTable extends React.Component {
                     }
 
                     var title = ticket.title;
+                    var newmessage = "Seen";
+                    if (this.isAdmin && ticket.adminNew) {
+                      newmessage = "NEW"
+                    } else if (!this.isAdmin && ticket.userNew) {
+                      newmessage = "NEW"
+                    }
 
                     if(title.length > 15) {
                       title = title.substr(0,15) + "..."
@@ -349,6 +401,7 @@ class EnhancedTable extends React.Component {
                         <TableCell align="left">{ticket.category}</TableCell>
                         <TableCell align="left">{<p style={{ color: color }}>{ticket.status}</p>}</TableCell>
                         <TableCell align="left">{message}</TableCell>
+                        <TableCell align="left">{newmessage}</TableCell>
                         <TableCell align = "left"> <Tooltip title="Delete">
                         <IconButton align = "left" onClick={this.handleDelete.bind(this, ticket)}>
                           <DeleteIcon size = "20"/>

@@ -26,7 +26,7 @@ export default class Tickets extends React.Component {
             settings = {
                 "async": true,
                 "crossDomain": true,
-                "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets?where={%22status%22%20:%20%20{%22$in%22:%20[%22Open%22,%22Pending%22,%22Closed%22]%20}%20}",
+                "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets?where={%22status%22%20:%20%20{%22$in%22:%20[%22Open%22,%22Pending%22,%22Closed%22]%20}%20}&order=-updatedAt",
                 "method": "GET",
                 "headers": {
                     "Content-Type": "application/json",
@@ -50,7 +50,7 @@ export default class Tickets extends React.Component {
             settings = {
                 "async": true,
                 "crossDomain": true,
-                "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets?where={%22status%22%20:%20%20{%22$in%22:%20[%22Archive%22,%22Deleted%22]%20}%20}",
+                "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets?where={%22status%22%20:%20%20{%22$in%22:%20[%22Archive%22,%22Deleted%22]%20}%20}&order=-updatedAt",
                 "method": "GET",
                 "headers": {
                     "Content-Type": "application/json",
@@ -74,7 +74,7 @@ export default class Tickets extends React.Component {
             settings = {
                 "async": true,
                 "crossDomain": true,
-                "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets?where={%22status%22%20:%20%20{%22$in%22:%20[%22" + this.state.origin + "%22]%20}%20}",
+                "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets?where={%22status%22%20:%20%20{%22$in%22:%20[%22" + this.state.origin + "%22]%20}%20}&order=-updatedAt",
                 "method": "GET",
                 "headers": {
                     "Content-Type": "application/json",
