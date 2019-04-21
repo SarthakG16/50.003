@@ -34,6 +34,26 @@ function checkForHelpwords(e, number) {
     let oriLength = msgArray.length;
     // console.log(oriLength)
 
+
+    // check of multiple repeated characters before relevance
+    for (let i = 0; i < msgArray.length; ++i) {
+        var repeatedL = 0;
+        for (let j = 0; j < msgArray[i].length; ++j) {
+            if (msgArray[i].charAt(j) == msgArray[i].charAt(j + 1)) {
+                // console.log(msgArray[i].charAt(j));
+                repeatedL += 1;
+            }
+            else {
+                repeatedL = 0;
+            }
+            // console.log(repeatedL);
+            if (repeatedL > 2) {
+                return 0;
+            }
+        }
+    }
+
+
     // check of multiple repeated words before relevance
     for (let i = 0; i < msgArray.length; ++i) {
         var repeated = 0;
@@ -77,13 +97,14 @@ function checkMessageRevelance(e, number) {
 
     var relevance = false;
 
-    if (prob > 0.25 && prob < 1) {
+    if (prob > 0.2 && prob < 1) {
         relevance = true
     }
     return relevance;
 }
 
 describe('#check if messages are valid', () => {
+
     it('Check for help - fail cause not enough info', () => {
         let message = "Hello my name is something. can you help me with something please thank you."
         let result = checkMessageRevelance(message, 24);
@@ -108,7 +129,7 @@ describe('#check if messages are valid', () => {
         expect(result).toEqual(true);
     });
 
-    it('Calrification', () => {
+    it('Clarification', () => {
         let message = "I would like to clarify on this product that I was looking at on your webpage."
         let result = checkMessageRevelance(message, 2);
         expect(result).toEqual(true);
@@ -177,7 +198,7 @@ describe('#check if messages are valid', () => {
     });
 
     it("repeated words that are relevant but not enough information", () => {
-        var txtIn = "Product login cannot work. Help please";
+        var txtIn = "Please help me.";
         let result = checkMessageRevelance(txtIn, 10);
 
         expect(result).toEqual(false);
@@ -189,6 +210,26 @@ describe('#check if messages are valid', () => {
 
         expect(result).toEqual(false);
     })
+
+
+    it("repeated char in a word", () => {
+        let message = "Thhankkkkkkk, you."
+        let result = checkMessageRevelance(message, 20);
+        expect(result).toEqual(false);
+    });
+
+    it("repeated char in a word", () => {
+        let message = "ddcchhhkl, you wedlweda mmm"
+        let result = checkMessageRevelance(message, 20);
+        expect(result).toEqual(false);
+    });
+
+    it("repeated char in a word", () => {
+        let message = "I am a bookkeepper in a bookstore. Can I just check if you have plans to deploy a product similar to smart resturant for nomral stores?"
+        let result = checkMessageRevelance(message, 24);
+        expect(result).toEqual(true);
+    });
+
 
     /*
     it("Category mismatch - AR menu and smart restraunt", () => {

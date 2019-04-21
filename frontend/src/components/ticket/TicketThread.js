@@ -359,6 +359,7 @@ export default class TicketThread extends React.Component {
                         variant="contained"
                         disabled={this.state.disable}
                         onClick={this.handleSubmit.bind(this, this.state.reply)}
+                        id="submit_button"
                     >
                         Submit
                     </Button>
