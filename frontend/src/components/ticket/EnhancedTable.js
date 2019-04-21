@@ -401,7 +401,7 @@ class EnhancedTable extends React.Component {
                         <TableCell align="left">{ticket.category}</TableCell>
                         <TableCell align="left">{<p style={{ color: color }}>{ticket.status}</p>}</TableCell>
                         <TableCell align="left">{message}</TableCell>
-                        <TableCell align="left">{newmessage}</TableCell>
+                        <TableCell align="left">{<p style={{ color: newmessage === "NEW" ? 'blue': 'grey' }}>{newmessage}</p>}</TableCell>
                         <TableCell align = "left"> <Tooltip title="Delete">
                         <IconButton align = "left" onClick={this.handleDelete.bind(this, ticket)}>
                           <DeleteIcon size = "20"/>
