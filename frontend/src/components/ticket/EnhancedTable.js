@@ -20,6 +20,15 @@ import { Redirect } from 'react-router-dom';
 import $ from 'jquery';
 import constants from "../../resources/strings.js";
 
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import Dialog from '@material-ui/core/Dialog';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Button from '@material-ui/core/Button';
+import Radio from '@material-ui/core/Radio';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
 const sessionToken = localStorage.getItem("sessionToken");
 
 const actionsStyles = theme => ({
@@ -119,8 +128,12 @@ class EnhancedTable extends React.Component {
       ticketIndex: 0,
 
       tickets: this.props.tickets,
+      filterTickets: this.props.tickets,
+
       page: 0,
       rowsPerPage: 5,
+      open: false,
+      value: 'All'
     };
     this.changingpage = false;
     this.userProfile = props.myState.userProfile.registerCallback(this);
@@ -133,6 +146,21 @@ class EnhancedTable extends React.Component {
 
     //this.handleClick = this.handleClick.bind(this);
   }
+  
+  handleClickListItem = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = value => {
+    console.log(value)
+    if (value === 'All') {
+      console.log("This happened")
+      this.setState({ value, open: false, filterTickets: this.props.tickets });  
+    } else {
+      var newlist = this.props.tickets.filter(ticket => { return ticket.category === value})
+    this.setState({ value, open: false, filterTickets: newlist });
+    }
+  };
     
 
     handleClick(ticket, index) {
@@ -234,8 +262,9 @@ class EnhancedTable extends React.Component {
     }
 
     handleSeenTicket() {
+      var settings;
       if (this.isAdmin) {
-        var settings = {
+        settings = {
           "async": true,
           "crossDomain": true,
           "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets/" + this.state.ticketState.objectId,
@@ -254,7 +283,7 @@ class EnhancedTable extends React.Component {
           console.log("ticket updated");
         });
       }else {
-        var settings = {
+        settings = {
           "async": true,
           "crossDomain": true,
           "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets/" + this.state.ticketState.objectId,
@@ -310,7 +339,7 @@ class EnhancedTable extends React.Component {
     render() {
       console.log(this.userProfile.value);
       const { classes } = this.props;
-      const { tickets,rowsPerPage} = this.state;
+      const { filterTickets, tickets,rowsPerPage} = this.state;
       var page = this.state.page;
 
       if (!(lastOrigin === this.origin)) {
@@ -343,7 +372,7 @@ class EnhancedTable extends React.Component {
               <TableRow>
                 <TableCell><h4>Index</h4></TableCell>
                 <TableCell align="left"><h4>Title</h4></TableCell>
-                <TableCell align="left"><h4>Category</h4></TableCell>
+                <TableCell align="left" onClick={this.handleClickListItem}><Button color="primary">Category</Button></TableCell>
                 <TableCell align="left"><h4>Status</h4></TableCell>
                 <TableCell align="left"><h4>Last Message</h4></TableCell>
                 <TableCell align="left"><h4>New</h4></TableCell>
@@ -352,12 +381,28 @@ class EnhancedTable extends React.Component {
             </TableHead>
 
             <TableBody>
-                {this.state.tickets
+                {this.state.filterTickets
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(ticket => {
                     if (this.state.redirect){
                       return true;
                     }
+
+                    // if(this.state.value === "All") {
+                    //   //do nothing
+                    // } else if (this.state.value !== ticket.category) {
+                    //   return true;
+                    // }
+
+                    if (!(this.state.value === "All") && this.state.value !== ticket.category) {
+                      return true;
+                    }
+
+                    index =  (index + 1) % tickets.length;
+                    if (index === 0) {
+                      index = tickets.length;
+                    }
+
                     var color  = 'blue';
                     if (ticket.status === "Pending") {
                       color = 'green';
@@ -366,19 +411,17 @@ class EnhancedTable extends React.Component {
                     } else if (ticket.status === 'Closed') {
                       color = 'red'
                     }
-
-                    index =  (index + 1) % tickets.length;
-
-                    if (index === 0) {
-                      index = tickets.length;
-                    }
+                    
                     var message = ticket.replies[ticket.replies.length - 1].message;
-
                     if (message.length > 15) {
                       message = ticket.replies[ticket.replies.length - 1].message.substr(0,15) + "...";
                     }
 
                     var title = ticket.title;
+                    if(title.length > 15) {
+                      title = title.substr(0,15) + "..."
+                    }
+
                     var newmessage = "Seen";
                     if (this.isAdmin && ticket.adminNew) {
                       newmessage = "NEW"
@@ -386,9 +429,6 @@ class EnhancedTable extends React.Component {
                       newmessage = "NEW"
                     }
 
-                    if(title.length > 15) {
-                      title = title.substr(0,15) + "..."
-                    }
                     return (
                       <TableRow              
                         key={ticket.objectId}
@@ -421,7 +461,7 @@ class EnhancedTable extends React.Component {
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25]}
                   colSpan={5}
-                  count={tickets.length}
+                  count={filterTickets.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   SelectProps={{
@@ -435,6 +475,14 @@ class EnhancedTable extends React.Component {
             </TableFooter>
             </Table>
           </div>
+          <ConfirmationDialogRaw
+            classes={{
+              paper: classes.paper,
+            }}
+            open={this.state.open}
+            onClose={this.handleClose}
+            value={this.state.value}
+          />
         </Paper>
       );
     }
@@ -458,3 +506,112 @@ const styles = theme => ({
     },
   });
   export default withStyles(styles)(EnhancedTable);
+
+
+
+
+  const options = [
+    "All",
+    "ACNAPI MFA Login",
+    "Aesop",
+    "AI Traslator",
+    "AI Wealth Manager",
+    "API DevOps",
+    "AR Car Manual",
+    "AR Car Visualizer",
+    "AR Gamification",
+    "AR Menu",
+    "AR Theatre",
+    "Banking Lifestyle App",
+    "Chart as a Service",
+    "Digital Butler",
+    "IoT Led Wall",
+    "Queuing System",
+    "Recruitment Platform",
+    "Sentiments Analysis",
+    "Smart Home",
+    "Smart Lock",
+    "Smart Parking",
+    "Smart Restaurant",
+    "Ticketing Platform",
+    "Travel Marketplace",
+    "Video Analytics",
+    "Other"
+  ];
+  
+  class ConfirmationDialogRaw extends React.Component {
+    constructor(props) {
+      super();
+      this.state = {
+        value: props.value,
+      };
+    }
+  
+    // TODO
+    componentWillReceiveProps(nextProps) {
+      if (nextProps.value !== this.props.value) {
+        this.setState({ value: nextProps.value });
+      }
+    }
+  
+    handleEntering = () => {
+      this.radioGroupRef.focus();
+    };
+  
+    handleCancel = () => {
+      this.props.onClose(this.props.value);
+    };
+  
+    handleOk = () => {
+      this.props.onClose(this.state.value);
+    };
+  
+    handleChange = (event, value) => {
+      this.setState({ value });
+    };
+  
+    render() {
+      const { value, ...other } = this.props;
+  
+      return (
+        <Dialog
+          disableBackdropClick
+          disableEscapeKeyDown
+          maxWidth="xs"
+          onEntering={this.handleEntering}
+          aria-labelledby="confirmation-dialog-title"
+          {...other}
+        >
+          <DialogTitle id="confirmation-dialog-title">Categories Shown</DialogTitle>
+          <DialogContent>
+            <RadioGroup
+              ref={ref => {
+                this.radioGroupRef = ref;
+              }}
+              aria-label="Category"
+              name="category"
+              value={this.state.value}
+              onChange={this.handleChange}
+            >
+              {options.map(option => (
+                <FormControlLabel value={option} key={option} control={<Radio />} label={option} />
+              ))}
+            </RadioGroup>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleCancel} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={this.handleOk} color="primary">
+              Ok
+            </Button>
+          </DialogActions>
+        </Dialog>
+      );
+    }
+  }
+  
+  ConfirmationDialogRaw.propTypes = {
+    onClose: PropTypes.func,
+    value: PropTypes.string,
+  };

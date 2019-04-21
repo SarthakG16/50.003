@@ -318,7 +318,7 @@ export default class NewTicket extends React.Component {
         for (let i = 0; i < msgArray.length; ++i) {
             var repeatedL = 0;
             for (let j = 0; j < msgArray[i].length; ++j) {
-                if (msgArray[i].charAt(j) == msgArray[i].charAt(j + 1)) {
+                if (msgArray[i].charAt(j) === msgArray[i].charAt(j + 1)) {
                     // console.log(msgArray[i].charAt(j));
                     repeatedL += 1;
                 }
