@@ -215,6 +215,7 @@ export default class TicketThread extends React.Component {
         console.log(e);
         if (reply.message === '') {
             // console.log('No messages');
+            alert("Message cannot be empty. Please type something.")
             return false;
         }
         if (e.message.toString().includes("<") || e.message.toString().includes(">")) {
