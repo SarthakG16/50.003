@@ -28,6 +28,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Button from '@material-ui/core/Button';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { parseMessage } from '../../resources/fileDownload.js';
 
 const sessionToken = localStorage.getItem("sessionToken");
 
@@ -413,8 +414,9 @@ class EnhancedTable extends React.Component {
                     }
                     
                     var message = ticket.replies[ticket.replies.length - 1].message;
+                    message = parseMessage(message, true);
                     if (message.length > 15) {
-                      message = ticket.replies[ticket.replies.length - 1].message.substr(0,15) + "...";
+                      message = message.substr(0,15) + "...";
                     }
 
                     var title = ticket.title;

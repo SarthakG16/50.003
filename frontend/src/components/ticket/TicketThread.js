@@ -7,6 +7,8 @@ import uuid from 'uuid';
 import { Button, Grid, MenuItem, TextField } from '@material-ui/core';
 import $ from 'jquery';
 import constants from "../../resources/strings.js";
+import MyFileInput from '../MyFileInput';
+import { appendFileToMessage } from '../../resources/fileUpload';
 
 const sessionToken = localStorage.getItem("sessionToken");
 
@@ -87,7 +89,7 @@ export default class TicketThread extends React.Component {
     }
 
     // API call to update the ticket
-    addReply(e) {
+    async addReply(e) {
         // getting the ticket variables for PUT
         let objectId = this.props.location.state.ticket.objectId;
         var replies = this.props.location.state.ticket.replies;
@@ -97,9 +99,12 @@ export default class TicketThread extends React.Component {
         // add the date
         e.date = this.getDateCreated();
         console.log(e);
+        
+        const reply = JSON.parse(JSON.stringify(e));
+        reply.message = await appendFileToMessage(reply.message);
 
         // adding the new reply to the original
-        replies.push(e);
+        replies.push(reply);
         console.log(replies);
 
         if (this.props.location.state.isAdmin) { this.props.location.state.ticket.replyCount = 0; }
@@ -174,7 +179,7 @@ export default class TicketThread extends React.Component {
     }
 
     // handles event when submit button is clicked
-    handleSubmit(e) {
+    async handleSubmit(e) {
         console.log('clicked submit');
         let ticketValid = this.handleValidation(e);
         console.log('finish checking');
@@ -184,7 +189,7 @@ export default class TicketThread extends React.Component {
                     alert("Message character count is too high, please shorten your message.");
                 }
                 else {
-                    this.addReply(e);
+                    await this.addReply(e);
                     alert("Your reply has been posted.")
                     //email notification
                     if (this.props.location.state.isAdmin) this.sendNotif(e);
@@ -211,6 +216,10 @@ export default class TicketThread extends React.Component {
         console.log(e);
         if (reply.message === '') {
             console.log('No messages');
+            return false;
+        }
+        if (e.message.toString().includes("<") || e.message.toString().includes(">")) {
+            alert("Message contains illegal characters (<, >). ");
             return false;
         }
         return true;
@@ -355,6 +364,7 @@ export default class TicketThread extends React.Component {
                         this.state.messageCharsLeft + " characters left"
                         } 
                     </Typography>
+                    <MyFileInput/>
                     <Button
                         variant="contained"
                         disabled={this.state.disable}
