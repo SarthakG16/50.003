@@ -97,13 +97,6 @@ export default class TicketThread extends React.Component {
 
         // add the date
         e.date = this.getDateCreated();
-<<<<<<< HEAD
-        // console.log(e);
-
-        // adding the new reply to the original
-        replies.push(e);
-        // console.log(replies);
-=======
         console.log(e);
         
         const reply = JSON.parse(JSON.stringify(e));
@@ -112,7 +105,6 @@ export default class TicketThread extends React.Component {
         // adding the new reply to the original
         replies.push(reply);
         console.log(replies);
->>>>>>> 0e64cbba95a71b614f48be7883dd022e3cf8e2c3
 
         if (this.props.location.state.isAdmin) { this.props.location.state.ticket.replyCount = 0; }
         else { this.props.location.state.ticket.replyCount++; }
@@ -186,13 +178,8 @@ export default class TicketThread extends React.Component {
     }
 
     // handles event when submit button is clicked
-<<<<<<< HEAD
-    handleSubmit(e) {
-        // console.log('clicked submit');
-=======
     async handleSubmit(e) {
         console.log('clicked submit');
->>>>>>> 0e64cbba95a71b614f48be7883dd022e3cf8e2c3
         let ticketValid = this.handleValidation(e);
         // console.log('finish checking');
         if (ticketValid) {
