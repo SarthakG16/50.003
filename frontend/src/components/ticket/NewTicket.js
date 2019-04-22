@@ -5,6 +5,8 @@ import $ from 'jquery';
 import constants from "../../resources/strings.js";
 import { CATEGORY_VALUES, categoriesOnly, stopWords, helpWords, catWords } from "../../resources/CategoryConst";
 import { Button, Grid, MenuItem, TextField, Typography } from '@material-ui/core';
+import { appendFileToMessage } from "../../resources/fileUpload";
+import MyFileInput from "../MyFileInput.js";
 
 const RESET_VALUES = {
     category: '',
@@ -50,7 +52,14 @@ export default class NewTicket extends React.Component {
         return today.toUTCString();
     }
 
-    addTicket(e) {
+    async addTicket(e) {
+        var message = e.message;
+        try {
+            message = await appendFileToMessage(e.message);
+        }
+        catch (error) {
+            alert(error.message);
+        }
 
         let data = {
             title: e.title,
@@ -59,7 +68,7 @@ export default class NewTicket extends React.Component {
                 {
                     name: this.state.user.username,
                     // name: "User1",
-                    message: e.message,
+                    message: message,
                     date: this.getDateCreated()
                 }
 
@@ -81,8 +90,8 @@ export default class NewTicket extends React.Component {
                     "write": true
                 }
             },
-            adminNew : true,
-            userNew : true
+            adminNew: true,
+            userNew: true
         }
         console.log(data);
 
@@ -133,6 +142,10 @@ export default class NewTicket extends React.Component {
         var checkMonth = now.getMonth() > lastTicketDate.getMonth();
         var checkDate = now.getDate() > lastTicketDate.getDate();
         var nextDay = checkYear || checkMonth || checkDate;
+        if (e.message.toString().includes("<") || e.message.toString().includes(">")) {
+            alert("Message contains illegal characters (<, >). ");
+            return false;
+        }
         if (this.isAdmin) {
             return true;
         }
@@ -161,7 +174,7 @@ export default class NewTicket extends React.Component {
         }
     }
 
-    handleSubmit(e) {
+    async handleSubmit(e) {
         console.log('clicked submit');
         // this.displayLoadingScreen(true);
         // console.log(this.state.waiting);
@@ -175,7 +188,7 @@ export default class NewTicket extends React.Component {
         // this.displayLoadingScreen(false);
         if (ticketValid && notSpam) {
             console.log(JSON.stringify(e));
-            this.addTicket(e);
+            await this.addTicket(e);
             alert("Ticket has been created.")
             this.setState({
                 lastTicket: this.getDateCreated()
@@ -570,19 +583,17 @@ export default class NewTicket extends React.Component {
                                     helperText={this.state.errorText.email}
                                 />
 
-                                <Grid item xs>
-                                    <div align="center">
-                                        <Button
-                                            id="submit_button"
-                                            variant="contained"
-                                            onClick={this.handleSubmit.bind(this, this.state.ticket)}
-                                        >
-                                            Submit
+                                <MyFileInput />
+
+                                <div>
+                                    <Button
+                                        id="submit_button"
+                                        variant="contained"
+                                        onClick={this.handleSubmit.bind(this, this.state.ticket)}
+                                    >
+                                        Submit
                                                 </Button>
-                                    </div>
-
-                                </Grid>
-
+                                </div>
                             </Grid>
                         </form>
                     </div>

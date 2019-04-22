@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TicketMessageRow from './TicketMessageRow';
+import { parseMessage } from '../../resources/fileDownload';
 
 const styles = theme => ({
     root: {
@@ -25,6 +26,7 @@ class TicketMessages extends React.Component {
     render() {
         // console.log('Trying to display messages');
         const { messages } = this.props;
+        
         return (
             <React.Fragment>
                 {messages.map((message, index) =>
@@ -32,7 +34,7 @@ class TicketMessages extends React.Component {
                         key={index}
                         user={message.name}
                         date={message.date}
-                        message={message.message}
+                        message={parseMessage(message.message, false)}
                     ></TicketMessageRow>
                 )}
             </React.Fragment>

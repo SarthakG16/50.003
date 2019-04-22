@@ -6,6 +6,8 @@ import uuid from 'uuid';
 import { Button, Grid, MenuItem, TextField, Typography } from '@material-ui/core';
 import $ from 'jquery';
 import constants from "../../resources/strings.js";
+import MyFileInput from '../MyFileInput';
+import { appendFileToMessage } from '../../resources/fileUpload';
 
 const sessionToken = localStorage.getItem("sessionToken");
 
@@ -86,7 +88,7 @@ export default class TicketThread extends React.Component {
     }
 
     // API call to update the ticket
-    addReply(e) {
+    async addReply(e) {
         // getting the ticket variables for PUT
         let objectId = this.props.location.state.ticket.objectId;
         var replies = this.props.location.state.ticket.replies;
@@ -95,11 +97,22 @@ export default class TicketThread extends React.Component {
 
         // add the date
         e.date = this.getDateCreated();
+<<<<<<< HEAD
         // console.log(e);
 
         // adding the new reply to the original
         replies.push(e);
         // console.log(replies);
+=======
+        console.log(e);
+        
+        const reply = JSON.parse(JSON.stringify(e));
+        reply.message = await appendFileToMessage(reply.message);
+
+        // adding the new reply to the original
+        replies.push(reply);
+        console.log(replies);
+>>>>>>> 0e64cbba95a71b614f48be7883dd022e3cf8e2c3
 
         if (this.props.location.state.isAdmin) { this.props.location.state.ticket.replyCount = 0; }
         else { this.props.location.state.ticket.replyCount++; }
@@ -173,8 +186,13 @@ export default class TicketThread extends React.Component {
     }
 
     // handles event when submit button is clicked
+<<<<<<< HEAD
     handleSubmit(e) {
         // console.log('clicked submit');
+=======
+    async handleSubmit(e) {
+        console.log('clicked submit');
+>>>>>>> 0e64cbba95a71b614f48be7883dd022e3cf8e2c3
         let ticketValid = this.handleValidation(e);
         // console.log('finish checking');
         if (ticketValid) {
@@ -183,7 +201,7 @@ export default class TicketThread extends React.Component {
                     alert("Message character count is too high, please shorten your message.");
                 }
                 else {
-                    this.addReply(e);
+                    await this.addReply(e);
                     alert("Your reply has been posted.")
                     //email notification
                     if (this.props.location.state.isAdmin) this.sendNotif(e);
@@ -210,6 +228,10 @@ export default class TicketThread extends React.Component {
         console.log(e);
         if (reply.message === '') {
             // console.log('No messages');
+            return false;
+        }
+        if (e.message.toString().includes("<") || e.message.toString().includes(">")) {
+            alert("Message contains illegal characters (<, >). ");
             return false;
         }
         return true;
@@ -354,6 +376,7 @@ export default class TicketThread extends React.Component {
                         this.state.messageCharsLeft + " characters left"
                         } 
                     </Typography>
+                    <MyFileInput/>
                     <Button
                         variant="contained"
                         disabled={this.state.disable}
