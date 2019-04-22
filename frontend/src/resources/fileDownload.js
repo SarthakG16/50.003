@@ -9,13 +9,31 @@ export function parseMessage(message, textsOnly) {
             return typeof texts === "object" ? JSON.stringify(texts) : texts;
         }
         else {
+            function edgeSupport(file) {
+                const xhr = new XMLHttpRequest();
+                xhr.open("GET", file.content, true);
+                xhr.responseType = "blob";
+                xhr.onload = function(e) {
+                    if (this.status == 200) {
+                        const blob = this.response;
+                        window.navigator.msSaveOrOpenBlob(blob, file.name);  
+                    }
+                };
+                xhr.send();
+            }
+
             function downloadHandler(file) {
-                const a = document.createElement("a");
-                a.href = file.content;
-                a.download = file.name;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
+                if (window.navigator.msSaveOrOpenBlob) {
+                    edgeSupport(file);
+                }
+                else {
+                    const a = document.createElement("a");
+                    a.href = file.content;
+                    a.download = file.name;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }  
             }
 
             return (
