@@ -9,6 +9,15 @@ export function parseMessage(message, textsOnly) {
             return typeof texts === "object" ? JSON.stringify(texts) : texts;
         }
         else {
+            function downloadHandler(file) {
+                const a = document.createElement("a");
+                a.href = file.content;
+                a.download = file.name;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+
             return (
                 <div>
                     {texts}<br />
@@ -19,7 +28,8 @@ export function parseMessage(message, textsOnly) {
                             file => {
                                 return (
                                     <div>
-                                        <a href={file.content} download={file.name}>{file.name}</a><br />
+                                        {/* <a href={file.content} download={file.name}>{file.name}</a><br /> */}
+                                        <button onClick={ () => { downloadHandler(file) } }>{file.name}</button>
                                     </div>
                                 );
                             }
