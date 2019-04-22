@@ -13,6 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -375,7 +376,7 @@ class EnhancedTable extends React.Component {
               <TableRow>
                 <TableCell><h4>Index</h4></TableCell>
                 <TableCell align="left"><h4>Title</h4></TableCell>
-                <TableCell align="left" onClick={this.handleClickListItem}><Button style={{textTransform: 'capitalize'}} color="primary">Category</Button></TableCell>
+                <TableCell align="left" onClick={this.handleClickListItem}><Button style={{textTransform: 'capitalize'}} color="primary">Category <ArrowDropDown/></Button></TableCell>
                 <TableCell align="left"><h4>Status</h4></TableCell>
                 <TableCell align="left"><h4>Last Message</h4></TableCell>
                 <TableCell align="left"><h4>New</h4></TableCell>
