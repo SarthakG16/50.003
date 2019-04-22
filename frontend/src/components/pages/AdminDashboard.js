@@ -1,10 +1,10 @@
 import React from 'react';
-//import { Route, Redirect, Switch } from 'react-router-dom';
-import { Route, Link } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import { Grid, Card, Typography, CardActionArea } from '@material-ui/core';
 import NewTicket from "../ticket/NewTicket"
 import Tickets from '../ticket/Tickets';
 import TicketThread from '../ticket/TicketThread'
+import NotFound from './NotFound';
 
 
 export default class AdminDashboard extends React.Component {
@@ -30,111 +30,116 @@ export default class AdminDashboard extends React.Component {
         return (
             <div className="App-body">
                 <div className="container">
-                    <Route exact path="/" render={props => (
-                        <React.Fragment>
-                            <h3 align="center">Categories</h3>
-                            <Grid
-                                container
-                                direction="row"
-                                justify="center"
-                                spacing={32}
-                                alignItems="center"
-                            >
-                                <Grid item xs>
-                                    <Card>
-                                        <CardActionArea
-                                            component={Link} to="/Open"
-                                        >
-                                            <Typography
-                                                style={{ paddingTop: 50, paddingBottom: 50}}
-                                                align="center"
+                    <Switch>
+                        <Route exact path="/" render={props => (
+                            <React.Fragment>
+                                <h3 align="center">Categories</h3>
+                                <Grid
+                                    container
+                                    direction="row"
+                                    justify="center"
+                                    spacing={32}
+                                    alignItems="center"
+                                >
+                                    <Grid item xs>
+                                        <Card>
+                                            <CardActionArea
+                                                component={Link} to="/Open"
                                             >
-                                                Open
+                                                <Typography
+                                                    style={{ paddingTop: 50, paddingBottom: 50 }}
+                                                    align="center"
+                                                >
+                                                    Open
                                             </Typography>
-                                        </CardActionArea>
-                                    </Card>
-                                </Grid>
+                                            </CardActionArea>
+                                        </Card>
+                                    </Grid>
 
-                                <Grid item xs>
-                                    <Card>
-                                        <CardActionArea
-                                            component={Link} to="/Pending"
-                                        >
-                                            <Typography
-                                                style={{ paddingTop: 50, paddingBottom: 50 }}
-                                                align="center"
+                                    <Grid item xs>
+                                        <Card>
+                                            <CardActionArea
+                                                component={Link} to="/Pending"
                                             >
-                                                Pending
+                                                <Typography
+                                                    style={{ paddingTop: 50, paddingBottom: 50 }}
+                                                    align="center"
+                                                >
+                                                    Pending
                                             </Typography>
-                                        </CardActionArea>
-                                    </Card>
-                                </Grid>
+                                            </CardActionArea>
+                                        </Card>
+                                    </Grid>
 
-                                <Grid item xs>
-                                    <Card>
-                                        <CardActionArea
-                                            component={Link} to="/Closed"
-                                        >
-                                            <Typography
-                                                style={{ paddingTop: 50, paddingBottom: 50 }}
-                                                align="center"
+                                    <Grid item xs>
+                                        <Card>
+                                            <CardActionArea
+                                                component={Link} to="/Closed"
                                             >
-                                                Closed
+                                                <Typography
+                                                    style={{ paddingTop: 50, paddingBottom: 50 }}
+                                                    align="center"
+                                                >
+                                                    Closed
                                             </Typography>
-                                        </CardActionArea>
-                                    </Card>
-                                </Grid>
+                                            </CardActionArea>
+                                        </Card>
+                                    </Grid>
 
-                            </Grid>
-                            {/* <Tickets origin = "Home"></Tickets> */}
-                        </React.Fragment>
-                    )} />
-                    <Route
-                        path="/Pending"
-                        render={() => (
-                            <Tickets
-                                myState={this.props.myState}
-                                isAdmin={this.isAdmin}
-                                origin="Pending"></Tickets>
-                        )}
-                    />
-                    <Route
-                        path="/Open"
-                        render={() => (
-                            <Tickets
-                                myState={this.props.myState}
-                                isAdmin={this.isAdmin}
-                                origin="Open"></Tickets>
-                        )}
-                    />
-                    <Route
-                        path="/Closed"
-                        render={() => (
-                            <Tickets
-                                myState={this.props.myState}
-                                isAdmin={this.isAdmin}
-                                origin="Closed"></Tickets>
-                        )}
-                    />
-                    <Route
-                        path="/Archive"
-                        render={() => (
-                            <Tickets
-                                myState={this.props.myState}
-                                isAdmin={this.isAdmin}
-                                origin="Archive"></Tickets>
-                        )}
-                    />
-                    <Route
-                        path="/NewTicket"
-                        render={() => (
-                            <NewTicket
-                                myState={this.props.myState}
-                                isAdmin={this.isAdmin}>
-                            </NewTicket>
-                        )}
-                    />
-                    <Route path="/Ticket" component={TicketThread} />
+                                </Grid>
+                                {/* <Tickets origin = "Home"></Tickets> */}
+                            </React.Fragment>
+                        )} />
+                        <Route
+                            exact path="/Pending"
+                            render={() => (
+                                <Tickets
+                                    myState={this.props.myState}
+                                    isAdmin={this.isAdmin}
+                                    origin="Pending"></Tickets>
+                            )}
+                        />
+                        <Route
+                            exact path="/Open"
+                            render={() => (
+                                <Tickets
+                                    myState={this.props.myState}
+                                    isAdmin={this.isAdmin}
+                                    origin="Open"></Tickets>
+                            )}
+                        />
+                        <Route
+                            exact path="/Closed"
+                            render={() => (
+                                <Tickets
+                                    myState={this.props.myState}
+                                    isAdmin={this.isAdmin}
+                                    origin="Closed"></Tickets>
+                            )}
+                        />
+                        <Route
+                            exact path="/Archive"
+                            render={() => (
+                                <Tickets
+                                    myState={this.props.myState}
+                                    origin="Archive"
+                                    isAdmin={this.isAdmin}>
+                                </Tickets>
+                            )}
+                        />
+                        <Route
+                            exact path="/NewTicket"
+                            render={() => (
+                                <NewTicket
+                                    myState={this.props.myState}
+                                    isAdmin={this.isAdmin}>
+                                </NewTicket>
+                            )}
+                        />
+                        <Route path="/Ticket" component={TicketThread} />
+                        <Route component={NotFound} />
+                    </Switch>
+
                 </div>
             </div>
         );

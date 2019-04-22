@@ -1,10 +1,9 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
-//import FAQ from './FAQ';
+import { Switch,Route } from 'react-router-dom';
 import NewTicket from "../ticket/NewTicket"
 import Tickets from '../ticket/Tickets';
 import TicketThread from '../ticket/TicketThread'
-//import AdminDashboard from './AdminDashboard';
+import NotFound from './NotFound';
 
 export default class Home extends React.Component {
 
@@ -28,6 +27,7 @@ export default class Home extends React.Component {
 		return (
 			<div className="App-body">
 				<div className="container">
+				<Switch>
 					<Route exact path="/" render={props => (
 						<React.Fragment>
 							{/* <p>Tickets</p> */}
@@ -39,7 +39,7 @@ export default class Home extends React.Component {
 						</React.Fragment>
 					)} />
 					<Route
-						path="/Archive"
+						exact path="/Archive"
 						render={() => (
 							<Tickets
 								myState={this.props.myState}
@@ -49,7 +49,7 @@ export default class Home extends React.Component {
 						)}
 					/>
 					<Route
-						path="/NewTicket"
+						exact path="/NewTicket"
 						render={() => (
 							<NewTicket
 								myState={this.props.myState}
@@ -58,6 +58,8 @@ export default class Home extends React.Component {
 						)}
 					/>
 					<Route path="/Ticket" component={TicketThread} />
+					<Route component={NotFound} />
+				</Switch>
 				</div>
 			</div>
 		);

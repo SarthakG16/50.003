@@ -1,13 +1,9 @@
 import React from 'react';
-import { Switch, Route } from "react-router-dom";
-// import Login from "./components/pages/Login";
-// import NewTicket from "./components/ticket/NewTicket"
+import {Route } from "react-router-dom";
 import Home from './components/pages/Home';
 import AdminDashboard from './components/pages/AdminDashboard';
-// import Tickets from './components/ticket/Tickets';
 import $ from 'jquery';
 import constants from "./resources/strings.js";
-//import TicketThread from './components/ticket/TicketThread';
 
 export default class Routes extends React.Component {
   constructor(props) {
@@ -65,14 +61,12 @@ export default class Routes extends React.Component {
     console.log("I am in routes")
     return (
       <div>
-        <Switch>
           <Route path='/' 
             render={() => (
               isAdmin ? <AdminDashboard myState={this.props.myState} isAdmin={isAdmin}></AdminDashboard> :
                 <Home myState={this.props.myState} isAdmin={isAdmin}></Home>
             )}
           />
-        </Switch>
       </div>
     )
   }

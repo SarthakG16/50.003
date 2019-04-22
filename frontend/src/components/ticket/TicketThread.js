@@ -1,10 +1,9 @@
 import React from 'react';
 //import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import TicketMessages from './TicketMessages';
 import uuid from 'uuid';
-import { Button, Grid, MenuItem, TextField } from '@material-ui/core';
+import { Button, Grid, MenuItem, TextField, Typography } from '@material-ui/core';
 import $ from 'jquery';
 import constants from "../../resources/strings.js";
 
