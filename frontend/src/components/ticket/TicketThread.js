@@ -73,15 +73,15 @@ export default class TicketThread extends React.Component {
             messageCharsLeft: this.maxMessageChars,
             // userProfile: this.props.location.state.myState.userProfile.registerCallback(this)
         };
-        console.log(this.userProfile.className);
-        console.log("I have constructed ticketthread");
-        console.log(this.props.location.state.ticket.replies[0]);
+        // console.log(this.userProfile.className);
+        // console.log("I have constructed ticketthread");
+        // console.log(this.props.location.state.ticket.replies[0]);
     }
 
     // returns the date and time the reply was posted in UTC
     getDateCreated() {
         var today = new Date();
-        console.log(today);
+        // console.log(today);
         return today.toUTCString();
     }
 
@@ -90,16 +90,16 @@ export default class TicketThread extends React.Component {
         // getting the ticket variables for PUT
         let objectId = this.props.location.state.ticket.objectId;
         var replies = this.props.location.state.ticket.replies;
-        console.log(objectId);
-        console.log(replies);
+        // console.log(objectId);
+        // console.log(replies);
 
         // add the date
         e.date = this.getDateCreated();
-        console.log(e);
+        // console.log(e);
 
         // adding the new reply to the original
         replies.push(e);
-        console.log(replies);
+        // console.log(replies);
 
         if (this.props.location.state.isAdmin) { this.props.location.state.ticket.replyCount = 0; }
         else { this.props.location.state.ticket.replyCount++; }
@@ -124,7 +124,7 @@ export default class TicketThread extends React.Component {
                 "userNew": true                
             };
         }
-        console.log(JSON.stringify(data));
+        // console.log(JSON.stringify(data));
         // console.log(JSON.stringify(replies));
 
         var settings = {
@@ -154,7 +154,7 @@ export default class TicketThread extends React.Component {
             "recipient": this.props.location.state.ticket.email,
             "html": "<p>Hello " + this.props.location.state.ticket.replies[0].name + ",</p><p>An admin has replied to your ticket: <em>'" + e.message + "'</em> on " + e.date + ".</p><p>-Ticket details-<br />Title: " + this.props.location.state.ticket.title + "<br />Category: " + this.props.location.state.ticket.category + "<br />Date/time of submission: " + this.props.location.state.ticket.replies[0].date + "<br />Original message: " + this.props.location.state.ticket.replies[0].message
         }
-        console.log(emailBody);
+        // console.log(emailBody);
         console.log(JSON.stringify(emailBody));
 
         const proxyurl = "https://cors-anywhere.herokuapp.com/";
@@ -174,9 +174,9 @@ export default class TicketThread extends React.Component {
 
     // handles event when submit button is clicked
     handleSubmit(e) {
-        console.log('clicked submit');
+        // console.log('clicked submit');
         let ticketValid = this.handleValidation(e);
-        console.log('finish checking');
+        // console.log('finish checking');
         if (ticketValid) {
             if (this.props.location.state.ticket.replyCount < 3 || this.props.location.state.isAdmin) {
                 if (this.state.messageCharsLeft < 0) {
@@ -198,7 +198,7 @@ export default class TicketThread extends React.Component {
             }
         }
         else {
-            console.log('No messages. Not posted');
+            // console.log('No messages. Not posted');
             // alert("Your reply has been posted.")
         }
         return;
@@ -209,7 +209,7 @@ export default class TicketThread extends React.Component {
         let reply = e;
         console.log(e);
         if (reply.message === '') {
-            console.log('No messages');
+            // console.log('No messages');
             return false;
         }
         return true;

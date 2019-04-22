@@ -153,9 +153,9 @@ class EnhancedTable extends React.Component {
   };
 
   handleClose = value => {
-    console.log(value)
+    // console.log(value)
     if (value === 'All') {
-      console.log("This happened")
+      // console.log("This happened")
       this.setState({ value, open: false, filterTickets: this.props.tickets });  
     } else {
       var newlist = this.props.tickets.filter(ticket => { return ticket.category === value})
@@ -166,11 +166,11 @@ class EnhancedTable extends React.Component {
 
     handleClick(ticket, index) {
       if (this.flag) {
-        console.log("UHM");
+        // console.log("UHM");
         this.flag = false;
         return;
       }
-      console.log("Clicked " + ticket.objectId);
+      // console.log("Clicked " + ticket.objectId);
 
       this.setState({
         redirect: true,
@@ -323,7 +323,7 @@ class EnhancedTable extends React.Component {
     }
   
     handleChangePage = (event, page) => {
-      console.log(page);  
+      // console.log(page);  
       index = (this.state.rowsPerPage+1)*page;
       this.changingpage = true;
       this.setState({ page });
@@ -341,7 +341,7 @@ class EnhancedTable extends React.Component {
 
 
     render() {
-      console.log(this.userProfile.value);
+      // console.log(this.userProfile.value);
       const { classes } = this.props;
       const { filterTickets, tickets,rowsPerPage} = this.state;
       var page = this.state.page;
@@ -350,7 +350,7 @@ class EnhancedTable extends React.Component {
         ticketindex = 0;
       }
 
-      console.log(ticketindex);
+      // console.log(ticketindex);
       if (index <  rowsPerPage) {
         page = 0;
       } 
@@ -363,7 +363,7 @@ class EnhancedTable extends React.Component {
       if (this.origin === "Archive") {
         header = "Archived Tickets"
       }
-      console.log(index,page,rowsPerPage);
+      // console.log(index,page,rowsPerPage);
 
       return (
         

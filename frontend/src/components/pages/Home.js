@@ -16,7 +16,7 @@ export default class Home extends React.Component {
 		}
 		this.userProfile = props.myState.userProfile.registerCallback(this);
 		this.isAdmin = props.isAdmin;
-		console.log("I have constructed user dashboard");
+		// console.log("I have constructed user dashboard");
 		// console.log(this.userProfile.value);
 
 		//this.handleClick = this.handleClick.bind(this);

@@ -58,7 +58,7 @@ export default class Routes extends React.Component {
       return true;
     });
     // console.log("admin?" + isAdmin)
-    console.log("I am in routes")
+    // console.log("I am in routes")
     return (
       <div>
           <Route path='/' 

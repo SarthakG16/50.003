@@ -17,7 +17,7 @@ class TicketMessages extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("inside Ticket messages, will start assigning");
+        // console.log("inside Ticket messages, will start assigning");
         this.state = {
         };
     }

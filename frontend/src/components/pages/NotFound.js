@@ -12,7 +12,7 @@ export default class NotFound extends React.Component {
         }
         // this.userProfile = props.myState.userProfile.registerCallback(this);
         // this.isAdmin = props.isAdmin;
-        console.log("Not valid page");
+        // console.log("Not valid page");
         // console.log(this.userProfile.value);
 
         //this.handleClick = this.handleClick.bind(this);

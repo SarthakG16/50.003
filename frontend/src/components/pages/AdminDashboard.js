@@ -18,14 +18,14 @@ export default class AdminDashboard extends React.Component {
         }
         this.isAdmin = props.isAdmin;
         this.userProfile = props.myState.userProfile.registerCallback(this);
-        console.log("I have constructed admin dashboard");
+        // console.log("I have constructed admin dashboard");
         // console.log(this.userProfile.value);
 
         //this.handleClick = this.handleClick.bind(this);
     }
 
     render() {
-        console.log("I am inside admin dashboard render");
+        // console.log("I am inside admin dashboard render");
         // console.log(this.userProfile.value);
         return (
             <div className="App-body">

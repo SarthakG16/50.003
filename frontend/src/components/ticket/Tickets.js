@@ -15,7 +15,7 @@ export default class Tickets extends React.Component {
         this.isAdmin = props.isAdmin;
         this.userProfile = props.myState.userProfile.registerCallback(this);
         // this.userProfile = props.myState.userProfile;
-        console.log("I have constructed tickets list");
+        // console.log("I have constructed tickets list");
     }
 
     componentDidMount() {
@@ -97,7 +97,7 @@ export default class Tickets extends React.Component {
 
 
     render() {
-        console.log("I am inside tickets render");
+        // console.log("I am inside tickets render");
         //console.log(this.userProfile.value);
         if (!this.state.isLoaded) {
             return <div>

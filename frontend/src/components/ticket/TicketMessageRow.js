@@ -38,7 +38,7 @@ class TicketMessageRow extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("inside Tticket messages now, will start displaying messages");
+        // console.log("inside Tticket messages now, will start displaying messages");
         this.state = {
         };
     }
