@@ -153,7 +153,7 @@ export default class TicketThread extends React.Component {
             "subject": "Reply received",
             "sender": "Accenture@do-not-reply.com",
             "recipient": this.props.location.state.ticket.email,
-            "html": "<p>Hello " + this.props.location.state.ticket.replies[0].name + ",</p><p>An admin has replied to your ticket: <em>'" + e.message + "'</em> on " + e.date + ".</p><p>-Ticket details-<br />Title: " + this.props.location.state.ticket.title + "<br />Category: " + this.props.location.state.ticket.category + "<br />Date/time of submission: " + this.props.location.state.ticket.createdAt + "<br />Original message: " + this.props.location.state.ticket.replies[0].message
+            "html": "<p>Hello " + this.props.location.state.ticket.replies[0].name + ",</p><p>An admin has replied to your ticket: <em>'" + e.message + "'</em> on " + e.date + ".</p><p>-Ticket details-<br />Title: " + this.props.location.state.ticket.title + "<br />Category: " + this.props.location.state.ticket.category + "<br />Date/time of submission: " + this.props.location.state.ticket.replies[0].date + "<br />Original message: " + this.props.location.state.ticket.replies[0].message
         }
         console.log(emailBody);
         console.log(JSON.stringify(emailBody));
