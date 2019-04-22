@@ -141,7 +141,7 @@ class MyAppbar extends React.Component {
     xhr.send(data);
 
     // this.props.history.push('/');
-    alert("You have logged out succesfully.")
+    alert("You have logged out successfully.")
     // return <Redirect to='/' push={true}></Redirect>
     // return;
 
