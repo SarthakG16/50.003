@@ -262,8 +262,10 @@ class EnhancedTable extends React.Component {
     }
 
     handleSeenTicket() {
+      
       var settings;
       if (this.isAdmin) {
+        if(this.state.ticketState.adminNew === false) {return true;}
         settings = {
           "async": true,
           "crossDomain": true,
@@ -283,6 +285,7 @@ class EnhancedTable extends React.Component {
           console.log("ticket updated");
         });
       }else {
+        if(this.state.ticketState.userNew === false) {return true;}
         settings = {
           "async": true,
           "crossDomain": true,
@@ -372,11 +375,11 @@ class EnhancedTable extends React.Component {
               <TableRow>
                 <TableCell><h4>Index</h4></TableCell>
                 <TableCell align="left"><h4>Title</h4></TableCell>
-                <TableCell align="left" onClick={this.handleClickListItem}><Button color="primary">Category</Button></TableCell>
+                <TableCell align="left" onClick={this.handleClickListItem}><Button style={{textTransform: 'capitalize'}} color="primary">Category</Button></TableCell>
                 <TableCell align="left"><h4>Status</h4></TableCell>
                 <TableCell align="left"><h4>Last Message</h4></TableCell>
                 <TableCell align="left"><h4>New</h4></TableCell>
-                <TableCell align="left"></TableCell>
+                <TableCell align="left"><h4>Action</h4></TableCell>
               </TableRow>
             </TableHead>
 
@@ -514,7 +517,7 @@ const styles = theme => ({
     "All",
     "ACNAPI MFA Login",
     "Aesop",
-    "AI Traslator",
+    "AI Translator",
     "AI Wealth Manager",
     "API DevOps",
     "AR Car Manual",

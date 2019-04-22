@@ -9,8 +9,8 @@ export const CATEGORY_VALUES = [
         label: "Aesop",
     },
     {
-        value: "AI Traslator",
-        label: "AI Traslator",
+        value: "AI Translator",
+        label: "AI Translator",
     },
     {
         value: "AI Wealth Manager",
@@ -108,7 +108,7 @@ export const CATEGORY_VALUES = [
 export const categoriesOnly = [
     "ACNAPI MFA Login",
     "Aesop",
-    "AI Traslator",
+    "AI Translator",
     "AI Wealth Manager",
     "API DevOps",
     "AR Car Manual",

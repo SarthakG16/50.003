@@ -152,6 +152,7 @@ export default class NewTicket extends React.Component {
         }
         else if (e.message.length > this.maxMessageChars) {
             alert("Message character count is too high, please shorten your message.");
+            return false;
         }
         else {
 
@@ -164,8 +165,12 @@ export default class NewTicket extends React.Component {
         console.log('clicked submit');
         // this.displayLoadingScreen(true);
         // console.log(this.state.waiting);
-        let ticketValid = this.handleValidation(e);
         let notSpam = this.checkSpam(e);
+        if (!notSpam){
+            return;
+        }
+        let ticketValid = this.handleValidation(e);
+        // let notSpam = this.checkSpam(e);
         // console.log('finish checking');
         // this.displayLoadingScreen(false);
         if (ticketValid && notSpam) {
@@ -265,7 +270,7 @@ export default class NewTicket extends React.Component {
         }
         else {
             if (errorTextCopy.message === "Please add more relevant details of your problem.") {
-                alert("Please fill in all the required fills. \nPlease add more relevant details of your problem.");
+                alert("Please add more relevant details of your problem.");
             } else {
                 alert("Please fill in all the required fills.");
             }
