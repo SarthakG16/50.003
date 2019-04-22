@@ -50,15 +50,19 @@ class TicketMessageRow extends React.Component {
                 <div
                     style={{ marginTop: "2%" }}>
                     <Grid container direction="row" justify="space-between" spacing={16}>
-                        <Grid item xs>
-                            <Paper elevation={2}
-                                style={{ paddingLeft: 10, paddingTop: 20, paddingRight: 10, paddingBottom: 20, height: "100%" }}>
+                        <Grid item xs
+                        style={{minWidth:100, maxWidth:180}}>
+                            <Paper elevation={4}
+                                style={{paddingLeft: 10, paddingTop: 20, paddingRight: 10, paddingBottom: 20, height: "100%" }}>
                                 <Grid container direction="column" alignItems="center" spacing={8}>
                                     <Grid item xs>
                                         <AccountIcon />
                                     </Grid>
                                     <Grid item xs>
-                                        {this.props.user}
+                                    <Typography align="center" variant="subheading">
+                                            {this.props.user}
+                                        </Typography>
+                                        
                                     </Grid>
                                     <Grid item xs>
                                         <Typography align="center" variant="caption">
@@ -68,7 +72,8 @@ class TicketMessageRow extends React.Component {
                                 </Grid>
                             </Paper>
                         </Grid>
-                        <Grid item xs={10}>
+                        <Grid item xs
+                        style={{minWidth:100}}>
                             <Paper elevation={2}
                                 style={{ paddingLeft: 20, paddingTop: 20, paddingRight: 20, paddingBottom: 20, height: "100%" }}>
                                 <Typography align="left">

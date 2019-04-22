@@ -263,8 +263,10 @@ class EnhancedTable extends React.Component {
     }
 
     handleSeenTicket() {
+      
       var settings;
       if (this.isAdmin) {
+        if(this.state.ticketState.adminNew === false) {return true;}
         settings = {
           "async": true,
           "crossDomain": true,
@@ -284,6 +286,7 @@ class EnhancedTable extends React.Component {
           console.log("ticket updated");
         });
       }else {
+        if(this.state.ticketState.userNew === false) {return true;}
         settings = {
           "async": true,
           "crossDomain": true,
@@ -373,11 +376,11 @@ class EnhancedTable extends React.Component {
               <TableRow>
                 <TableCell><h4>Index</h4></TableCell>
                 <TableCell align="left"><h4>Title</h4></TableCell>
-                <TableCell align="left" onClick={this.handleClickListItem}><Button color="primary">Category</Button></TableCell>
+                <TableCell align="left" onClick={this.handleClickListItem}><Button style={{textTransform: 'capitalize'}} color="primary">Category</Button></TableCell>
                 <TableCell align="left"><h4>Status</h4></TableCell>
                 <TableCell align="left"><h4>Last Message</h4></TableCell>
                 <TableCell align="left"><h4>New</h4></TableCell>
-                <TableCell align="left"></TableCell>
+                <TableCell align="left"><h4>Action</h4></TableCell>
               </TableRow>
             </TableHead>
 
@@ -439,10 +442,10 @@ class EnhancedTable extends React.Component {
                         <TableCell >
                           {index}
                         </TableCell>
-                        <TableCell align="left">{title}</TableCell>
-                        <TableCell align="left">{ticket.category}</TableCell>
-                        <TableCell align="left">{<p style={{ color: color }}>{ticket.status}</p>}</TableCell>
-                        <TableCell align="left">{message}</TableCell>
+                        <TableCell align="left" name="ticketTitle">{title}</TableCell>
+                        <TableCell align="left" name="ticketCategory">{ticket.category}</TableCell>
+                        <TableCell align="left" name="ticketStatus">{<p style={{ color: color }}>{ticket.status}</p>}</TableCell>
+                        <TableCell align="left" name="ticketMessage">{message}</TableCell>
                         <TableCell align="left">{<p style={{ color: newmessage === "NEW" ? 'blue': 'grey' }}>{newmessage}</p>}</TableCell>
                         <TableCell align = "left"> <Tooltip title="Delete">
                         <IconButton align = "left" onClick={this.handleDelete.bind(this, ticket)}>
@@ -516,7 +519,7 @@ const styles = theme => ({
     "All",
     "ACNAPI MFA Login",
     "Aesop",
-    "AI Traslator",
+    "AI Translator",
     "AI Wealth Manager",
     "API DevOps",
     "AR Car Manual",
