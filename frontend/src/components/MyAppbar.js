@@ -130,6 +130,8 @@ class MyAppbar extends React.Component {
         myWelcomeDialog.value = Object.assign(myWelcomeDialog.value, { open: true });
 
         localStorage.clear();
+
+        window.location.href =  "/";
       }
     });
 
@@ -140,7 +142,6 @@ class MyAppbar extends React.Component {
 
     xhr.send(data);
 
-    window.location.href =  "/";
     // this.props.history.push('/');
     // alert("You have logged out successfully.")
     // return <Redirect to='/' push={true}></Redirect>
