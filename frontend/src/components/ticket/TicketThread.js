@@ -337,17 +337,18 @@ export default class TicketThread extends React.Component {
 
                             </Grid>
                             <Grid item xs>
-                            <Grid container direction="row" justify="space-between" alignItems="flex-end" spacing={4}>
+                            <Grid container direction="row" justify="flex-start" alignItems="flex-end" spacing={4}>
                                 <Grid item xs = {1}>
                                  <Typography align="left" variant="subtitle2">
                                     <h4>Status: </h4>
                                     <p />
                                 </Typography>
                                 </Grid>
-                            <Grid item xs>
+                            <Grid item xs style = {{paddingLeft :20}}>
                                 <TextField
                                     id="change-status"
                                     select
+                                    
                                     
                                     value={this.state.status}
                                     onChange={this.handleStatusChange}
