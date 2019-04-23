@@ -411,14 +411,21 @@ export default class TicketThread extends React.Component {
                         } 
                     </Typography>
                     <MyFileInput/>
+                    <div align = "center">
                     <Button
                         variant="contained"
+                        
                         disabled={this.state.disable}
                         onClick={this.handleSubmit.bind(this, this.state.reply)}
                         id="submit_button"
                     >
                         Submit
                     </Button>
+
+
+
+                    </div>
+                    
                 </div>
             </React.Fragment>
         );
