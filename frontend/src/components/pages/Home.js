@@ -24,11 +24,12 @@ export default class Home extends React.Component {
 
 
 	render() {
+		console.log("I am inside user dashboard")
 		return (
-			<div className="App-body">
-				<div className="container">
-				<Switch>
-					<Route exact path="/" render={props => (
+			// <div className="App-body">
+			// 	<div className="container">
+			// 	<Switch>
+			// 		<Route exact path="/" render={props => (
 						<React.Fragment>
 							{/* <p>Tickets</p> */}
 							<Tickets
@@ -37,31 +38,31 @@ export default class Home extends React.Component {
 								isAdmin={this.isAdmin}>
 							</Tickets>
 						</React.Fragment>
-					)} />
-					<Route
-						exact path="/Archive"
-						render={() => (
-							<Tickets
-								myState={this.props.myState}
-								origin="Archive"
-								isAdmin={this.isAdmin}>
-							</Tickets>
-						)}
-					/>
-					<Route
-						exact path="/NewTicket"
-						render={() => (
-							<NewTicket
-								myState={this.props.myState}
-								isAdmin={this.isAdmin}>
-							</NewTicket>
-						)}
-					/>
-					<Route path="/Ticket" component={TicketThread} />
-					<Route component={NotFound} />
-				</Switch>
-				</div>
-			</div>
+					// )} />
+					// <Route
+					// 	exact path="/Archive"
+					// 	render={() => (
+					// 		<Tickets
+					// 			myState={this.props.myState}
+					// 			origin="Archive"
+					// 			isAdmin={this.isAdmin}>
+					// 		</Tickets>
+					// 	)}
+					// />
+					// <Route
+					// 	exact path="/NewTicket"
+					// 	render={() => (
+					// 		<NewTicket
+					// 			myState={this.props.myState}
+					// 			isAdmin={this.isAdmin}>
+					// 		</NewTicket>
+					// 	)}
+					// />
+					// <Route path="/Ticket" component={TicketThread} />
+					// <Route component={NotFound} />
+			// 	</Switch>
+			// 	</div>
+			// </div>
 		);
 	}
 }

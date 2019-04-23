@@ -97,7 +97,7 @@ export default class Tickets extends React.Component {
 
 
     render() {
-        // console.log("I am inside tickets render");
+        console.log("I am inside tickets render");
         //console.log(this.userProfile.value);
         if (!this.state.isLoaded) {
             return <div>

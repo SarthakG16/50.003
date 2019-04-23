@@ -25,11 +25,11 @@ export default class AdminDashboard extends React.Component {
     }
 
     render() {
-        // console.log("I am inside admin dashboard render");
+        console.log("I am inside admin dashboard render");
         // console.log(this.userProfile.value);
         return (
-            <div className="App-body">
-                <div className="container">
+            // <div className="App-body">
+            //     <div className="container">
                     <Switch>
                         <Route exact path="/" render={props => (
                             <React.Fragment>
@@ -91,7 +91,7 @@ export default class AdminDashboard extends React.Component {
                             </React.Fragment>
                         )} />
                         <Route
-                            exact path="/Pending"
+                            path="/Pending"
                             render={() => (
                                 <Tickets
                                     myState={this.props.myState}
@@ -100,7 +100,7 @@ export default class AdminDashboard extends React.Component {
                             )}
                         />
                         <Route
-                            exact path="/Open"
+                            path="/Open"
                             render={() => (
                                 <Tickets
                                     myState={this.props.myState}
@@ -109,7 +109,7 @@ export default class AdminDashboard extends React.Component {
                             )}
                         />
                         <Route
-                            exact path="/Closed"
+                            path="/Closed"
                             render={() => (
                                 <Tickets
                                     myState={this.props.myState}
@@ -118,7 +118,7 @@ export default class AdminDashboard extends React.Component {
                             )}
                         />
                         <Route
-                            exact path="/Archive"
+                            path="/Archive"
                             render={() => (
                                 <Tickets
                                     myState={this.props.myState}
@@ -128,7 +128,7 @@ export default class AdminDashboard extends React.Component {
                             )}
                         />
                         <Route
-                            exact path="/NewTicket"
+                            path="/NewTicket"
                             render={() => (
                                 <NewTicket
                                     myState={this.props.myState}
@@ -138,10 +138,10 @@ export default class AdminDashboard extends React.Component {
                         />
                         <Route path="/Ticket" component={TicketThread} />
                         <Route component={NotFound} />
+                        
                     </Switch>
-
-                </div>
-            </div>
+            //     </div>
+            // </div>
         );
     }
 }

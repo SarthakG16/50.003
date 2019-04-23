@@ -348,6 +348,7 @@ class EnhancedTable extends React.Component {
 
 
     render() {
+      console.log("Inside enhanced table");
       // console.log(this.userProfile.value);
       const { classes } = this.props;
       const { filterTickets, tickets,rowsPerPage} = this.state;

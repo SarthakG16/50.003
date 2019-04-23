@@ -1,9 +1,13 @@
 import React from 'react';
-import {Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Home from './components/pages/Home';
 import AdminDashboard from './components/pages/AdminDashboard';
 import $ from 'jquery';
 import constants from "./resources/strings.js";
+import NewTicket from "./components/ticket/NewTicket"
+import Tickets from './components/ticket/Tickets';
+import TicketThread from './components/ticket/TicketThread'
+import NotFound from './components/pages/NotFound';
 
 export default class Routes extends React.Component {
   constructor(props) {
@@ -41,6 +45,7 @@ export default class Routes extends React.Component {
 
   render() {
     // const { classes } = this.props;
+    console.log("Iam inside routes")
 
     if (Object.entries(this.userProfile.value).length === 0 && this.userProfile.value.constructor === Object) {
       return null
@@ -59,15 +64,117 @@ export default class Routes extends React.Component {
     });
     // console.log("admin?" + isAdmin)
     // console.log("I am in routes")
+    if (isAdmin) {
+      return (
+        <div className="App-body">
+          <div className="container">
+            <AdminDashboard myState={this.props.myState} isAdmin={isAdmin}></AdminDashboard>
+
+            {/* <Switch>
+              <Route exact path='/'
+                render={() => (<AdminDashboard myState={this.props.myState} isAdmin={isAdmin}></AdminDashboard
+                >
+                )}
+              />
+              <Route
+                path="/Pending"
+                render={() => (
+                  <Tickets
+                    myState={this.props.myState}
+                    isAdmin={this.isAdmin}
+                    origin="Pending"></Tickets>
+                )}
+              />
+              <Route
+                path="/Open"
+                render={() => (
+                  <Tickets
+                    myState={this.props.myState}
+                    isAdmin={this.isAdmin}
+                    origin="Open"></Tickets>
+                )}
+              />
+              <Route
+                path="/Closed"
+                render={() => (
+                  <Tickets
+                    myState={this.props.myState}
+                    isAdmin={this.isAdmin}
+                    origin="Closed"></Tickets>
+                )}
+              />
+              <Route
+                path="/Archive"
+                render={() => (
+                  <Tickets
+                    myState={this.props.myState}
+                    origin="Archive"
+                    isAdmin={this.isAdmin}>
+                  </Tickets>
+                )}
+              />
+              <Route
+                path="/NewTicket"
+                render={() => (
+                  <NewTicket
+                    myState={this.props.myState}
+                    isAdmin={this.isAdmin}>
+                  </NewTicket>
+                )}
+              />
+              <Route path="/Ticket" component={TicketThread} />
+              <Route component={NotFound} />
+            </Switch>
+             */}
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <div className="App-body">
+          <div className="container">
+            <Switch>
+              <Route exact path='/'
+                render={() => (<Home myState={this.props.myState} isAdmin={isAdmin}></Home>
+                )}
+              />
+              <Route
+                path="/Archive"
+                render={() => (
+                  <Tickets
+                    myState={this.props.myState}
+                    origin="Archive"
+                    isAdmin={this.isAdmin}>
+                  </Tickets>
+                )}
+              />
+              <Route
+                path="/NewTicket"
+                render={() => (
+                  <NewTicket
+                    myState={this.props.myState}
+                    isAdmin={this.isAdmin}>
+                  </NewTicket>
+                )}
+              />
+              <Route path="/Ticket" component={TicketThread} />
+              <Route component={NotFound} />
+            </Switch>
+          </div>
+        </div>
+      )
+    }
+    /*
     return (
-      <div>
+      // <div>
           <Route path='/' 
             render={() => (
               isAdmin ? <AdminDashboard myState={this.props.myState} isAdmin={isAdmin}></AdminDashboard> :
                 <Home myState={this.props.myState} isAdmin={isAdmin}></Home>
             )}
           />
-      </div>
+      // </div>
     )
+    */
   }
 }
