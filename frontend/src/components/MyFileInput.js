@@ -18,7 +18,7 @@ class MyFileInput extends React.Component {
                             style={{ display: "none" }}
                             accept={fileType}
                             onChange={() => {
-                                document.getElementById("fileField").innerHTML = document.getElementById("fileInput").files[0].name;
+                                document.getElementById("fileField").innerHTML = document.getElementById("fileInput").value;
                             }}
                         />
                     </Button>
