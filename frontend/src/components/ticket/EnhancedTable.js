@@ -36,8 +36,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import Toolbar from '@material-ui/core/Toolbar';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
-const sessionToken = localStorage.getItem("sessionToken");
-
 const actionsStyles = theme => ({
   root: {
     flexShrink: 0,
@@ -67,6 +65,9 @@ class TablePaginationActions extends React.Component {
   };
 
   render() {
+
+    
+
     const { classes, count, page, rowsPerPage, theme } = this.props;
 
     return (
@@ -191,6 +192,7 @@ class EnhancedTable extends React.Component {
     }
   
     handleDelete(ticket) {
+      const sessionToken = localStorage.getItem("sessionToken");
       console.log("DELETING TICKET " + ticket.objectId);
       this.setState({
         delete: true
@@ -273,7 +275,7 @@ class EnhancedTable extends React.Component {
     }
 
     handleSeenTicket() {
-      
+      const sessionToken = localStorage.getItem("sessionToken");
       var settings;
       if (this.isAdmin) {
         if(this.state.ticketState.adminNew === false) {return true;}
