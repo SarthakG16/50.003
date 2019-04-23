@@ -165,16 +165,17 @@ class EnhancedTable extends React.Component {
 
   handleClose = value => {
     // console.log(value)
+    var newlist;
     if (value === 'All') {
-      // console.log("This happened")
-      this.setState({ value, open: false, filterTickets: this.props.tickets });  
+      newlist = this.props.tickets.filter(ticket => { return ticket.title.toLowerCase().includes(this.state.search.toLowerCase())})
+      this.setState({ value, open: false, filterTickets: newlist });  
     } else {
-      var newlist = this.props.tickets.filter(ticket => { return ticket.category === value})
+      var newlist = this.props.tickets.filter(ticket => { return ticket.category === value && ticket.title.toLowerCase().includes(this.state.search.toLowerCase())})
     this.setState({ value, open: false, filterTickets: newlist });
     }
   };
-    
 
+  
     handleClick(ticket, index) {
       if (this.flag) {
         // console.log("UHM");
@@ -328,7 +329,7 @@ class EnhancedTable extends React.Component {
       if(this.state.value === 'All') {
         newtickets = this.props.tickets.filter(ticket => { return ticket.title.toLowerCase().includes(event.target.value.toLowerCase())})
         this.setState({search:event.target.value, filterTickets: newtickets })
-      } else {
+      } else {          
         newtickets = this.props.tickets.filter(ticket => { return ticket.title.toLowerCase().includes(event.target.value.toLowerCase()) && ticket.category === this.state.value})
         this.setState({search:event.target.value, filterTickets: newtickets })
 
