@@ -113,9 +113,9 @@ export default class TicketThread extends React.Component {
         else { this.myState.ticket.replyCount++; }
             
         let data = { 
-            "status": 'Pending',
-            "replyCount": this.myState.ticket.replyCount,
-            "replies": replies
+            // "status": (this.state.isUser) ? 'Open' : 'Pending',
+            // "replyCount": this.myState.ticket.replyCount,
+            // "replies": replies
         };
         if (this.state.isUser) {
             data = { 
@@ -342,7 +342,7 @@ export default class TicketThread extends React.Component {
                             <Grid item xs>
                             <Grid container direction="row" justify="flex-start" alignItems="flex-end" spacing={4}>
                                 <Grid item xs = {1}>
-                                 <Typography align="left" variant="subtitle2">
+                                 <Typography align="left" variant="subtitle2" style = {{visibility : this.state.status === "Archive" ? 'hidden' : 'visible'}}>
                                     <h4>Status: </h4>
                                     <p />
                                 </Typography>
