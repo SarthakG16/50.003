@@ -149,6 +149,7 @@ export default class TicketThread extends React.Component {
         }
 
         $.ajax(settings).done(function (response) {
+            alert("Your reply has been posted.")
             console.log("reply added succesfully");
         });
     }
@@ -190,7 +191,6 @@ export default class TicketThread extends React.Component {
                 }
                 else {
                     await this.addReply(e);
-                    alert("Your reply has been posted.")
                     //email notification
                     if (this.myState.isAdmin) this.sendNotif(e);
                     // reset the form values to blank after submitting:

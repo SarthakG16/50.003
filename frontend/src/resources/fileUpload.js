@@ -41,8 +41,11 @@ function getFileList() {
         function (resolve, reject) {
             try {
                 const file = document.getElementById("fileInput").files[0];
-
-                if (file.size > fileSize) {
+                
+                if (file === undefined) {
+                    resolve([]);
+                }
+                else if (file.size > fileSize) {
                     reject(fileSizeErrorMessage);
                 }
                 else {
