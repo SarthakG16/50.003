@@ -32,9 +32,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { parseMessage } from '../../resources/fileDownload.js';
 
 import InputBase from '@material-ui/core/InputBase';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
@@ -170,7 +168,7 @@ class EnhancedTable extends React.Component {
       newlist = this.props.tickets.filter(ticket => { return ticket.title.toLowerCase().includes(this.state.search.toLowerCase())})
       this.setState({ value, open: false, filterTickets: newlist });  
     } else {
-      var newlist = this.props.tickets.filter(ticket => { return ticket.category === value && ticket.title.toLowerCase().includes(this.state.search.toLowerCase())})
+      newlist = this.props.tickets.filter(ticket => { return ticket.category === value && ticket.title.toLowerCase().includes(this.state.search.toLowerCase())})
     this.setState({ value, open: false, filterTickets: newlist });
     }
   };
