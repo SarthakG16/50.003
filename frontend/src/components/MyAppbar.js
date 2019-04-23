@@ -98,6 +98,7 @@ class MyAppbar extends React.Component {
     super(props);
 
     this.userProfile = props.myState.userProfile.registerCallback(this);
+    this.mySnackbar = props.myState.mySnackbar.registerCallback(this);
   }
 
   state = {
@@ -115,7 +116,7 @@ class MyAppbar extends React.Component {
   handleClick = (event) => {
     event.preventDefault();
 
-    const { userProfile, myWelcomeDialog } = this.props.myState;
+    const { userProfile, myWelcomeDialog, mySnackbar } = this.props.myState;
 
     const sessionToken = localStorage.getItem("sessionToken");
 
@@ -130,10 +131,10 @@ class MyAppbar extends React.Component {
         myWelcomeDialog.value = Object.assign(myWelcomeDialog.value, { open: true });
 
         localStorage.clear();
-        
-        alert("You have logged out successfully.")
 
-        window.location.href =  "/";
+        mySnackbar.value = Object.assign(mySnackbar.value, { open: true, variant: "success", message: "You have successfully logged out. " });
+
+        setTimeout(function () { window.location.href = "/"; }, 6000);
       }
     });
 
@@ -188,13 +189,13 @@ class MyAppbar extends React.Component {
             <Typography variant="h6" color="inherit" className={classes.grow}></Typography>
             <Typography align="right" style={{ marginRight: 12 }} variant="subtitle2" color="inherit">{"Welcome back " + username}</Typography>
             <Tooltip title="Logout">
-            <IconButton
-              id="logout"
-              style={{ marginRight: 12 }}
-              onClick={this.handleClick} variant="text" color="inherit"
-            >
-            <PowerSettingsNew />
-            </IconButton>
+              <IconButton
+                id="logout"
+                style={{ marginRight: 12 }}
+                onClick={this.handleClick} variant="text" color="inherit"
+              >
+                <PowerSettingsNew />
+              </IconButton>
             </Tooltip>
             {/* <PowerSettingsNew
               style={{ marginRight: 25 }}
