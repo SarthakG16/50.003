@@ -16,13 +16,19 @@ export default class Tickets extends React.Component {
         this.userProfile = props.myState.userProfile.registerCallback(this);
         // this.userProfile = props.myState.userProfile;
         // console.log("I have constructed tickets list");
+        this.lastOrigin = null;
     }
 
-    componentDidMount() {
+    getTickets(origin) {
         const sessionToken = localStorage.getItem("sessionToken");
 
+        this.setState({
+            isLoaded: false,
+            tickets: null
+        })
+
         var settings;
-        if (this.state.origin === "Home") {
+        if (origin === "Home") {
             settings = {
                 "async": true,
                 "crossDomain": true,
@@ -46,7 +52,7 @@ export default class Tickets extends React.Component {
             });
 
         }
-        else if (this.state.origin === "Archive" && this.isAdmin) {
+        else if (origin === "Archive" && this.isAdmin) {
             settings = {
                 "async": true,
                 "crossDomain": true,
@@ -97,6 +103,11 @@ export default class Tickets extends React.Component {
 
 
     render() {
+        if (this.lastOrigin != this.props.origin) {
+            this.getTickets(this.props.origin);
+            this.lastOrigin = this.props.origin;
+        }
+
         // console.log("I am inside tickets render");
         //console.log(this.userProfile.value);
         if (!this.state.isLoaded) {
