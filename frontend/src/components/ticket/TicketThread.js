@@ -149,6 +149,7 @@ export default class TicketThread extends React.Component {
         }
 
         $.ajax(settings).done(function (response) {
+            alert("Your reply has been posted.")
             console.log("reply added succesfully");
         });
     }
@@ -190,7 +191,6 @@ export default class TicketThread extends React.Component {
                 }
                 else {
                     await this.addReply(e);
-                    alert("Your reply has been posted.")
                     //email notification
                     if (this.myState.isAdmin) this.sendNotif(e);
                     // reset the form values to blank after submitting:
@@ -337,17 +337,18 @@ export default class TicketThread extends React.Component {
 
                             </Grid>
                             <Grid item xs>
-                            <Grid container direction="row" justify="space-between" alignItems="flex-end" spacing={4}>
+                            <Grid container direction="row" justify="flex-start" alignItems="flex-end" spacing={4}>
                                 <Grid item xs = {1}>
                                  <Typography align="left" variant="subtitle2">
                                     <h4>Status: </h4>
                                     <p />
                                 </Typography>
                                 </Grid>
-                            <Grid item xs>
+                            <Grid item xs style = {{paddingLeft :20}}>
                                 <TextField
                                     id="change-status"
                                     select
+                                    
                                     
                                     value={this.state.status}
                                     onChange={this.handleStatusChange}
@@ -410,14 +411,21 @@ export default class TicketThread extends React.Component {
                         } 
                     </Typography>
                     <MyFileInput/>
+                    <div align = "center">
                     <Button
                         variant="contained"
+                        
                         disabled={this.state.disable}
                         onClick={this.handleSubmit.bind(this, this.state.reply)}
                         id="submit_button"
                     >
                         Submit
                     </Button>
+
+
+
+                    </div>
+                    
                 </div>
             </React.Fragment>
         );

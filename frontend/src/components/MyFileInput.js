@@ -5,7 +5,7 @@ class MyFileInput extends React.Component {
     render() {
         const fileType = "application/pdf,image/*,.txt"
         return (
-            <Grid container direction="row" justify="space-between" alignItems="flex-start" spacing={8} style={{ marginTop: 10, marginBottom: 40 }}>
+            <Grid container direction="row" justify="flex-start" alignItems="center" spacing={8} style={{ marginTop: 10, marginBottom: 40 }}>
                 <Grid item>
                     <Button
                         variant="contained"
@@ -18,12 +18,12 @@ class MyFileInput extends React.Component {
                             style={{ display: "none" }}
                             accept={fileType}
                             onChange={() => {
-                                document.getElementById("fileField").innerHTML = document.getElementById("fileInput").value;
+                                document.getElementById("fileField").innerHTML = (document.getElementById("fileInput").files[0] !== undefined) ? document.getElementById("fileInput").files[0].name : "";
                             }}
                         />
                     </Button>
                 </Grid>
-                <Grid item id="fileField">
+                <Grid item style = {{paddingLeft: 20}}id="fileField">
                     
                 </Grid>
             </Grid>

@@ -16,13 +16,19 @@ export default class Tickets extends React.Component {
         this.userProfile = props.myState.userProfile.registerCallback(this);
         // this.userProfile = props.myState.userProfile;
         // console.log("I have constructed tickets list");
+        this.lastOrigin = null;
     }
 
-    componentDidMount() {
+    getTickets(origin) {
         const sessionToken = localStorage.getItem("sessionToken");
 
+        this.setState({
+            isLoaded: false,
+            tickets: null
+        })
+
         var settings;
-        if (this.state.origin === "Home") {
+        if (origin === "Home") {
             settings = {
                 "async": true,
                 "crossDomain": true,
@@ -46,7 +52,7 @@ export default class Tickets extends React.Component {
             });
 
         }
-        else if (this.state.origin === "Archive" && this.isAdmin) {
+        else if (origin === "Archive" && this.isAdmin) {
             settings = {
                 "async": true,
                 "crossDomain": true,
@@ -74,7 +80,7 @@ export default class Tickets extends React.Component {
             settings = {
                 "async": true,
                 "crossDomain": true,
-                "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets?where={%22status%22%20:%20%20{%22$in%22:%20[%22" + this.state.origin + "%22]%20}%20}&order=-updatedAt",
+                "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets?where={%22status%22%20:%20%20{%22$in%22:%20[%22" + origin + "%22]%20}%20}&order=-updatedAt",
                 "method": "GET",
                 "headers": {
                     "Content-Type": "application/json",
@@ -97,6 +103,11 @@ export default class Tickets extends React.Component {
 
 
     render() {
+        if (this.lastOrigin != this.props.origin) {
+            this.getTickets(this.props.origin);
+            this.lastOrigin = this.props.origin;
+        }
+
         // console.log("I am inside tickets render");
         //console.log(this.userProfile.value);
         if (!this.state.isLoaded) {
@@ -107,6 +118,7 @@ export default class Tickets extends React.Component {
                     </div>
         }
         else {
+            while(!this.state.isLoaded);
             if (this.state.tickets.length === 0) {
                 return (
                     <div>

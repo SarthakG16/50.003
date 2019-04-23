@@ -41,9 +41,9 @@ export function parseMessage(message, textsOnly) {
                 <div>
                     {texts}<br />
                     <br />
-                    File Attachments: <br />
+                    {files.length > 0 ? <div>File Attachments: <br /></div> : <div></div>}
                     {
-                        files.map(
+                        files.length > 0 ? files.map(
                             file => {
                                 return (
                                     <Chip
@@ -59,7 +59,8 @@ export function parseMessage(message, textsOnly) {
                                     // </div>
                                 );
                             }
-                        )
+                        ) :
+                        <div></div>
                     }
                 </div>
             );
