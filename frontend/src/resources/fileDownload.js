@@ -1,5 +1,4 @@
 import React from 'react';
-import MyDownloadChipsArray from '../components/MyDownloadChipsArray';
 import { Chip } from '@material-ui/core';
 
 export function parseMessage(message, textsOnly) {
