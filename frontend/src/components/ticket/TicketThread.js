@@ -9,7 +9,7 @@ import constants from "../../resources/strings.js";
 import MyFileInput from '../MyFileInput';
 import { appendFileToMessage } from '../../resources/fileUpload';
 
-const sessionToken = localStorage.getItem("sessionToken");
+
 
 // const styles = theme => ({
 //     root: {
@@ -90,6 +90,8 @@ export default class TicketThread extends React.Component {
 
     // API call to update the ticket
     async addReply(e) {
+        const sessionToken = localStorage.getItem("sessionToken");
+
         // getting the ticket variables for PUT
         let objectId = this.myState.ticket.objectId;
         var replies = this.myState.ticket.replies;
@@ -111,20 +113,20 @@ export default class TicketThread extends React.Component {
         else { this.myState.ticket.replyCount++; }
             
         let data = { 
-            "status": (this.state.isUser) ? 'Open' : 'Pending',
+            "status": 'Pending',
             "replyCount": this.myState.ticket.replyCount,
             "replies": replies
         };
         if (this.state.isUser) {
             data = { 
-                "status": (this.state.isUser) ? 'Open' : 'Pending',
+                "status": 'Pending',
                 "replyCount": this.myState.ticket.replyCount,
                 "replies": replies,
                 "adminNew": true                
             };
         } else {
             data = { 
-                "status": (this.state.isUser) ? 'Open' : 'Pending',
+                "status": 'Pending',
                 "replyCount": this.myState.ticket.replyCount,
                 "replies": replies,
                 "userNew": true                
@@ -245,6 +247,7 @@ export default class TicketThread extends React.Component {
 
     // updates the changes in status
     handleStatusChange(e) {
+        const sessionToken = localStorage.getItem("sessionToken");
         const value = e.target.value;
 
         let data = { "status": value };

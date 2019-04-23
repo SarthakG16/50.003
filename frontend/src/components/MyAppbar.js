@@ -127,12 +127,15 @@ class MyAppbar extends React.Component {
 
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === 4) {
-        userProfile.value = {};
-        myWelcomeDialog.value = Object.assign(myWelcomeDialog.value, { open: true });
-
+        if (window.location.href !== "/") {
+          window.location.href = "/";
+        }
+        else {
+          userProfile.value = {};
+          myWelcomeDialog.value = Object.assign(myWelcomeDialog.value, { open: true });
+        }
+        
         localStorage.clear();
-
-        window.location.href = "/";
 
         // mySnackbar.value = Object.assign(mySnackbar.value, { open: true, variant: "success", message: "You have successfully logged out. " });
       }
