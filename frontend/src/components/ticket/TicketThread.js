@@ -65,19 +65,20 @@ export default class TicketThread extends React.Component {
         this.handleStatusChange = this.handleStatusChange.bind(this);
         this.addReply = this.addReply.bind(this);
         this.getDateCreated = this.getDateCreated.bind(this);
-        this.userProfile = props.location.state.myState;
+        this.myState = JSON.parse(localStorage.getItem("myState"));
+        this.userProfile = this.myState.myState;
         this.maxMessageChars = 1000;
         this.state = {
             reply: Object.assign({}, RESET_VALUES),
-            status: this.props.location.state.ticket.status,
-            disable: ((this.props.location.state.ticket.status === "Archive") ? true : false),
-            isUser: !this.props.location.state.isAdmin,
+            status: this.myState.ticket.status,
+            disable: ((this.myState.ticket.status === "Archive") ? true : false),
+            isUser: !this.myState.isAdmin,
             messageCharsLeft: this.maxMessageChars,
-            // userProfile: this.props.location.state.myState.userProfile.registerCallback(this)
+            // userProfile: this.myState.myState.userProfile.registerCallback(this)
         };
         // console.log(this.userProfile.className);
         // console.log("I have constructed ticketthread");
-        // console.log(this.props.location.state.ticket.replies[0]);
+        // console.log(this.myState.ticket.replies[0]);
     }
 
     // returns the date and time the reply was posted in UTC
@@ -90,8 +91,8 @@ export default class TicketThread extends React.Component {
     // API call to update the ticket
     async addReply(e) {
         // getting the ticket variables for PUT
-        let objectId = this.props.location.state.ticket.objectId;
-        var replies = this.props.location.state.ticket.replies;
+        let objectId = this.myState.ticket.objectId;
+        var replies = this.myState.ticket.replies;
         // console.log(objectId);
         // console.log(replies);
 
@@ -106,25 +107,25 @@ export default class TicketThread extends React.Component {
         replies.push(reply);
         console.log(replies);
 
-        if (this.props.location.state.isAdmin) { this.props.location.state.ticket.replyCount = 0; }
-        else { this.props.location.state.ticket.replyCount++; }
+        if (this.myState.isAdmin) { this.myState.ticket.replyCount = 0; }
+        else { this.myState.ticket.replyCount++; }
             
         let data = { 
             "status": (this.state.isUser) ? 'Open' : 'Pending',
-            "replyCount": this.props.location.state.ticket.replyCount,
+            "replyCount": this.myState.ticket.replyCount,
             "replies": replies
         };
         if (this.state.isUser) {
             data = { 
                 "status": (this.state.isUser) ? 'Open' : 'Pending',
-                "replyCount": this.props.location.state.ticket.replyCount,
+                "replyCount": this.myState.ticket.replyCount,
                 "replies": replies,
                 "adminNew": true                
             };
         } else {
             data = { 
                 "status": (this.state.isUser) ? 'Open' : 'Pending',
-                "replyCount": this.props.location.state.ticket.replyCount,
+                "replyCount": this.myState.ticket.replyCount,
                 "replies": replies,
                 "userNew": true                
             };
@@ -156,8 +157,8 @@ export default class TicketThread extends React.Component {
         let emailBody = {
             "subject": "Reply received",
             "sender": "Accenture@do-not-reply.com",
-            "recipient": this.props.location.state.ticket.email,
-            "html": "<p>Hello " + this.props.location.state.ticket.replies[0].name + ",</p><p>An admin has replied to your ticket: <em>'" + e.message + "'</em> on " + e.date + ".</p><p>-Ticket details-<br />Title: " + this.props.location.state.ticket.title + "<br />Category: " + this.props.location.state.ticket.category + "<br />Date/time of submission: " + this.props.location.state.ticket.replies[0].date + "<br />Original message: " + this.props.location.state.ticket.replies[0].message
+            "recipient": this.myState.ticket.email,
+            "html": "<p>Hello " + this.myState.ticket.replies[0].name + ",</p><p>An admin has replied to your ticket: <em>'" + e.message + "'</em> on " + e.date + ".</p><p>-Ticket details-<br />Title: " + this.myState.ticket.title + "<br />Category: " + this.myState.ticket.category + "<br />Date/time of submission: " + this.myState.ticket.replies[0].date + "<br />Original message: " + this.myState.ticket.replies[0].message
         }
         // console.log(emailBody);
         console.log(JSON.stringify(emailBody));
@@ -183,7 +184,7 @@ export default class TicketThread extends React.Component {
         let ticketValid = this.handleValidation(e);
         // console.log('finish checking');
         if (ticketValid) {
-            if (this.props.location.state.ticket.replyCount < 3 || this.props.location.state.isAdmin) {
+            if (this.myState.ticket.replyCount < 3 || this.myState.isAdmin) {
                 if (this.state.messageCharsLeft < 0) {
                     alert("Message character count is too high, please shorten your message.");
                 }
@@ -191,7 +192,7 @@ export default class TicketThread extends React.Component {
                     await this.addReply(e);
                     alert("Your reply has been posted.")
                     //email notification
-                    if (this.props.location.state.isAdmin) this.sendNotif(e);
+                    if (this.myState.isAdmin) this.sendNotif(e);
                     // reset the form values to blank after submitting:
                     this.setState({
                         reply: Object.assign({}, RESET_VALUES),
@@ -253,7 +254,7 @@ export default class TicketThread extends React.Component {
         var settings = {
             "async": true,
             "crossDomain": true,
-            "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets/" + this.props.location.state.ticket.objectId,
+            "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets/" + this.myState.ticket.objectId,
             "method": "PUT",
             "headers": {
                 "Server-Token": constants.serverToken,
@@ -287,17 +288,17 @@ export default class TicketThread extends React.Component {
                         width='80%'
                         style={{ paddingLeft: 20, paddingRight: 20, paddingTop:10, paddingBottom:10 }}>
                         <Typography align="left" variant="subtitle1" >
-                            Ticket ID: {this.props.location.state.ticket.objectId}
+                            Ticket ID: {this.myState.ticket.objectId}
                             <p />
                         </Typography>
                         <Typography align="left" variant="headline">
-                            Title: {this.props.location.state.ticket.title}
+                            Title: {this.myState.ticket.title}
                             <p />
                         </Typography>
                         <Grid container direction="row" justify="space-between" alignItems="flex-start" spacing={8}>
                             <Grid item xs={8}>
                                 <Typography align="left" variant="caption">
-                                    Timestamp: {this.props.location.state.ticket.replies[0].date} <br />
+                                    Timestamp: {this.myState.ticket.replies[0].date} <br />
                                     Status: {this.state.status}
                                 </Typography>
                             </Grid>
@@ -334,7 +335,7 @@ export default class TicketThread extends React.Component {
                     </Typography>
                     <TicketMessages
                         key={uuid.u4}
-                        messages={this.props.location.state.ticket.replies}>
+                        messages={this.myState.ticket.replies}>
                     </TicketMessages>
                 </div>
                 <div

@@ -342,9 +342,15 @@ class EnhancedTable extends React.Component {
         ticketindex = this.state.ticketIndex;
         lastOrigin = this.origin;
         this.handleSeenTicket();
+        localStorage.setItem(
+          "myState",
+          JSON.stringify(
+            { id: this.state.ticketID, ticket: this.state.ticketState, myState: this.userProfile.value, isAdmin: this.isAdmin }
+          ),
+        )
         return <Redirect to={{
           pathname: `/Ticket/` + this.state.ticketIndex,
-          state: { id: this.state.ticketID, ticket: this.state.ticketState, myState: this.userProfile.value, isAdmin: this.isAdmin }
+          // state: { id: this.state.ticketID, ticket: this.state.ticketState, myState: this.userProfile.value, isAdmin: this.isAdmin }
         }} push={true}></Redirect>;
       }
     }
