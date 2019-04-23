@@ -584,7 +584,6 @@ export default class NewTicket extends React.Component {
                                 />
 
                                 <MyFileInput />
-
                                 <div align = "center">
                                     <Button
                                         id="submit_button"
