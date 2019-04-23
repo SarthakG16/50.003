@@ -18,7 +18,6 @@ const handleLogin = (username, password, myState) => {
           mySnackbar.value = Object.assign(mySnackbar.value, { open: true, variant: "error", message: responseJSON.error });
         }
         else {
-          window.location.href =  "/";
           localStorage.setItem("objectId", responseJSON.objectId);
           localStorage.setItem("sessionToken", responseJSON.sessionToken);    
           userProfile.value = responseJSON;

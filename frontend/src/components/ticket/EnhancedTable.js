@@ -31,6 +31,11 @@ import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { parseMessage } from '../../resources/fileDownload.js';
 
+import InputBase from '@material-ui/core/InputBase';
+import SearchIcon from '@material-ui/icons/Search';
+import Toolbar from '@material-ui/core/Toolbar';
+import { fade } from '@material-ui/core/styles/colorManipulator';
+
 const sessionToken = localStorage.getItem("sessionToken");
 
 const actionsStyles = theme => ({
@@ -132,6 +137,8 @@ class EnhancedTable extends React.Component {
       tickets: this.props.tickets,
       filterTickets: this.props.tickets,
 
+      search:'',
+
       page: 0,
       rowsPerPage: 5,
       open: false,
@@ -144,7 +151,8 @@ class EnhancedTable extends React.Component {
     this.origin = props.origin;
 
     this.flag = false;
-    //console.log("I have constructed the table");
+    console.log("I have constructed the table");
+    console.log(this.origin)
 
     //this.handleClick = this.handleClick.bind(this);
   }
@@ -155,16 +163,17 @@ class EnhancedTable extends React.Component {
 
   handleClose = value => {
     // console.log(value)
+    var newlist;
     if (value === 'All') {
-      // console.log("This happened")
-      this.setState({ value, open: false, filterTickets: this.props.tickets });  
+      newlist = this.props.tickets.filter(ticket => { return ticket.title.toLowerCase().includes(this.state.search.toLowerCase())})
+      this.setState({ value, open: false, filterTickets: newlist });  
     } else {
-      var newlist = this.props.tickets.filter(ticket => { return ticket.category === value})
+      newlist = this.props.tickets.filter(ticket => { return ticket.category === value && ticket.title.toLowerCase().includes(this.state.search.toLowerCase())})
     this.setState({ value, open: false, filterTickets: newlist });
     }
   };
-    
 
+  
     handleClick(ticket, index) {
       if (this.flag) {
         // console.log("UHM");
@@ -309,7 +318,23 @@ class EnhancedTable extends React.Component {
     
       }
 
-  } 
+    } 
+
+    handleSearch(event){
+      console.log(event.target.value);
+      var newtickets;
+
+      if(this.state.value === 'All') {
+        newtickets = this.props.tickets.filter(ticket => { return ticket.title.toLowerCase().includes(event.target.value.toLowerCase())})
+        this.setState({search:event.target.value, filterTickets: newtickets })
+      } else {          
+        newtickets = this.props.tickets.filter(ticket => { return ticket.title.toLowerCase().includes(event.target.value.toLowerCase()) && ticket.category === this.state.value})
+        this.setState({search:event.target.value, filterTickets: newtickets })
+
+      }
+
+    }
+
   
     renderRedirect() {
       if (this.state.redirect && !this.state.delete) {
@@ -348,7 +373,8 @@ class EnhancedTable extends React.Component {
 
 
     render() {
-      // console.log(this.userProfile.value);
+     console.log(this.userProfile.value);
+     console.log(this.origin)
       const { classes } = this.props;
       const { filterTickets, tickets,rowsPerPage} = this.state;
       var page = this.state.page;
@@ -377,6 +403,21 @@ class EnhancedTable extends React.Component {
         <Paper className={classes.root}>
           <div className={classes.tableWrapper}>
             <h4 align="center">{header}</h4>
+            <Toolbar>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search by Ticket Title..."
+                onChange= {this.handleSearch.bind(this)}
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+              />
+            </div>
+            </Toolbar>
             <Table className={classes.table} aria-labelledby="tableTitle">
             {this.renderRedirect()}
             <TableHead>
@@ -398,13 +439,6 @@ class EnhancedTable extends React.Component {
                     if (this.state.redirect){
                       return true;
                     }
-
-                    // if(this.state.value === "All") {
-                    //   //do nothing
-                    // } else if (this.state.value !== ticket.category) {
-                    //   return true;
-                    // }
-
                     if (!(this.state.value === "All") && this.state.value !== ticket.category) {
                       return true;
                     }
@@ -515,6 +549,55 @@ const styles = theme => ({
     },
     tableWrapper: {
       overflowX: 'auto'
+    },
+    menuButton: {
+      marginLeft: -12,
+      marginRight: 20,
+    },
+    title: {
+      display: 'none',
+      [theme.breakpoints.up('sm')]: {
+        display: 'block',
+      },
+    },
+    search: {
+      position: 'relative',
+      borderRadius: theme.shape.borderRadius,
+      backgroundColor: fade(theme.palette.common.white, 0.15),
+      '&:hover': {
+        backgroundColor: fade(theme.palette.common.white, 0.25),
+      },
+      marginRight: theme.spacing.unit * 2,
+      marginLeft: 0,
+      width: '100%',
+      [theme.breakpoints.up('sm')]: {
+        marginLeft: theme.spacing.unit * 3,
+        width: 'auto',
+      },
+    },
+    searchIcon: {
+      width: theme.spacing.unit * 9,
+      height: '100%',
+      position: 'absolute',
+      pointerEvents: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    inputRoot: {
+      color: 'inherit',
+      width: '100%',
+    },
+    inputInput: {
+      paddingTop: theme.spacing.unit,
+      paddingRight: theme.spacing.unit,
+      paddingBottom: theme.spacing.unit,
+      paddingLeft: theme.spacing.unit * 10,
+      transition: theme.transitions.create('width'),
+      width: '100%',
+      [theme.breakpoints.up('md')]: {
+        width: 1020,
+      },
     },
   });
   export default withStyles(styles)(EnhancedTable);

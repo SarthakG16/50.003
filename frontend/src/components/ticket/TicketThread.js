@@ -285,34 +285,76 @@ export default class TicketThread extends React.Component {
             <React.Fragment>
                 <div>
                     <Paper elevation={5}
-                        width='80%'
+                        width='80%' 
                         style={{ paddingLeft: 20, paddingRight: 20, paddingTop:10, paddingBottom:10 }}>
-                        <Typography align="left" variant="subtitle1" >
-                            Ticket ID: {this.myState.ticket.objectId}
-                            <p />
-                        </Typography>
-                        <Typography align="left" variant="headline">
-                            Title: {this.myState.ticket.title}
-                            <p />
-                        </Typography>
-                        <Grid container direction="row" justify="space-between" alignItems="flex-start" spacing={8}>
-                            <Grid item xs={8}>
-                                <Typography align="left" variant="caption">
-                                    Timestamp: {this.myState.ticket.replies[0].date} <br />
-                                    Status: {this.state.status}
-                                </Typography>
+                        <Grid container direction="row" justify="space-between" alignItems="baseline" spacing={8}>
+                        <Grid item xs>
+                        <Grid container direction="row" justify="flex-start" alignItems="baseline" spacing={4}>
+                                    <Grid item xs= {1.5}>
+                                    <Typography align="left" variant="subtitle2" >
+                                        <h3>Title:  </h3>
+                                        <p />
+                                    </Typography>
+                                    </Grid>
+                                    <Grid item xs>
+                                    <Typography style = {{paddingLeft:10}} align="left" variant="subtitle2" >
+                                        {this.myState.ticket.title}
+                                    </Typography>
+                                    </Grid>
+                        </Grid>
+                        </Grid>
+                        <Grid item xs>
+                        <Grid container direction="row" justify="flex-start" alignItems="baseline" spacing={4}>
+                                    <Grid item xs= {1.5}>
+                                    <Typography align="left" variant="subtitle2" >
+                                        <h4>Ticket ID:  </h4>
+                                        <p />
+                                    </Typography>
+                                    </Grid>
+                                    <Grid item xs>
+                                    <Typography style = {{paddingLeft:10}} align="left" variant="subtitle2" >
+                                        {this.myState.ticket.objectId}
+                                    </Typography>
+                                    </Grid>
+                        </Grid>
+                        </Grid>
+                        </Grid>
+                        <Grid container direction="row" justify="space-between" alignItems="baseline" spacing={8}>
+                            <Grid item xs>
+                                <Grid container direction="row" justify="flex-start" alignItems="baseline" spacing={4}>
+                                    <Grid item xs= {1.5}>
+                                    <Typography align="left" variant="subtitle2" >
+                                        <h4>Ticket Created:  </h4>
+                                        <p />
+                                    </Typography>
+                                    </Grid>
+                                    <Grid item xs>
+                                    <Typography style = {{paddingLeft:10}} align="left" variant="subtitle2" >
+                                        {this.myState.ticket.replies[0].date}
+                                    </Typography>
+                                    </Grid>
+                                </Grid>
+
                             </Grid>
+                            <Grid item xs>
+                            <Grid container direction="row" justify="space-between" alignItems="flex-end" spacing={4}>
+                                <Grid item xs = {1}>
+                                 <Typography align="left" variant="subtitle2">
+                                    <h4>Status: </h4>
+                                    <p />
+                                </Typography>
+                                </Grid>
                             <Grid item xs>
                                 <TextField
                                     id="change-status"
                                     select
-                                    label="Change status"
+                                    
                                     value={this.state.status}
                                     onChange={this.handleStatusChange}
-                                    margin="normal"
+                                    margin="dense"
                                     variant="outlined"
                                     fullWidth
-                                    height='36px'
+                                    height='24px'
                                     InputLabelProps={{ shrink: true, }}
                                     style = {{visibility : this.state.status === "Archive" ? 'hidden' : 'visible'}}
                                     disabled={this.state.disable || this.state.isUser}
@@ -323,6 +365,8 @@ export default class TicketThread extends React.Component {
                                         </MenuItem>
                                     ))}
                                 </TextField>
+                                </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Paper>

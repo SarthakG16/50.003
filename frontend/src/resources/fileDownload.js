@@ -1,4 +1,5 @@
 import React from 'react';
+import { Chip } from '@material-ui/core';
 
 export function parseMessage(message, textsOnly) {
     // TODO: remove try catch (only for backward compatibility)
@@ -13,10 +14,10 @@ export function parseMessage(message, textsOnly) {
                 const xhr = new XMLHttpRequest();
                 xhr.open("GET", file.content, true);
                 xhr.responseType = "blob";
-                xhr.onload = function(e) {
+                xhr.onload = function (e) {
                     if (this.status == 200) {
                         const blob = this.response;
-                        window.navigator.msSaveOrOpenBlob(blob, file.name);  
+                        window.navigator.msSaveOrOpenBlob(blob, file.name);
                     }
                 };
                 xhr.send();
@@ -33,7 +34,7 @@ export function parseMessage(message, textsOnly) {
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
-                }  
+                }
             }
 
             return (
@@ -45,10 +46,17 @@ export function parseMessage(message, textsOnly) {
                         files.map(
                             file => {
                                 return (
-                                    <div>
-                                        {/* <a href={file.content} download={file.name}>{file.name}</a><br /> */}
-                                        <button onClick={ () => { downloadHandler(file) } }>{file.name}</button>
-                                    </div>
+                                    <Chip
+                                        key={file.name}
+                                        icon={null}
+                                        label={file.name}
+                                        onClick={() => { downloadHandler(file) }}
+                                        style={{ marginTop: 5, marginRight: 5 }}
+                                    />
+                                    // <div>
+                                    //     {/* <a href={file.content} download={file.name}>{file.name}</a><br /> */}
+                                    //     <button onClick={() => { downloadHandler(file) }}>{file.name}</button>
+                                    // </div>
                                 );
                             }
                         )
