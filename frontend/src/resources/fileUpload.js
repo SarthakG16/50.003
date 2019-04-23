@@ -39,16 +39,18 @@ function getFileList() {
 
     return new Promise(
         function (resolve, reject) {
-            const file = document.getElementById("fileInput").files[0];
+            try {
+                const file = document.getElementById("fileInput").files[0];
 
-            if (file === undefined) {
-                resolve("");
+                if (file.size > fileSize) {
+                    reject(fileSizeErrorMessage);
+                }
+                else {
+                    getFileString(resolve, reject, file);
+                }
             }
-            else if (file.size > fileSize) {
-                reject(fileSizeErrorMessage);
-            }
-            else {
-                getFileString(resolve, reject, file);
+            catch (error) {
+                resolve([]);
             }
         }
     );
