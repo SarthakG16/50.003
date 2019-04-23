@@ -80,7 +80,7 @@ export default class Tickets extends React.Component {
             settings = {
                 "async": true,
                 "crossDomain": true,
-                "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets?where={%22status%22%20:%20%20{%22$in%22:%20[%22" + this.state.origin + "%22]%20}%20}&order=-updatedAt",
+                "url": "https://ug-api.acnapiv3.io/swivel/acnapi-common-services/common/classes/Tickets?where={%22status%22%20:%20%20{%22$in%22:%20[%22" + origin + "%22]%20}%20}&order=-updatedAt",
                 "method": "GET",
                 "headers": {
                     "Content-Type": "application/json",
