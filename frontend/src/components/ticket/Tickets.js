@@ -118,6 +118,7 @@ export default class Tickets extends React.Component {
                     </div>
         }
         else {
+            while(!this.state.isLoaded);
             if (this.state.tickets.length === 0) {
                 return (
                     <div>

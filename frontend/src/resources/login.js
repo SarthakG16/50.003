@@ -20,10 +20,7 @@ const handleLogin = (username, password, myState) => {
         else {
           localStorage.setItem("objectId", responseJSON.objectId);
           localStorage.setItem("sessionToken", responseJSON.sessionToken);    
-          userProfile.value = responseJSON;
-          myWelcomeDialog.value = Object.assign(myWelcomeDialog.value, { open: false });
-          
-          
+          setTimeout(function() { userProfile.value = responseJSON; myWelcomeDialog.value = Object.assign(myWelcomeDialog.value, { open: false }); }, 500);
         }
       }
     });
