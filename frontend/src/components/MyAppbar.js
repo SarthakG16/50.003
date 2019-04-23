@@ -81,10 +81,10 @@ const styles = theme => ({
     },
   },
   toolbar: {
-    // display: 'flex',
-    // alignItems: 'center',
-    // justifyContent: 'flex-end',
-    // padding: '0 8px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
     ...theme.mixins.toolbar,
   },
   content: {
@@ -245,7 +245,7 @@ class MyAppbar extends React.Component {
             </IconButton>
           </div>
           <Divider />
-          <List>
+          <List style={{ marginLeft: 6 }}>
             {['All', 'Archive'].map((text, index) => (
               <div key={index}>
                 {index % 2 === 0 ?
@@ -266,7 +266,7 @@ class MyAppbar extends React.Component {
             ))}
           </List>
           <Divider />
-          <List>
+          <List style={{ marginLeft: 6 }}>
             <Link to={{ pathname: "/NewTicket", user: this.userProfile.value }}>
               <ListItem button key="New Ticket">
                 <ListItemIcon><CreateIcon /></ListItemIcon>
