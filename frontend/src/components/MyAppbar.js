@@ -132,9 +132,9 @@ class MyAppbar extends React.Component {
 
         localStorage.clear();
 
-        mySnackbar.value = Object.assign(mySnackbar.value, { open: true, variant: "success", message: "You have successfully logged out. " });
+        window.location.href = "/";
 
-        setTimeout(function () { window.location.href = "/"; }, 6000);
+        // mySnackbar.value = Object.assign(mySnackbar.value, { open: true, variant: "success", message: "You have successfully logged out. " });
       }
     });
 
