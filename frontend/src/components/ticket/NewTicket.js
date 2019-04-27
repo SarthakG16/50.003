@@ -158,17 +158,15 @@ export default class NewTicket extends React.Component {
                 this.changeField("numberOfTickets", this.numberOfTickets);
             } else {
                 this.numberOfTickets = this.numberOfTickets + 1
-                console.log(this.numberOfTickets);
+                console.log("BDFIBFAKFBAKFB" +this.numberOfTickets);
                 this.changeField("numberOfTickets", this.numberOfTickets);
             }
             return true;
-        }
-        else if (e.message.length > this.maxMessageChars) {
+        } else if (e.message.length > this.maxMessageChars) {
             alert("Message character count is too high, please shorten your message.");
             return false;
         }
         else {
-
             alert("Exceeded daily ticket limit, please try again tomorrow.");
             return false;
         }
