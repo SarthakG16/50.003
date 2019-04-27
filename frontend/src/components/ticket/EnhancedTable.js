@@ -121,7 +121,7 @@ const TablePaginationActionsWrapped = withStyles(actionsStyles, { withTheme: tru
 
 var index = 0;
 var ticketindex = 0;
-var lastOrigin = "WTF";
+var lastOrigin = "";
 
 
 class EnhancedTable extends React.Component {
