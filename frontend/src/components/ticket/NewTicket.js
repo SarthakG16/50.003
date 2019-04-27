@@ -158,7 +158,7 @@ export default class NewTicket extends React.Component {
                 this.changeField("numberOfTickets", this.numberOfTickets);
             } else {
                 this.numberOfTickets = this.numberOfTickets + 1
-                console.log("BDFIBFAKFBAKFB" +this.numberOfTickets);
+                // console.log("BDFIBFAKFBAKFB" +this.numberOfTickets);
                 this.changeField("numberOfTickets", this.numberOfTickets);
             }
             return true;

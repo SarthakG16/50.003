@@ -1,4 +1,4 @@
-package SeleniumTests;
+//package SeleniumTests; // change package name is needed
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -16,8 +16,8 @@ import java.util.ArrayList;
 public class TicketEmailNotifTest {
     static String myUserName = "userTwo";
     static String myPassword = "password";
-    static String myEmail = ""; 
-    static String myEmailPassword = "";
+    static String myEmail = ""; // enter your own email
+    static String myEmailPassword = ""; // enter your own password
 
     public static void main(String[] args) throws InterruptedException {
 

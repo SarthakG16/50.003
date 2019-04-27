@@ -1,4 +1,4 @@
-package ticketingApp;
+//package ticketingApp; // change package name is needed
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -14,11 +14,19 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginTest {
 	
+	/*
+	 * Valid username and passwords
+	 * ** passwords are the same for all accounts
+	 */
 	static String myUserName = "adminOne";
+	// static String myUserName = "adminTwo";
+	// static String myUserName = "userOne";
+	// static String myUserName = "userTwo";
 	static String myPassword = "password";
-	
+
 	public static void main(String[] args) throws InterruptedException {		
 
+		// TODO: Change driver if needed
 		System.setProperty("webdriver.gecko.driver","D:/SUTD/Softwares/geckodriver-v0.24.0-win64/geckodriver.exe");
 		WebDriver driver = new FirefoxDriver();
 		
@@ -59,10 +67,10 @@ public class LoginTest {
 		
 		System.out.println("Checking all the links works");
 		
-//		WebDriverWait wait = new WebDriverWait(driver, 100);
+		// WebDriverWait wait = new WebDriverWait(driver, 100);
 		Thread.sleep(3000);
 		
-//		java.util.List<WebElement> links  = wait.until(ExpectedConditions.elementToBeClickable(By.tagName("a")));
+		// java.util.List<WebElement> links  = wait.until(ExpectedConditions.elementToBeClickable(By.tagName("a")));
 		java.util.List<WebElement> links = driver.findElements(By.tagName("a"));
 		System.out.println(links.size());
 				
@@ -109,9 +117,9 @@ public class LoginTest {
 		
 		Thread.sleep(2000);
 		try {
-//			String alertText = driver.switchTo().alert().getText();	
+			// String alertText = driver.switchTo().alert().getText();	
 			driver.switchTo().alert().accept();
-//			assert(alertText).equals("Please fill in all the required fills.");
+			// assert(alertText).equals("Please fill in all the required fills.");
 		}catch(Exception e) {
 			System.out.println("UI Warning. Alert not showing");
 		}
@@ -136,7 +144,7 @@ public class LoginTest {
 		driver.get("http://localhost:3000/NewTicket");
 		WebDriverWait wait = new WebDriverWait(driver, 100);
 		WebElement submitButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("submit_button")));
-//		submitButton.click();
+		// submitButton.click();
 		
 		
 		// common input fields for all tests
@@ -146,19 +154,19 @@ public class LoginTest {
 		String emailInput = "";
 		
 		// Test 1
-//		driver.navigate().refresh();
+		// driver.navigate().refresh();
 		titleInput = "Hello this is a new message";
 		categoryInput = "Others";
 		messageInput = "I need help please help me";
 		emailInput = "10003031@mymail.sutd.edu.sg";
 		
-//		WebDriverWait wait = new WebDriverWait(driver, 100);
+		// WebDriverWait wait = new WebDriverWait(driver, 100);
 		try {
 			WebElement title = wait.until(ExpectedConditions.elementToBeClickable(By.name("title")));
 			title.sendKeys(titleInput);
-//			Select cat = new Select(wait.until(ExpectedConditions.elementToBeClickable(By.id("category"))));
-//			cat.selectByVisibleText(categoryInput);
-//			cat.sendKeys(categoryInput);
+			// Select cat = new Select(wait.until(ExpectedConditions.elementToBeClickable(By.id("category"))));
+			// cat.selectByVisibleText(categoryInput);
+			// cat.sendKeys(categoryInput);
 			WebElement msg = wait.until(ExpectedConditions.elementToBeClickable(By.name("message")));
 			msg.sendKeys(messageInput);
 			WebElement email = wait.until(ExpectedConditions.elementToBeClickable(By.name("email")));
@@ -171,9 +179,9 @@ public class LoginTest {
 		submitButton.click();
 		Thread.sleep(1000);
 		try {
-//			String alertText = driver.switchTo().alert().getText();	
+			// String alertText = driver.switchTo().alert().getText();	
 			driver.switchTo().alert().accept();
-//			assert(alertText).equals("Please fill in all the required fills.");
+			// assert(alertText).equals("Please fill in all the required fills.");
 		}catch(Exception e) {
 			System.out.println("UI Warning. Alert not showing");
 		}

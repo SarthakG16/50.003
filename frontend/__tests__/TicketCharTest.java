@@ -1,4 +1,4 @@
-package SeleniumTests;
+//package SeleniumTests; // change package name is needed
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class TicketCharTest {
     static String myUserName = "userTwo";
     static String myPassword = "password";
-    static String myEmail = "";
+    static String myEmail = ""; // enter your own email
 
     public static void main(String[] args) throws InterruptedException {
 
