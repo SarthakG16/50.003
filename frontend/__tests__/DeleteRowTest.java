@@ -7,6 +7,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
+
 public class DeleteRowTest {
     static String myUserName = "userOne";
     static String myPassword = "password";
@@ -21,6 +24,14 @@ public class DeleteRowTest {
         login(driver);
 
         Thread.sleep(2000);
+        
+        List<WebElement> rows = driver.findElements(By.tagName("tr"));
+        System.out.println("Rows Found " + rows.size());
+
+        if (rows.size() <= 2) {
+            System.out.println("No rows to delete. Terminating program");
+            return;
+        }
 
         for (int i = 0; i < NUMBER_DELETIONS; i++) {
             WebDriverWait wait = new WebDriverWait(driver, 100);
