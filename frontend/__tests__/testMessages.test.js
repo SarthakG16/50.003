@@ -147,20 +147,20 @@ describe('#check if messages are valid', () => {
         expect(result).toEqual(false);
     });
 
-    it("messy words", () => {
+    it("Messy words", () => {
         let message = "sierq3 5-5p3tmu039c8t4ix3] AWUEYRCQ29 YRUuh  U4IYCR19 1 UIHUQZHWUIH   8y QWRIHXQ RQIWR QOIWJ QUZEU   Y SIUGH sdugh uhg w8 83jiosjfkaesgbewe ghe geiqgqiog qqih wn wfq385 2c ma fjsoivh asahg qjnfqmw fwgisdyv asngmaen woa8yeohva;sg noagi uapg98haoangwnt. ag,.ksgj oahgawbtqtb q ausb aloa nwkr wury hsjfa sfnl aw8th q4th kjasna"
         let result = checkMessageRelevance(message, 24);
         expect(result).toEqual(false);
     });
 
-    it("messy words2", () => {
+    it("Messy words2", () => {
         var txtIn = "wahe n thcu eauiti teit iaaw iuhc ui ecnh ioep2 835p 0285 ";
         let result = checkMessageRelevance(txtIn);
 
         expect(result).toEqual(false);
     })
 
-    it("Test foolprove", () => {
+    it("Test foolproof", () => {
         let message = "I am just typing something relevent in the reply. This is rbbish, you won;t shouldnt know so see with there."
         let result = checkMessageRelevance(message, 3);
         expect(result).toEqual(false);
@@ -190,21 +190,21 @@ describe('#check if messages are valid', () => {
         expect(result).toEqual(false);
     });
 
-    it("repeated words that are not relevant", () => {
+    it("Repeated words that are not relevant", () => {
         var txtIn = "hello hello hello heelllo helllo";
         let result = checkMessageRelevance(txtIn, 10);
 
         expect(result).toEqual(false);
     });
 
-    it("repeated words that are relevant but not enough information", () => {
+    it("Repeated words that are relevant but not enough information", () => {
         var txtIn = "Please help me.";
         let result = checkMessageRelevance(txtIn, 10);
 
         expect(result).toEqual(false);
     });
 
-    it("repeated words that are relevant but is spam", () => {
+    it("Repeated words that are relevant but is spam", () => {
         var txtIn = "Product not working. product not working. not working. why is it not working.";
         let result = checkMessageRelevance(txtIn, 10);
 
@@ -212,32 +212,22 @@ describe('#check if messages are valid', () => {
     })
 
 
-    it("repeated char in a word", () => {
+    it("Repeated char in a word", () => {
         let message = "Thhankkkkkkk, you."
         let result = checkMessageRelevance(message, 20);
         expect(result).toEqual(false);
     });
 
-    it("repeated char in a word", () => {
+    it("Repeated char in a word", () => {
         let message = "ddcchhhkl, you wedlweda mmm"
         let result = checkMessageRelevance(message, 20);
         expect(result).toEqual(false);
     });
 
-    it("repeated char in a word", () => {
+    it("Repeated char in a word", () => {
         let message = "I am a bookkeepper in a bookstore. Can I just check if you have plans to deploy a product similar to smart resturant for nomral stores?"
         let result = checkMessageRelevance(message, 24);
         expect(result).toEqual(true);
     });
-
-
-    /*
-    it("Category mismatch - AR menu and smart restraunt", () => {
-        let message = "I have been managing my resturant with the menu app that you guys have. It has been working fine so far until yesterday my customers feedback to me that they cannot click on the menu times. Could you look into that please thank you!"
-        let result = checkMessageRelevance(message,20);
-        expect(result).toEqual(false);
-    });
-    */
-
 
 })
