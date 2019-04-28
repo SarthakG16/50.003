@@ -250,7 +250,7 @@ export default class NewTicket extends React.Component {
         else {
             errorTextCopy.message = '';
 
-            var relevant = this.checkMessageRevelance(ticket.message, catList);
+            var relevant = this.checkMessageRelevance(ticket.message, catList);
             console.log("what is the relevance value: " + relevant);
             if (relevant) {
                 errorTextCopy.message = '';
@@ -381,7 +381,7 @@ export default class NewTicket extends React.Component {
         return relevanceCount / oriLength;
     }
 
-    checkMessageRevelance(e, number) {
+    checkMessageRelevance(e, number) {
         let cleanedMsg = this.removeStopwords(e);
         console.log(cleanedMsg);
         // let cleanedMsgArray = cleanedMsg.split(' ');

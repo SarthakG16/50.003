@@ -87,7 +87,7 @@ function checkForHelpwords(e, number) {
     return relevanceCount / oriLength;
 }
 
-function checkMessageRevelance(e, number) {
+function checkMessageRelevance(e, number) {
     let cleanedMsg = removeStopwords(e);
     console.log(cleanedMsg);
     // let cleanedMsgArray = cleanedMsg.split(' ');
@@ -107,106 +107,106 @@ describe('#check if messages are valid', () => {
 
     it('Check for help - fail cause not enough info', () => {
         let message = "Hello my name is something. can you help me with something please thank you."
-        let result = checkMessageRevelance(message, 24);
+        let result = checkMessageRelevance(message, 24);
         expect(result).toEqual(false);
     });
 
     it('Check for help - pass', () => {
         let message = "Hello my name is something. can you help me with this please. Somehow i cannot proceed to the next page even though i have pressed next."
-        let result = checkMessageRevelance(message, 24);
+        let result = checkMessageRelevance(message, 24);
         expect(result).toEqual(true);
     });
 
     it('Check for problems - fail cause not enough info', () => {
         let message = "Hello I am having problem with this."
-        let result = checkMessageRevelance(message, 24);
+        let result = checkMessageRelevance(message, 24);
         expect(result).toEqual(false);
     });
 
     it('Check for problems - pass', () => {
         let message = "Hello I am having problem with the app. I do not know how to use this the emotion feature. Please assist me thank you."
-        let result = checkMessageRevelance(message, 23);
+        let result = checkMessageRelevance(message, 23);
         expect(result).toEqual(true);
     });
 
     it('Clarification', () => {
         let message = "I would like to clarify on this product that I was looking at on your webpage."
-        let result = checkMessageRevelance(message, 2);
+        let result = checkMessageRelevance(message, 2);
         expect(result).toEqual(true);
     });
 
     it('Customer considerations', () => {
         let message = "What is your companys solution to this problem? How is it different abc company?"
-        let result = checkMessageRevelance(message, 1);
+        let result = checkMessageRelevance(message, 1);
         expect(result).toEqual(true);
     });
 
     it('No relevence', () => {
         let message = "I am typing some nonsense catch me if you can!"
-        let result = checkMessageRevelance(message, 24);
+        let result = checkMessageRelevance(message, 24);
         expect(result).toEqual(false);
     });
 
     it("messy words", () => {
         let message = "sierq3 5-5p3tmu039c8t4ix3] AWUEYRCQ29 YRUuh  U4IYCR19 1 UIHUQZHWUIH   8y QWRIHXQ RQIWR QOIWJ QUZEU   Y SIUGH sdugh uhg w8 83jiosjfkaesgbewe ghe geiqgqiog qqih wn wfq385 2c ma fjsoivh asahg qjnfqmw fwgisdyv asngmaen woa8yeohva;sg noagi uapg98haoangwnt. ag,.ksgj oahgawbtqtb q ausb aloa nwkr wury hsjfa sfnl aw8th q4th kjasna"
-        let result = checkMessageRevelance(message, 24);
+        let result = checkMessageRelevance(message, 24);
         expect(result).toEqual(false);
     });
 
     it("messy words2", () => {
         var txtIn = "wahe n thcu eauiti teit iaaw iuhc ui ecnh ioep2 835p 0285 ";
-        let result = checkMessageRevelance(txtIn);
+        let result = checkMessageRelevance(txtIn);
 
         expect(result).toEqual(false);
     })
 
     it("Test foolprove", () => {
         let message = "I am just typing something relevent in the reply. This is rbbish, you won;t shouldnt know so see with there."
-        let result = checkMessageRevelance(message, 3);
+        let result = checkMessageRelevance(message, 3);
         expect(result).toEqual(false);
     });
 
     it("Test customer feedback", () => {
         let message = "HI am very unhappy with the product that I bought last week. The Ai translator is supposed to work but it is not working. When I got back to the store they reject me!"
-        let result = checkMessageRevelance(message, 2);
+        let result = checkMessageRelevance(message, 2);
         expect(result).toEqual(true);
     });
 
     it("Test software error", () => {
         let message = "Hello I am facing problems with connecting to the server. It is showing error 501 no server but I have followed the documentation. Please fix it soon thank you!"
-        let result = checkMessageRevelance(message, 9);
+        let result = checkMessageRelevance(message, 9);
         expect(result).toEqual(true);
     });
 
     it("Test customer complaint", () => {
         let message = "Hello, I'm Sarthak, I bought you a product last summer, I'm facing some problems. It seems to be still failing once you log in to the service. Please, advice on what I can do. Thank you. My membership number is 12345678."
-        let result = checkMessageRevelance(message, 7);
+        let result = checkMessageRelevance(message, 7);
         expect(result).toEqual(true);
     });
 
     it("Not related to topic", () => {
         let message = "Hello my name is something. How was your day? are you doing okay? I am fine thank you. You have been a good friend. I like to meet you someday"
-        let result = checkMessageRevelance(message, 24);
+        let result = checkMessageRelevance(message, 24);
         expect(result).toEqual(false);
     });
 
     it("repeated words that are not relevant", () => {
         var txtIn = "hello hello hello heelllo helllo";
-        let result = checkMessageRevelance(txtIn, 10);
+        let result = checkMessageRelevance(txtIn, 10);
 
         expect(result).toEqual(false);
     });
 
     it("repeated words that are relevant but not enough information", () => {
         var txtIn = "Please help me.";
-        let result = checkMessageRevelance(txtIn, 10);
+        let result = checkMessageRelevance(txtIn, 10);
 
         expect(result).toEqual(false);
     });
 
     it("repeated words that are relevant but is spam", () => {
         var txtIn = "Product not working. product not working. not working. why is it not working.";
-        let result = checkMessageRevelance(txtIn, 10);
+        let result = checkMessageRelevance(txtIn, 10);
 
         expect(result).toEqual(false);
     })
@@ -214,19 +214,19 @@ describe('#check if messages are valid', () => {
 
     it("repeated char in a word", () => {
         let message = "Thhankkkkkkk, you."
-        let result = checkMessageRevelance(message, 20);
+        let result = checkMessageRelevance(message, 20);
         expect(result).toEqual(false);
     });
 
     it("repeated char in a word", () => {
         let message = "ddcchhhkl, you wedlweda mmm"
-        let result = checkMessageRevelance(message, 20);
+        let result = checkMessageRelevance(message, 20);
         expect(result).toEqual(false);
     });
 
     it("repeated char in a word", () => {
         let message = "I am a bookkeepper in a bookstore. Can I just check if you have plans to deploy a product similar to smart resturant for nomral stores?"
-        let result = checkMessageRevelance(message, 24);
+        let result = checkMessageRelevance(message, 24);
         expect(result).toEqual(true);
     });
 
@@ -234,7 +234,7 @@ describe('#check if messages are valid', () => {
     /*
     it("Category mismatch - AR menu and smart restraunt", () => {
         let message = "I have been managing my resturant with the menu app that you guys have. It has been working fine so far until yesterday my customers feedback to me that they cannot click on the menu times. Could you look into that please thank you!"
-        let result = checkMessageRevelance(message,20);
+        let result = checkMessageRelevance(message,20);
         expect(result).toEqual(false);
     });
     */
