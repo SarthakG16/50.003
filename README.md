@@ -19,4 +19,4 @@ The server will be loaded at http://localhost:3000/ </br>
 [Pending](http://localhost:3000/Pending) : http://localhost:3000/Pending </br>
 [Closed](http://localhost:3000/Closed) : http://localhost:3000/Closed </br>
 
-`404 error` will be shown if a invalid url is inputed
+`404 error` will be shown if a invalid url is inputted
